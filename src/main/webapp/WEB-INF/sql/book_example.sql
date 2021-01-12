@@ -11,3 +11,9 @@ CREATE table tbl_board(
 SELECT * FROM tbl_board;
 
 ALTER TABLE tbl_board ADD CONSTRAINT pk_board PRIMARY KEY(bno);
+
+INSERT INTO tbl_board(bno, title, content, writer)
+VALUES (seq_board.nextval, '테스트 제목', '테스트 내용', 'user00');
+
+--ROLLBACK;
+COMMIT;
