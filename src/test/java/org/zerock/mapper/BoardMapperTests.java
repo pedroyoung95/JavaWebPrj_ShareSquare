@@ -27,7 +27,7 @@ public class BoardMapperTests {
 	public void testGetList() {
 		List<BoardVO> list = mapper.getList();
 
-		assertEquals(list.size(), 8);
+		assertEquals(list.size(), 10);
 	}
 	
 //	@Test
@@ -61,35 +61,34 @@ public class BoardMapperTests {
 		log.info(board);
 	}
 	
-	@Test
-	public void testDelete() {
-		BoardVO board = new BoardVO();
-		board.setTitle("새로 작성하는 제목");
-		board.setContent("새로 작성하는 내용");
-		board.setWriter("newbie");
-		
-		mapper.insertSelectKey(board);
-		int before = mapper.getList().size();
-		
-		mapper.delete(board.getBno());
-		int after = mapper.getList().size();
-		
-		assertEquals(before-1, after);
-	}
+//	@Test
+//	public void testDelete() {
+//		BoardVO board = new BoardVO();
+//		board.setTitle("새로 작성하는 제목");
+//		board.setContent("새로 작성하는 내용");
+//		board.setWriter("newbie");
+//		
+//		mapper.insertSelectKey(board);
+//		int before = mapper.getList().size();
+//		
+//		mapper.delete(board.getBno());
+//		int after = mapper.getList().size();
+//		
+//		assertEquals(before-1, after);
+//	}
 	
 	@Test
 	public void testUpdate() {
-		BoardVO board = new BoardVO();
-		board.setBno(9L);
-		board.setTitle("변경된 제목2");
-		board.setContent("변경된 내용2");
+		BoardVO board = mapper.read(9L);
+		board.setTitle("변경된 제목3");
+		board.setContent("변경된 내용3");
 		board.setWriter("user02");		
 		int cnt = mapper.update(board);
 		
 		assertEquals(1, cnt);
 		
 		BoardVO updateVO = mapper.read(board.getBno());
-		assertEquals("변경된 제목2", updateVO.getTitle());
-		assertEquals("변경된 내용2", updateVO.getContent());
+		assertEquals("변경된 제목3", updateVO.getTitle());
+		assertEquals("변경된 내용3", updateVO.getContent());
 	}
 }

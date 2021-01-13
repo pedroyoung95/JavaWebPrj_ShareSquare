@@ -18,3 +18,26 @@ VALUES (seq_board.nextval, '테스트 제목', '테스트 내용', 'user00');
 
 --ROLLBACK;
 COMMIT;
+
+--------------댓글
+CREATE SEQUENCE seq_comment;
+--DROP TABLE tbl_comment;
+
+CREATE TABLE tbl_comment(
+    cno NUMBER(10,0),
+    bno NUMBER(10,0) NOT NULL,
+    content VARCHAR2(500) NOT NULL,
+    writer VARCHAR2(50) NOT NULL,
+    regdate DATE DEFAULT SYSDATE,
+    updatedate DATE DEFAULT SYSDATE,
+    PRIMARY KEY(cno)
+);
+
+SELECT * FROM tbl_comment WHERE cno > 0;
+--DELETE FROM tbl_comment WHERE cno=11;
+
+INSERT INTO tbl_comment(cno, bno, content, writer)
+VALUES (seq_comment.nextval, 1, '댓글 내용', 'user00');
+
+rollback;
+COMMIT;
