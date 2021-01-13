@@ -61,20 +61,35 @@ public class BoardMapperTests {
 		log.info(board);
 	}
 	
-//	@Test
-//	public void testDelete() {
-//		log.info("DELETE COUNT : " + mapper.delete(8L));
-//	}
+	@Test
+	public void testDelete() {
+		BoardVO board = new BoardVO();
+		board.setTitle("새로 작성하는 제목");
+		board.setContent("새로 작성하는 내용");
+		board.setWriter("newbie");
+		
+		mapper.insertSelectKey(board);
+		int before = mapper.getList().size();
+		
+		mapper.delete(board.getBno());
+		int after = mapper.getList().size();
+		
+		assertEquals(before-1, after);
+	}
 	
-//	@Test
-//	public void testUpdate() {
-//		BoardVO board = new BoardVO();
-//		board.setBno(9L);
-//		board.setTitle("수정된 제목2");
-//		board.setContent("수정된 내용2");
-//		board.setWriter("user02");
-//		
-//		int count = mapper.update(board);
-//		log.info("UPDATE COUNT : " + count);
-//	}
+	@Test
+	public void testUpdate() {
+		BoardVO board = new BoardVO();
+		board.setBno(9L);
+		board.setTitle("변경된 제목2");
+		board.setContent("변경된 내용2");
+		board.setWriter("user02");		
+		int cnt = mapper.update(board);
+		
+		assertEquals(1, cnt);
+		
+		BoardVO updateVO = mapper.read(board.getBno());
+		assertEquals("변경된 제목2", updateVO.getTitle());
+		assertEquals("변경된 내용2", updateVO.getContent());
+	}
 }

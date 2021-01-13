@@ -9,6 +9,7 @@ CREATE table tbl_board(
     updatedate DATE DEFAULT SYSDATE
 );
 SELECT * FROM tbl_board;
+SELECT * FROM tbl_board WHERE bno > 0;
 
 ALTER TABLE tbl_board ADD CONSTRAINT pk_board PRIMARY KEY(bno);
 
