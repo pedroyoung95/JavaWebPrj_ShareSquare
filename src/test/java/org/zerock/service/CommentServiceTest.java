@@ -18,6 +18,9 @@ import lombok.extern.log4j.Log4j;
 public class CommentServiceTest {
 
 	@Setter(onMethod_ = @Autowired)
+//@Setter(onMethod_ = {@Autowired, @Qualifier("commentService")})
+//하나의 서비스 인터페이스를 구현한 bean객체가 여러 개일 경우(serviceImpl이 여러 개인 경우)
+//어떤 bean객체가 할당되야 하는지 @Qualifier로 지정을 해줘야 함	
 	private CommentService service;
 	
 	@Test
