@@ -10,9 +10,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.ModelAndView;
 import org.zerock.service.BoardServiceTests;
 
 import lombok.Setter;
@@ -39,11 +42,21 @@ public class BoardControllerTests {
 	}
 	
 	@Test
+	public void testExist() {
+		assertNotNull(ctx);
+		assertNotNull(mockMvc);
+	}
+	
+	@Test
 	public void testList() throws Exception {
 		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/list"))
 				.andReturn()
 				.getModelAndView()
 				.getModelMap());
+		//MockMvcRequestBuilders.get("/board/list") -> 모의 브라우저 요청
+//		ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/board/list"));
+//		MvcResult rs = result.andReturn(); -> .andReturn() : MockMvc의 실행결과
+//		ModelAndView mv = rs.getModelAndView(); -> .getModelAndView() : 뷰에 대한 정보
 	}
 	
 //	@Test
@@ -64,6 +77,7 @@ public class BoardControllerTests {
 				.andReturn()
 				.getModelAndView()
 				.getModelMap());
+//		.param("파라미터명", "파라미터값") : 모의 웹 앱에 파라미터를 보내줌
 	}
 	
 //	@Test

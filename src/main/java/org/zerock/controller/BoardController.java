@@ -32,6 +32,8 @@ public class BoardController {
 		log.info("register : " + board);
 		service.register(board);
 		rttr.addFlashAttribute("result", board.getBno());
+//		글 작성이 성공했다는 modal창을 글 목록 화면에서 띄우기 위해 
+//		일회성 attribute인 redirectAttributes를 사용함 
 		return "redirect:/board/list";
 	}
 	
