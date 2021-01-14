@@ -30,6 +30,8 @@ public class BoardControllerTests {
 	private WebApplicationContext ctx;
 	
 	private MockMvc mockMvc;
+	//mock : 가짜의, 모의의(흉내를 내는 느낌)
+	//MockMvc : 모의 mvc를 만들어서 실제 서버 실행을 안 해도 웹 앱을 테스트 할 수 있음
 	
 	@Before
 	public void setup() {
