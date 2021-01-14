@@ -87,8 +87,9 @@ public class CommentMapperTests {
 		mapper.insertSelectKey(comment);		
 		int before = mapper.getList().size();
 
-		mapper.delete(comment.getCno());
+		int cnt = mapper.delete(comment.getCno());
 		int after = mapper.getList().size();
+		assertEquals(cnt, 1);
 		assertEquals(before-1, after);
 	}
 }
