@@ -2,6 +2,9 @@ package org.zerock.controller;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +18,10 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.ModelAndView;
+import org.zerock.domain.BoardVO;
+import org.zerock.mapper.BoardMapper;
 import org.zerock.service.BoardServiceTests;
 
 import lombok.Setter;
@@ -31,6 +37,9 @@ public class BoardControllerTests {
 
 	@Setter(onMethod_ = @Autowired)
 	private WebApplicationContext ctx;
+	
+	@Setter(onMethod_ = @Autowired)
+	private BoardMapper mapper;
 	
 	private MockMvc mockMvc;
 	//mock : 가짜의, 모의의(흉내를 내는 느낌)
@@ -49,10 +58,19 @@ public class BoardControllerTests {
 	
 	@Test
 	public void testList() throws Exception {
-		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/list"))
+		ModelAndView mv = mockMvc.perform(MockMvcRequestBuilders.get("/board/list"))
 				.andReturn()
-				.getModelAndView()
-				.getModelMap());
+				.getModelAndView();
+
+		Map<String, Object> model = mv.getModel();
+		Object o = model.get("list");
+		
+		String viewName = mv.getViewName();
+		
+		log.info(viewName + "##################################");
+		assertNotNull(o);
+		assertTrue(o instanceof List);
+		assertNotEquals(((List) o).size(), 0);
 		//MockMvcRequestBuilders.get("/board/list") -> 모의 브라우저 요청
 //		ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/board/list"));
 //		MvcResult rs = result.andReturn(); -> .andReturn() : MockMvc의 실행결과
@@ -61,41 +79,65 @@ public class BoardControllerTests {
 	
 //	@Test
 //	public void testRegister() throws Exception {
-//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/register")
-//				.param("title", "테스트 새 글 제목")
-//				.param("content", "테스트 새 글 내용")
-//				.param("writer", "user00")
-//				).andReturn().getModelAndView().getViewName();
+//		int before = mapper.getList().size();
+//		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/board/register")
+//				.param("title", "테스트 새글 제목")
+//				.param("content", "테스트 새글 내용")
+//				.param("writer", "user00"))
+//				.andReturn();
 //		
-//		log.info(resultPage);
+//		ModelAndView mv = result.getModelAndView();
+//		FlashMap map = result.getFlashMap();
+//		
+//		int after = mapper.getList().size();
+//		
+//		assertEquals(before + 1, after);
+//		assertEquals("redirect:/board/list", mv.getViewName());
+//		assertNotNull(map.get("result"));
+//		
+//		log.info(map.get("result") + "*************************");
 //	}
 	
 	@Test
 	public void testGet() throws Exception {
-		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/get")
-				.param("bno", "2"))
-				.andReturn()
-				.getModelAndView()
-				.getModelMap());
+		MvcResult result =  mockMvc.perform(MockMvcRequestBuilders.get("/board/get")
+				.param("bno", "5")).andReturn();
+		String viewName = result.getModelAndView().getViewName();
+		Map<String, Object> modelMap = result.getModelAndView().getModel();
+		
+		assertEquals("board/get", viewName);
+		assertNotNull(modelMap.get("board"));
+		assertEquals(new Long(5), ((BoardVO) modelMap.get("board")).getBno());
 //		.param("파라미터명", "파라미터값") : 모의 웹 앱에 파라미터를 보내줌
 	}
 	
 //	@Test
 //	public void testModify() throws Exception {
-//		log.info(mockMvc.perform(MockMvcRequestBuilders.post("/board/modify")
-//				.param("bno", "1")
+//		MvcResult result =  mockMvc.perform(MockMvcRequestBuilders.post("/board/modify")
+//				.param("bno", "4")
 //				.param("title", "수정된 테스트 새 글 제목")
 //				.param("content", "수정된 테스트 새 글 내용")
 //				.param("writer", "user00"))
-//				.andReturn().getModelAndView().getViewName());
-//		log.info(resultPage);
+//				.andReturn();
+//		String viewName = result.getModelAndView().getViewName();
+//		FlashMap map = result.getFlashMap();
+//		BoardVO board = mapper.read(4L);
+//		
+//		assertEquals("수정된 테스트 새 글 제목", board.getTitle());
+//		assertEquals("수정된 테스트 새 글 내용", board.getContent());
+//		assertEquals(viewName, "redirect:/board/list");
+//		assertNotNull(map.get("result"));		
 //	}
 
 //	@Test
 //	public void testRemove() throws Exception {
-//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/remove")
-//				.param("bno", "2"))
-//				.andReturn().getModelAndView().getViewName();
-//		log.info(resultPage);
+//		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/board/remove")
+//				.param("bno", "3")).andReturn();
+//		
+//		String viewName = result.getModelAndView().getViewName();
+//		FlashMap map = result.getFlashMap();
+//		
+//		assertEquals(viewName, "redirect:/board/list");
+//		assertNotNull(map.get("result"));	
 //	}
 }

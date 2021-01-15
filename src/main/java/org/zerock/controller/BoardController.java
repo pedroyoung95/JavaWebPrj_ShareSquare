@@ -49,6 +49,8 @@ public class BoardController {
 		
 		if(service.modify(board)) {
 			rttr.addFlashAttribute("result", "success");
+			//rttr.addAttribute("a", "a"); -> 그냥 addAttribute를 하면
+			//redirect를 해도 쿼리스트링으로 파라미터를 붙일 수 있음(일회성X)
 		}
 		return "redirect:/board/list";
 	}
@@ -57,7 +59,7 @@ public class BoardController {
 	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
 		log.info("remove : " + bno);
 		if(service.remove(bno)) {
-			rttr.addAttribute("result", "success");
+			rttr.addFlashAttribute("result", "success");
 		}
 		return "redirect:/board/list";
 	}
