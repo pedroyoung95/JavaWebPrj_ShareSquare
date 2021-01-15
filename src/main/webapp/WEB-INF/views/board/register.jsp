@@ -19,25 +19,29 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container">
+<div class="container">	
 	<div class="row">
-		<h1>게시물 작성</h1>
+		<div class="col-12 col-sm-6 offset-md-3">
+			<h1>게시물 작성</h1>
+		</div>
 	</div>
 	<div class="row">
-		<%-- <form action="${pageContext.request.contextPath }/board/register"> --%>
-		<form method="post">
-			 <div class="form-group">
-			    <label for="input1">제목</label>
-			    <input name="title" type="text" class="form-control" id="input1" placeholder="제목을 입력하세요.">
-		     </div>
-		      	<label for="textarea1">내용</label>
-    			<textarea name="content" class="form-control" id="textarea1" rows="3"></textarea>
-		     <div class="form-group">
-			    <label for="input2">작성자</label>
-			    <input name="writer" type="text" class="form-control" id="input2" placeholder="이름을 입력하세요.">
-		     </div>
-		     <button type="submit" class="btn btn-primary">Submit</button>
-		</form>
+		<div class="col-12 col-sm-6 offset-md-3">
+			<%-- <form action="${pageContext.request.contextPath }/board/register"> --%>
+			<form method="post">
+				 <div class="form-group">
+				    <label for="input1">제목</label>
+				    <input name="title" type="text" class="form-control" id="input1" placeholder="제목을 입력하세요.">
+			     </div>
+			      	<label for="textarea1">내용</label>
+	    			<textarea name="content" class="form-control" id="textarea1" rows="3"></textarea>
+			     <div class="form-group">
+				    <label for="input2">작성자</label>
+				    <input name="writer" type="text" class="form-control" id="input2" placeholder="이름을 입력하세요.">
+			     </div>
+			     <button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
 	</div>
 </div>
 </body>
