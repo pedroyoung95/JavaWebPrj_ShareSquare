@@ -129,15 +129,27 @@ public class BoardControllerTests {
 //		assertNotNull(map.get("result"));		
 //	}
 
-//	@Test
-//	public void testRemove() throws Exception {
-//		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/board/remove")
-//				.param("bno", "3")).andReturn();
-//		
-//		String viewName = result.getModelAndView().getViewName();
-//		FlashMap map = result.getFlashMap();
-//		
-//		assertEquals(viewName, "redirect:/board/list");
-//		assertNotNull(map.get("result"));	
-//	}
+	@Test
+	public void testRemove() throws Exception {
+		BoardVO board = new BoardVO();
+		board.setContent("새 게시물");
+		board.setTitle("새 제목");
+		board.setWriter("user00");
+
+		mapper.insertSelectKey(board);
+
+		Long key = board.getBno();
+
+		int before = mapper.getList().size();
+
+		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/board/remove")
+				.param("bno", key + "")).andReturn();
+
+		int after = mapper.getList().size();
+
+		assertEquals(before-1, after);
+		String viewName = result.getModelAndView().getViewName();
+		assertEquals("redirect:/board/list", viewName);
+		assertEquals("success", result.getFlashMap().get("result"));
+	}
 }
