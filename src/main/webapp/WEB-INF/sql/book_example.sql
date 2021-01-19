@@ -10,7 +10,7 @@ CREATE table tbl_board(
 );
 SELECT * FROM tbl_board;
 SELECT * FROM tbl_board WHERE bno > 0;
-
+SELECT * FROM tbl_board ORDER BY bno DESC;
 SELECT bno, title, content, writer, regdate, updatedate 
 FROM
     (SELECT ROW_NUMBER() OVER(ORDER BY bno DESC) rn, bno, title, content, writer, regdate, updatedate
