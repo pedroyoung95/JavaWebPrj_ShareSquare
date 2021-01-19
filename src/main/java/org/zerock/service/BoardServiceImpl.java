@@ -20,6 +20,10 @@ public class BoardServiceImpl implements BoardService{
 	private BoardMapper mapper;
 	
 	@Override
+	public int getTotal(Criteria cri) {
+		return mapper.getTotalCount(cri);
+	}
+	@Override
 	public void register(BoardVO board) {	
 		log.info("register......" + board);		
 		mapper.insertSelectKey(board);

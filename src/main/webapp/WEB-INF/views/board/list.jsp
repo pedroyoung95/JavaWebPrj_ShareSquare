@@ -43,7 +43,14 @@
 				$("#myModal .modal-body p").html("게시글 " + parseInt(result) + " 번이 등록되었습니다.");
 			}
 			$("#myModal").modal("show");
-		}			
+		}
+		
+		var actionForm = $("#actionForm");
+		$(".pagination a").click(function(e) {
+			e.preventDefault();			
+			actionForm.find("[name='pageNum']").val($(this).attr('href'));
+			actionForm.submit();
+		});
 	});
 </script>
 
@@ -102,18 +109,48 @@
 		<nav aria-label="Page navigation example">
 		  <ul class="pagination">
 		  	<c:if test="${pageMaker.prev }">
-		  		<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+		  		<c:url value="/board/list" var="prevLink">
+		  			<c:param value="${pageMaker.startPage - 1 }" name="pageNum"></c:param>
+		  			<c:param value="${pageMaker.cri.amount }" name="amount"></c:param>		  			
+		  		</c:url>
+		  		<li class="page-item">
+		  			<%-- <a class="page-link" href="${prevLink }">Previous</a> --%>
+		  			<a class="page-link" href="${pageMaker.startPage - 1 }">Previous</a>
+		  		</li>
 		  	</c:if>	
 		  	
 		  	<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-		  		 <li class="page-item"><a class="page-link" href="#">${num }</a></li>
-		  	</c:forEach>	   
+		  		<c:url value="/board/list" var="pageLink">
+		  			<c:param name="pageNum" value="${num }"></c:param>
+		  			<c:param name="amount" value="${pageMaker.cri.amount }"></c:param>
+		  		</c:url>
+		  		<li class="page-item ${pageMaker.cri.pageNum eq num ? 'active' : '' }">
+		  			<%-- <a class="page-link" href="${pageLink }">${num }</a> --%>
+		  			<a class="page-link" href="${num}">${num }</a>
+		  		</li>
+		  	</c:forEach>	
+		  	   
 		    <c:if test="${pageMaker.next }">
-		    	<li class="page-item"><a class="page-link" href="#">Next</a></li>
+		    	<c:url value="/board/list" var="nextLink">
+		    		<c:param name="pageNum" value="${pageMaker.endPage + 1 }"></c:param>
+		    		<c:param name="amount" value="${pageMaker.cri.amount }"></c:param>
+		    	</c:url>
+		    	<li class="page-item">
+		    		<%-- <a class="page-link" href="${nextLink }">Next</a> --%>
+		    		<a class="page-link" href="${pageMaker.endPage + 1 }">Next</a>
+		    	</li>
 		    </c:if>		    
 		  </ul>
 		</nav>
 	</div>
+</div>
+
+<div class="d-none">
+	<form action="${root }/board/list" id="actionForm">
+		<input name="pageNum" value="${pageMaker.cri.pageNum }">
+		<input name="amount" value="${pageMaker.cri.amount }">
+		<input type="submit">
+	</form>	
 </div>
 </body>
 </html>

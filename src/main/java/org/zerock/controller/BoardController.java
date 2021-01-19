@@ -32,7 +32,7 @@ public class BoardController {
 	public void list(Criteria cri, Model model) {
 		log.info("list : " + cri);
 		model.addAttribute("list", service.getList(cri));
-		int total = 123;
+		int total = service.getTotal(cri);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 	
