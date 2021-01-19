@@ -11,6 +11,13 @@ CREATE table tbl_board(
 SELECT * FROM tbl_board;
 SELECT * FROM tbl_board WHERE bno > 0;
 
+SELECT bno, title, content, writer, regdate, updatedate 
+FROM
+    (SELECT ROW_NUMBER() OVER(ORDER BY bno DESC) rn, bno, title, content, writer, regdate, updatedate
+    FROM tbl_board)
+WHERE rn BETWEEN 1 AND 10
+;
+
 ALTER TABLE tbl_board ADD CONSTRAINT pk_board PRIMARY KEY(bno);
 
 INSERT INTO tbl_board(bno, title, content, writer)
