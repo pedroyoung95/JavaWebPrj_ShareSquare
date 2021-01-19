@@ -76,6 +76,17 @@ public class BoardControllerTests {
 //		MvcResult rs = result.andReturn(); -> .andReturn() : MockMvc의 실행결과
 //		ModelAndView mv = rs.getModelAndView(); -> .getModelAndView() : 뷰에 대한 정보
 	}
+	@Test
+	public void testListPaging() throws Exception{
+		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/board/list")
+				.param("pageNum", "2")
+				.param("amount", "5"))
+			.andReturn();
+		
+		Map<String, Object> model = result.getModelAndView().getModel();
+		List list = (List) model.get("list");
+		assertEquals(list.size(), 5);		
+	}
 	
 //	@Test
 //	public void testRegister() throws Exception {
