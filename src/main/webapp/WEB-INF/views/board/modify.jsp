@@ -55,6 +55,8 @@ $(document).ready(function() {
 				    <label for="input2">작성자</label>
 				    <input name="writer" value='<c:out value="${board.writer }"/>' readonly type="text" class="form-control" id="input2">
 			     </div>
+			     <input hidden value="${cri.pageNum }" name="pageNum">
+			     <input type="hidden" value="${cri.amount }" name="amount">
 			     <button type="submit" class="btn btn-primary">수정</button>
 			     <button id="remove-btn" type="submit" class="btn btn-danger">삭제</button>			     
 			</form>

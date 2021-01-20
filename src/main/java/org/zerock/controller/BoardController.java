@@ -53,7 +53,7 @@ public class BoardController {
 	}
 	
 	@GetMapping({"/get", "/modify"})  
-	public void get(@RequestParam("bno") Long bno, @ModelAttribute Criteria cri, Model model) {
+	public void get(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("/get");
 		log.info(cri);
 		model.addAttribute("board", service.get(bno));
@@ -68,7 +68,7 @@ public class BoardController {
 //		model.addAttribute("board", board);
 //	}
 	@PostMapping("/modify")
-	public String modify(BoardVO board, RedirectAttributes rttr) {
+	public String modify(BoardVO board, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		log.info("modify : " + board);
 		
 		if(service.modify(board)) {
@@ -77,6 +77,9 @@ public class BoardController {
 			//rttr.addAttribute("a", "a"); -> 그냥 addAttribute를 하면
 			//redirect를 해도 쿼리스트링으로 파라미터를 붙일 수 있음(일회성X)
 		}
+		log.info(cri);
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
 		return "redirect:/board/list";
 	}
 	
