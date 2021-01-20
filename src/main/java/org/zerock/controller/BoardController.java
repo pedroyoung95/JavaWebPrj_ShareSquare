@@ -30,7 +30,7 @@ public class BoardController {
 //		model.addAttribute("list", service.getList());
 //	}
 	@GetMapping("/list")
-	public void list(Criteria cri, Model model) {
+	public void list(@ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("list : " + cri);
 		model.addAttribute("list", service.getList(cri));
 		int total = service.getTotal(cri);
@@ -38,7 +38,7 @@ public class BoardController {
 	}
 	
 	@GetMapping("/register")
-	public void register() {
+	public void register(@ModelAttribute("cri") Criteria cri) {
 		
 	}
 	@PostMapping("/register")
@@ -68,7 +68,7 @@ public class BoardController {
 //		model.addAttribute("board", board);
 //	}
 	@PostMapping("/modify")
-	public String modify(BoardVO board, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
+	public String modify(BoardVO board, Criteria cri, RedirectAttributes rttr) {
 		log.info("modify : " + board);
 		
 		if(service.modify(board)) {
@@ -84,12 +84,15 @@ public class BoardController {
 	}
 	
 	@PostMapping("/remove")
-	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
+	public String remove(@RequestParam("bno") Long bno, Criteria cri, RedirectAttributes rttr) {
 		log.info("remove : " + bno);
 		if(service.remove(bno)) {
 			rttr.addFlashAttribute("result", "success");
 			rttr.addFlashAttribute("message", bno + "번 글이 삭제되었습니다.");
 		}
+		log.info(cri);
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
 		return "redirect:/board/list";
 	}
 }

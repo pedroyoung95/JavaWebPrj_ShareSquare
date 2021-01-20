@@ -16,8 +16,12 @@
       	</c:url>
         <a class="nav-link" href="${listLink }">목록 <span class="sr-only">(current)</span></a>
       </li>
+      <c:url var="registerLink" value="/board/register">      		
+	      	<c:param name="pageNum" value="${cri.pageNum }"></c:param>
+	      	<c:param name="amount" value="${cri.amount }"></c:param>      		
+      </c:url>
       <li class="nav-item">
-        <a class="nav-link" href="${root }/board/register">글쓰기</a>
+        <a class="nav-link" href="${registerLink }">글쓰기</a>
       </li>    
     </ul>
   </div>
