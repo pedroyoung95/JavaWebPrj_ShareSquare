@@ -74,7 +74,17 @@
         <c:forEach items="${list}" var="board">
           <tr>
             <td>${board.bno}</td>
-            <td><a href="${root }/board/get?bno=${board.bno}"><c:out value="${board.title}"></c:out></a></td>
+            <td>
+            	<c:url value="/board/get" var="boardLink">
+            		<c:param name="bno" value="${board.bno }"></c:param>
+            		<c:param name="pageNum" value="${pageMaker.cri.pageNum }"></c:param>
+            		<c:param name="amount" value="${pageMaker.cri.amount }"></c:param>
+            	</c:url>
+            	<a href="${boardLink }">
+            		<c:out value="${board.title}">
+            		</c:out>
+            	</a>
+            </td>
             <td><c:out value="${board.writer}"></c:out></td>
             <td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate}"/></td>
             <td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.updateDate}"/></td>

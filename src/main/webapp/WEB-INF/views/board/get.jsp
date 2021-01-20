@@ -21,6 +21,9 @@
 </head>
 <body>
 <u:navbar></u:navbar>
+<%-- <h1>pageNum : ${cri.pageNum }</h1>
+<h1>amount : ${cri.amount }</h1> --%>
+<h1></h1>
 <div class="container-sm">	
 	<div class="row">
 		<div class="col-12 col-sm-6 offset-md-3">

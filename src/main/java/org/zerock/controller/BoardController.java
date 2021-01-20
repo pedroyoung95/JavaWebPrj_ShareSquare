@@ -3,6 +3,7 @@ package org.zerock.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,9 +53,12 @@ public class BoardController {
 	}
 	
 	@GetMapping({"/get", "/modify"})  
-	public void get(@RequestParam("bno") Long bno, Model model) {
+	public void get(@RequestParam("bno") Long bno, @ModelAttribute Criteria cri, Model model) {
 		log.info("/get");
+		log.info(cri);
 		model.addAttribute("board", service.get(bno));
+//		model.addAttribute("cri", cri);
+//		@ModelAttribute어노테이션으로 model에 변수이름으로 넣어둘 수 있음
 	}
 	//GET 방식의 modify URL이랑 get URL의 하는 일이 동일하므로
 	//URL경로를 String배열로 주어서 코드 단축
