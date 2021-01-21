@@ -87,4 +87,28 @@
 	</foreach>
 </select>
 
+<select id="select8" resultType="int">
+	SELECT * FROM tbl_board
+	<where>
+		<foreach collection="mylist" item="item">
+			<trim suffix="AND">
+			#{item}
+			</trim>
+		</foreach>
+	</where>
+</select>
+
+<select id="select9" resultType="int">
+	SELECT * FROM tbl_board
+	<where>
+		<trim suffixOverrides="AND">
+			<foreach collection="mylist" item="item">
+				<trim suffix="AND">
+				#{item}
+				</trim>
+			</foreach>
+		</trim>
+	</where>
+</select>
+
 </mapper>

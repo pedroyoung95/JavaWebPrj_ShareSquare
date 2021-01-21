@@ -18,4 +18,9 @@ public interface MyBatisEx1Mapper {
 	public int select6(Ex1Criteria cri);
 	//forEach 태그 - map
 	public int select7(Ex1Criteria cri);
+	
+	//trim - suffix
+	public int select8(Ex1Criteria cri);
+	//trim - suffixOverrides
+	public int select9(Ex1Criteria cri);
 }
