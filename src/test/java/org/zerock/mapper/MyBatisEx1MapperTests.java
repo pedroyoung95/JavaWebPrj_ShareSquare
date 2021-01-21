@@ -4,7 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,10 +40,9 @@ public class MyBatisEx1MapperTests {
 		cri.setBno(0);
 		
 		mapper.select1(cri);
-	}
-	
+	}	
 	@Test
-	public void testSelectEx1() {
+	public void testSelect1Ex1() {
 		Ex1Criteria cri = new Ex1Criteria();
 		cri.setBno(1);
 		
@@ -53,16 +55,14 @@ public class MyBatisEx1MapperTests {
 		cri.setType("title");
 		cri.setKeyword("test");
 		mapper.select2(cri);
-	}
-	
+	}	
 	@Test
 	public void testSelect2Ex2() {
 		Ex1Criteria cri = new Ex1Criteria();
 		cri.setType("content");
 		cri.setKeyword("test");
 		mapper.select2(cri);
-	}
-	
+	}	
 	@Test
 	public void testSelect2Ex3() {
 		Ex1Criteria cri = new Ex1Criteria();
@@ -78,20 +78,90 @@ public class MyBatisEx1MapperTests {
 		cri.setKeyword("key");
 		mapper.select3(cri);
 	}
-	
 	@Test
 	public void testSelect3Ex2() {
 		Ex1Criteria cri = new Ex1Criteria();
 		cri.setType("C");
 		cri.setKeyword("key");
 		mapper.select3(cri);
-	}
-	
+	}	
 	@Test
 	public void testSelect3Ex3() {
 		Ex1Criteria cri = new Ex1Criteria();
 		cri.setType("W");
 		cri.setKeyword("key");
 		mapper.select3(cri);
+	}
+	
+	@Test
+	public void testSelect4Ex1() {
+		Ex1Criteria cri = new Ex1Criteria();
+		cri.setType("title");
+		cri.setKeyword("key");
+		mapper.select4(cri);
+	}
+	@Test
+	public void testSelect4Ex2() {
+		Ex1Criteria cri = new Ex1Criteria();
+		cri.setType("content");
+		cri.setKeyword("key");
+		mapper.select4(cri);
+	}
+	@Test
+	public void testSelect4Ex3() {
+		Ex1Criteria cri = new Ex1Criteria();
+		cri.setType("writer");
+		cri.setKeyword("key");
+		mapper.select4(cri);
+	}
+	@Test
+	public void testSelect4Ex4() {
+		Ex1Criteria cri = new Ex1Criteria();
+		mapper.select4(cri);
+	}
+	
+	@Test
+	public void testSelect5Ex1() {
+		Ex1Criteria cri = new Ex1Criteria();
+		cri.setType("title");
+		cri.setKeyword("key");
+		mapper.select5(cri);
+	}
+	@Test
+	public void testSelect5Ex2() {
+		Ex1Criteria cri = new Ex1Criteria();
+		cri.setType("content");
+		cri.setKeyword("key");
+		mapper.select5(cri);
+	}
+	@Test
+	public void testSelect5Ex3() {
+		Ex1Criteria cri = new Ex1Criteria();
+		mapper.select5(cri);
+	}
+	
+	@Test
+	public void testSelect6Ex1() {
+		List<String> list = new ArrayList<String>();
+		list.add("java");
+		list.add("spring");
+		list.add("sql");
+		
+		Ex1Criteria cri = new Ex1Criteria();
+		cri.setMylist(list);
+		
+		mapper.select6(cri);
+	}
+	
+	@Test
+	public void testSelect7Ex1() {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("java", "jsp");
+		map.put("spring", "root");
+		map.put("computer", "memory");
+		
+		Ex1Criteria cri = new Ex1Criteria();
+		cri.setMymap(map);
+		mapper.select7(cri);
 	}
 }
