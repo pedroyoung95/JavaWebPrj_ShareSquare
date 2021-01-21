@@ -13,4 +13,32 @@
 	</if>
 </select>
 
+<select id="select2" resultType="int">
+<![CDATA[
+	SELECT * FROM tbl_board
+]]>
+	<if test="type == 'title'">
+		WHERE title = #{keyword}
+	</if>
+	<if test="type == 'content'">
+		WHERE content = #{keyword}
+	</if>
+	<if test="type eq 'writer'">
+		WHERE writer = #{keyword}
+	</if>
+</select>
+
+<select id="select3" resultType="int">
+	SELECT * FROM tbl_board
+	<if test="type == 'T'.toString()">
+		WHERE title LIKE '%' || #{keyword} || '%'
+	</if>
+	<if test="type == 'C'.toString()">
+		WHERE content LIKE '%' || #{keyword} || '%'
+	</if>
+	<if test="type == 'W'.toString()">
+		WHERE writer LIKE '%' || #{keyword} || '%' 
+	</if>
+</select>
+
 </mapper>

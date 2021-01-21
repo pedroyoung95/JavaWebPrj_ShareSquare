@@ -7,4 +7,5 @@ public class Ex1Criteria {
 
 	private int bno;
 	private String type;
+	private String keyword;
 }
