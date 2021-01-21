@@ -17,6 +17,8 @@ FROM
     FROM tbl_board)
 WHERE rn BETWEEN 1 AND 10
 ;
+SELECT * FROM tbl_board
+WHERE writer LIKE '%user%';
 
 ALTER TABLE tbl_board ADD CONSTRAINT pk_board PRIMARY KEY(bno);
 
