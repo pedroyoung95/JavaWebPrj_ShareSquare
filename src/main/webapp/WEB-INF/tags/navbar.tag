@@ -24,6 +24,20 @@
         <a class="nav-link" href="${registerLink }">글쓰기</a>
       </li>    
     </ul>
+    <form action="${root }/board/list" id="searchForm" class="form-inline my-2 my-lg-0">
+		<select name="type" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+		    <option value="T">제목</option>
+		    <option value="C">내용</option>
+		    <option value="W">작성자</option>
+		    <option value="TC">제목 or 내용</option>
+		    <option value="TW">제목 or 작성자</option>
+		    <option value="TCW ">제목 or 내용 or 작성자</option>
+		</select>
+    	<input name="keyword" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+    	<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+    	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
   </div>
 </nav>
 </div>
