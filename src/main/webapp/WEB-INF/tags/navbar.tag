@@ -12,7 +12,9 @@
       <li class="nav-item active">
       	<c:url var="listLink" value="/board/list">      		
 	      	<c:param name="pageNum" value="${cri.pageNum }"></c:param>
-	      	<c:param name="amount" value="${cri.amount }"></c:param>      		
+	      	<c:param name="amount" value="${cri.amount }"></c:param>      
+	      	<c:param name="type" value="${cri.type }"></c:param>
+	      	<c:param name="keyword" value="${cri.keyword }"></c:param>		
       	</c:url>
         <a class="nav-link" href="${listLink }">목록 <span class="sr-only">(current)</span></a>
       </li>

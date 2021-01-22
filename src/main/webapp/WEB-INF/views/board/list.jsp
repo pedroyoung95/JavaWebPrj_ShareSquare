@@ -79,6 +79,8 @@
             		<c:param name="bno" value="${board.bno }"></c:param>
             		<c:param name="pageNum" value="${pageMaker.cri.pageNum }"></c:param>
             		<c:param name="amount" value="${pageMaker.cri.amount }"></c:param>
+            		<c:param name="type" value="${pageMaker.cri.type }"></c:param>
+            		<c:param name="keyword" value="${pageMaker.cri.keyword }"></c:param>
             	</c:url>
             	<a href="${boardLink }">
             		<c:out value="${board.title}">
