@@ -21,7 +21,7 @@ FROM
 	<foreach collection="typeArr" item="type" separator="OR">
 		<choose>
 			<when test="type == 'T'.toString">
-				title LIKE '%' || #{keyword} || '%'
+				title LIKE '%' || #{keyword} || '%' <!--문자 연결 연산자 : ||-->
 			</when>
 			<when test="type =='C'.toString">
 				content LIKE '%' || #{keyword} || '%'
