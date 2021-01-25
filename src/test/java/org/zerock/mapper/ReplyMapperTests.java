@@ -3,6 +3,7 @@ package org.zerock.mapper;
 import static org.junit.Assert.assertEquals;	
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.util.List;
@@ -76,12 +77,27 @@ public class ReplyMapperTests {
 	
 	@Test
 	public void testDelete() {
-		ReplyVO reply = new ReplyVO();
-		reply.setBno(116L);
-		reply.setReply("테스트 댓글");
-		reply.setReplyer("테스터");
+		try {
+			Long rno = 1L;
+			mapper.delete(rno);
+			assertNull(mapper.read(rno));
+		} catch (Exception e) {
+			fail();
+		}
 		
-		mapper.insert(reply);
-		
+	}
+	
+	@Test
+	public void testUpdate() {
+		ReplyVO reply = mapper.read(2L);
+		reply.setReply("수정된 댓글 내용");
+		mapper.update(reply);
+		assertEquals("수정된 댓글 내용", mapper.read(2L).getReply());
+	}
+	
+	@Test
+	public void testList() {
+		List<ReplyVO> list = mapper.getListWithPaging(121L, null);
+		assertNotEquals(list.size(), 0);
 	}
 }
