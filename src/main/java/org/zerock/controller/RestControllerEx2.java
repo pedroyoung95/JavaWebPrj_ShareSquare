@@ -1,5 +1,10 @@
 package org.zerock.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.domain.Rest1;
@@ -68,6 +73,11 @@ public class RestControllerEx2 {
 		Rest2 r2 = new Rest2();
 		r2.setAddress("seoul");
 		r2.setNumbers(new int [] {1,2,3,4,5});
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("java", 1);
+		map.put("spring", 2);
+		map.put("python", 3);
+		r2.setMap(map);
 		
 		Rest1 r1 = new Rest1();
 		r1.setName("jeju");
@@ -83,5 +93,44 @@ public class RestControllerEx2 {
 	public String[] method6() {
 		String [] arr = {"java", "spring", "json"};
 		return arr;
+	}
+	//배열, 리스트, Map 등 컬랙션 타입도 JSON으로 변환 가능
+	@RequestMapping("/ex7")
+	public List<String> method7() {
+		List<String> list = new ArrayList<String>();
+		list.add("java");
+		list.add("spring");
+		list.add("json");
+		
+		return list;
+	}
+	
+	@RequestMapping("/ex8")
+	public Map<String, String> method8() {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("java", "script");
+		map.put("hello", "world");
+		map.put("spring", "boot");
+		
+		return map;
+	}
+	
+	@RequestMapping("/ex9")
+	public List<Rest1> method9() {
+		List<Rest1> list = new ArrayList<Rest1>();
+		
+		Rest1 r1 = new Rest1();
+		r1.setName("donald");
+		r1.setAge(33);
+		r1.setVote(true);
+		list.add(r1);
+		
+		Rest1 r2 = new Rest1();
+		r1.setName("biden");
+		r1.setAge(45);
+		r1.setVote(false);
+		list.add(r2);
+		
+		return list;
 	}
 }
