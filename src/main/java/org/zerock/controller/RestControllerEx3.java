@@ -1,5 +1,6 @@
 package org.zerock.controller;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,5 +57,33 @@ public class RestControllerEx3 {
 		log.info(body);
 		log.info(body.getName());
 		return "method6";
+	}
+	
+	//consumes의 값은 MIME타입
+	//consumes : 특정 미디어 타입만 소비하겠다는 의미
+	//Request Header의 Content-Type이 consumes의 값으로 설정됨
+	//따라서 해당 타입의 data만 읽을 수 있게 됨
+	@RequestMapping(path = "/ex7", consumes = "text/plain")
+	//요청경로는 path 또는 value라고 명시하거나 생략가능함
+	public String method7(@RequestBody String body) {
+		log.info(body);
+		return "method7";
+	}
+	
+	//MediaType에 consumes에 넣을 값들이 상수로 들어가있으므로
+	//해당 상수를 대신 사용하는 것이 더 편리(오타 줄임)
+	@RequestMapping(path = "/ex8", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public String method8(@RequestBody String body) {
+		log.info(body);
+		return "method8";
+	}
+	
+	//consumes의 값을 배열로 여러 개의 값을 줄 수 있음
+	@RequestMapping(path = "/ex9", 
+			consumes = {MediaType.APPLICATION_JSON_VALUE,
+						MediaType.TEXT_PLAIN_VALUE})
+	public String method9(@RequestBody String body) {
+		log.info(body);
+		return "method9";
 	}
 }
