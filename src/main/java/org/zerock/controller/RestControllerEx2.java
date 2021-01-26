@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.domain.Rest1;
@@ -132,5 +133,23 @@ public class RestControllerEx2 {
 		list.add(r2);
 		
 		return list;
+	}
+	
+	//HTTP Response의 status code를 특정 status code로 응답할 때
+	//ResponseEntity를 사용하면 status code와 header를 직접 작성할 수 있게 됨
+	//ResponseEntity를 사용하지 않으면 status code와 header가 자동설정됨
+	@RequestMapping("/ex10")
+	public ResponseEntity<String> method10() {
+//		ResponseEntity의 <?>(제네릭 타입)은 본문(body)의 타입
+		return ResponseEntity.status(200).body("hello");		
+	}
+	
+	@RequestMapping("/ex11")
+	public ResponseEntity<String> method11(int num) {
+		if(num > 0) {
+			return ResponseEntity.status(200).body("spring");
+		} else {
+			return ResponseEntity.status(404).body("");
+		}
 	}
 }
