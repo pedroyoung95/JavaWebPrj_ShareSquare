@@ -78,4 +78,10 @@ public class RestControllerEx2 {
 		
 		return r2;
 	}
+	
+	@RequestMapping("/ex6")
+	public String[] method6() {
+		String [] arr = {"java", "spring", "json"};
+		return arr;
+	}
 }
