@@ -5,11 +5,13 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.ReplyVO;
@@ -65,5 +67,36 @@ public class ReplyController {
 		ReplyVO vo = service.get(rno);
 		
 		return new ResponseEntity<ReplyVO> (vo, HttpStatus.OK);
+	}
+	
+	//댓글 조회 메소드랑 같은 경로이지만 get 방식으로 가면 조회 실행
+	//delete 방식으로 가면 삭제 실행
+	@DeleteMapping(path = "/{rno}",
+			produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> remove(@PathVariable("rno") Long rno) {
+		int removeCount = service.remove(rno);
+		
+		if(removeCount == 1) {
+			return new ResponseEntity<>("success", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	//'/{rno}'경로 중 PUT 또는 PATCH방식으로 오는 경우에는 수정 메소드가 실행
+	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, 
+			path = "/{rno}",
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> modify(@RequestBody ReplyVO reply, @PathVariable Long rno) {
+		reply.setRno(rno);
+		
+		int modifyCount = service.modify(reply);
+		
+		if(modifyCount == 1) {
+			return new ResponseEntity<String>("success", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 }
