@@ -41,7 +41,7 @@ public class ReplyController {
 		log.info("insertCount : " + insertCount);
 		
 		if(insertCount == 1) {
-			return new ResponseEntity<>("success", HttpStatus.OK);
+			return new ResponseEntity<>("success999", HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -57,6 +57,7 @@ public class ReplyController {
 		Criteria cri = new Criteria(page, 10);
 		List<ReplyVO> list = service.getList(cri, bno);
 		
+		log.info(list);
 		return new ResponseEntity<List<ReplyVO>> (list, HttpStatus.OK);
 	}
 	
@@ -76,8 +77,10 @@ public class ReplyController {
 	public ResponseEntity<String> remove(@PathVariable("rno") Long rno) {
 		int removeCount = service.remove(rno);
 		
+		log.info(removeCount);
+		
 		if(removeCount == 1) {
-			return new ResponseEntity<>("success", HttpStatus.OK);
+			return new ResponseEntity<>("success999", HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -93,8 +96,10 @@ public class ReplyController {
 		
 		int modifyCount = service.modify(reply);
 		
+		log.info(modifyCount);
+		
 		if(modifyCount == 1) {
-			return new ResponseEntity<String>("success", HttpStatus.OK);
+			return new ResponseEntity<String>("success999", HttpStatus.OK);
 		} else {
 			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
