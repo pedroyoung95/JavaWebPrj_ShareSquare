@@ -16,8 +16,31 @@
 <script
   src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script type="text/javascript" src="${root }/resources/js/reply.js"></script>
 
-<title>Insert title here</title>
+<script type="text/javascript">
+/* console.log(replyService.name);
+replyService.add("my reply"); */
+/* replyService.add({
+	bno:130, 
+	reply:"new reply 댓글",
+	replyer:"tester"
+	}, function(result) {
+		console.log(result);
+	}, function(err) {
+		console.log(err);
+	}); */
+replyService.getList(
+		{bno:116, page:1},
+		function(data) {
+			console.log(data);
+		},
+		function() {
+			console.log("error");
+		});
+</script>
+
+<title>게시글 조회</title>
 </head>
 <body>
 <u:navbar></u:navbar>
