@@ -38,6 +38,32 @@ replyService.getList(
 		function() {
 			console.log("error");
 		});
+replyService.remove(
+		8,
+		function(data) {
+			console.log(data);
+		},
+		function() {
+			console.log("error");
+		});
+replyService.update({
+	rno:21,
+	reply:"new updated reply!"
+	},
+	function(data) {
+		console.log(data);
+	},
+	function() {
+		console.log("error");
+	});
+replyService.get(
+		10,
+		function(data) {
+			console.log(data);
+		},
+		function() {
+			consol.log("not found");
+		});
 </script>
 
 <title>게시글 조회</title>
