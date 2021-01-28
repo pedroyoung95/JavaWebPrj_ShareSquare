@@ -101,13 +101,43 @@ $(document).ready(function() {
 		}).fail(function(data) {
 			console.log(data);
 		}); 
-	});
-	
+	});	
 	$("#btn-get2").click(function() {
 		//$.get메소드의 파라미터 중 success는 .done()과 동일한 것
 		$.get("/replies/45", function(data) {
 			console.log(data);
 		});
+	});	
+	$("#btn-get3").click(function() {
+		$.get("/replies/40", function(data) {
+			console.log(data);
+			console.log(data.rno);
+			console.log(data.bno);
+			console.log(data.reply);
+			console.log(data.replyer);}, 
+			"json");
+		//응답 데이터의 미디어 타입을 따로 지정할 수 있음(json, text, xml, html등으로)
+		//응답 데이터에 따라 ajax가 알아서 미디어 타입을 맞춰줌
+	});
+	
+	$("#btn-get4").click(function() {
+		$.get("/replies/40", function(data) {
+			console.log(data);
+			console.log(data.rno);
+			console.log(data.bno);
+			console.log(data.reply);
+			console.log(data.replyer);}, 
+			//text로 클라이언트에게 넘어가므로 콘솔 값이 undefined
+			"text");
+	});	
+	$("#btn-get5").click(function() {
+		$.getJSON("/replies/40", function(data) {
+			console.log(data);
+			console.log(data.rno);
+			console.log(data.bno);
+			console.log(data.reply);
+			console.log(data.replyer);});
+		//$.getJSON() : 응답 미디어타입을 JSON으로 설정함
 	});
 });
 </script>
@@ -127,6 +157,9 @@ $(document).ready(function() {
 <div>
 <button id="btn-get">댓글 조회</button>
 <button id="btn-get2">댓글 조회2</button>
+<button id="btn-get3">댓글 조회3</button>
+<button id="btn-get4">댓글 조회4</button>
+<button id="btn-get5">댓글 조회5</button>
 </div>
 </body>
 </html>
