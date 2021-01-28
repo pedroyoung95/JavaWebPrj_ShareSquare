@@ -25,11 +25,9 @@ $(document).ready(function() {
 			url:"/replies/new",
 			contentType:"application/json",
 			data:'{"bno":121, "reply":"새 댓글~", "replyer":"user01"}',
-			//complete의 타입은 function이므로, : 오른쪽에 함수가 와야 함
-			//요청이 완료된 후에(success나 error가 뜬 후에)
 			complete:function(jqXHR, status) {
 				console.log("complete");
-				console.log(status); //컨트롤러에 있는 status메시지가 아님
+				console.log(status);
 			}
 		});
 	});
@@ -48,72 +46,69 @@ $(document).ready(function() {
 	});
 	
 	$("#btn-create3").click(function() {
-		$.ajax({
+		$.ajax("/replies/new", {
+			//$.ajax의 첫 번째 파라미터로 URL을 받을 수 있음
 			type:"post",
-			url:"/replies/new",
+			/* url:"/replies/new", */
 			contentType:"application/json",
-			data:'{"bno":121, "reply":"새 댓글~", "replyer":"user01"}',
-			complete:function(jqXHR, status) {
-				if(status == "success") {
-					console.log("등록 성공");
-					console.log(jqXHR.responseText); 
-					//responseText : 컨트롤러에 있는 status메시지를 받음
-				} else if(status == "error") {
-					console.log("등록 실패")
-				}
-			}
+			data:'{"bno":121, "reply":"새 댓글~", "replyer":"user01"}'
+		}).done(function(data, status, jqXHR) {
+			console.log("등록 성공");
+			console.log(data); 
+		}).fail(function() {
+			console.log("등록 실패");
 		});
 	});
 	
 	$("#btn-getList").click(function() {
-		$.ajax({
-			method:"get",
-			url:"/replies/pages/121/1",
-			complete:function(jqXHR, status) {
-				if(status == "success") {
-					console.log("목록 얻기 성공");
-					console.log(jqXHR.responseText);
-				} else if(status == "error") {
-					console.log("목록 얻기 실패");
-				}
-			}
+		$.ajax("/replies/pages/121/1", {
+			method:"get"
+		}).done(function(data, status, xhr) {
+			console.log("목록 얻기 성공");
+			console.log(data);
+		}).fail(function(data, status, xhr) {
+			console.log("목록 얻기 실패");
 		});
 	});
 	
 	$("#btn-modify").click(function() {
-		$.ajax({
+		$.ajax("/replies/34", {
 			method:"put",
-			url:"/replies/34",
 			data:'{"reply":"updated by controller"}',
-			contentType:"application/json",
-			complete:function(jqXHR, status) {
-				if(status == "success") {
-					console.log("수정 완료")
-				} else if(status == "error") {
-					console.log("수정 실패")
-				}
-			}
+			contentType:"application/json"			
+		}).done(function(data) {
+			console.log("수정 성공");
+			console.log(data);
+		}).fail(function(data) {
+			console.log("수정 실패");
 		});
 	});
 	
 	$("#btn-remove").click(function() {
-		$.ajax({
-			method:"delete",
-			url:"/replies/2",
-			complete:function(jqXHR, status) {
-				if(status == "success") {
-					console.log("삭제 완료")
-				} else if(status == "error") {
-					console.log("삭제 실패")
-				}
-			}
+		$.ajax("/replies/68",{
+			method:"delete"
+		}).done(function(data, status, xhr) {
+			console.log("삭제 성공");
+			console.log(data);
+		}).fail(function(data, status, xhr) {
+			console.log("삭제 실패");
 		});
+	});
+	
+	$("#btn-get").click(function() {
+		$.ajax("/replies/65", {
+			type:"get"
+		}).done(function(data) {
+			console.log(data);
+		}).fail(function(data) {
+			console.log(data);
+		}); 
 	});
 });
 </script>
 </head>
 <body>
-<h1>AJAX ex2</h1>
+<h1>AJAX ex5</h1>
 <div>
 <button id="btn-create">댓글 등록 성공</button>
 <button id="btn-create2">댓글 등록 실패</button>
@@ -123,6 +118,9 @@ $(document).ready(function() {
 <button id="btn-getList">댓글 목록</button>
 <button id="btn-modify">댓글 수정</button>
 <button id="btn-remove">댓글 삭제</button>
+</div>
+<div>
+<button id="btn-get">댓글 조회</button>
 </div>
 </body>
 </html>
