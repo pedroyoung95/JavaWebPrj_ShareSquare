@@ -6,6 +6,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript">
+var appRoot = '${root}';
+</script>
 <meta charset="UTF-8">
 <link rel="stylesheet"
   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -38,14 +41,14 @@ replyService.getList(
 		function() {
 			console.log("error");
 		});
-replyService.remove(
+/* replyService.remove(
 		8,
 		function(data) {
 			console.log(data);
 		},
 		function() {
 			console.log("error");
-		});
+		}); */
 replyService.update({
 	rno:21,
 	reply:"new updated reply!"
