@@ -33,14 +33,14 @@ replyService.add("my reply"); */
 	}, function(err) {
 		console.log(err);
 	}); */
-replyService.getList(
+/* replyService.getList(
 		{bno:116, page:1},
 		function(data) {
 			console.log(data);
 		},
 		function() {
 			console.log("error");
-		});
+		}); */
 /* replyService.remove(
 		8,
 		function(data) {
@@ -49,7 +49,7 @@ replyService.getList(
 		function() {
 			console.log("error");
 		}); */
-replyService.update({
+/* replyService.update({
 	rno:21,
 	reply:"new updated reply!"
 	},
@@ -66,7 +66,28 @@ replyService.get(
 		},
 		function() {
 			consol.log("not found");
-		});
+		}); */
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	replyService.getList(
+		{bno:${board.bno}, page:${cri.pageNum }},
+		function(list) {
+			console.log(list);
+			var replyUL = $("#reply-ul");
+			for(var i = 0; i < list.length; i++) {
+				var replyLI = '<li class="media" data-rno="' 
+					+ list[i].rno + '"><div class="media-body"><h5>' 
+					+ list[i].replyer + "<small>" 
+					+ list[i].replyDate + '</small></h5>'
+					+ list[i].reply + "<hr></div></li>";
+					
+					replyUL.append(replyLI);
+			}
+		}
+	);
+});
 </script>
 
 <title>게시글 조회</title>
@@ -111,5 +132,27 @@ replyService.get(
 		</div>
 	</div>
 </div>
+
+<!--댓글 목록 container-->
+<div class="container-sm mt-3">
+	<div class="row">
+		<div class="col-12 col-sm-6 offset-md-3">
+			<div class="card">
+				<div class="card-header">
+					댓글 목록
+				</div>
+				<div class="card-body">
+					<ul class="list-unstyled" id="reply-ul">
+						<!--댓글 한 개가 li 한 개
+						자바스크립트로 reply가 담긴 list를 for문으로 돌려서
+						<ul>에 append해서 출력
+						-->
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 </body>
 </html>
