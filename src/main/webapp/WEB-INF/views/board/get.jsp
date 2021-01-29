@@ -79,6 +79,8 @@ $(document).ready(function() {
 			function(list) {
 				console.log(list);
 				var replyUL = $("#reply-ul");
+				//댓글 등록 후 댓글 목록 다시 불러오는 방법2
+				//replyUL.empty(); -> 이전 댓글 목록을 비우고 목록을 다시 append
 				for(var i = 0; i < list.length; i++) {
 					var replyLI = '<li class="media" data-rno="' 
 						+ list[i].rno + '"><div class="media-body"><h5>' 
@@ -91,8 +93,6 @@ $(document).ready(function() {
 			}
 		);
 	}
-	//댓글 목록 가져오기 함수를 호출해서 실행
-	showList();
 	
 	//댓글 작성 모달창 이벤트 처리
 	$("#new-reply-button").click(function() {
@@ -108,6 +108,9 @@ $(document).ready(function() {
 		//ajax 요청을 위한 데이터, 성공 했을 때/실패 했을 때의 처리
 		var data = {bno:bno, reply:reply, replyer:replyer};
 		var success = function() {
+			//댓글 목록 가져오기 실행
+			/* showList(); */
+			location.reload(); //새로고침으로 다시 가져오는 방법1
 			alert("댓글 등록 성공");
 		};
 		var error = function() {
@@ -115,7 +118,15 @@ $(document).ready(function() {
 		};
 		
 		replyService.add(data, success, error);
+		
+		//모달창 닫기
+		$("#new-reply-modal").modal("hide");
+		//모달창 내의 input에 있는 value 비우기
+		$("#new-reply-modal input").val("");
 	});	
+	
+	//댓글 목록 가져오기 함수를 호출해서 실행
+	showList();
 });
 </script>
 
