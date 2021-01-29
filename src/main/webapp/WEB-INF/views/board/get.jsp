@@ -181,16 +181,15 @@ $(document).ready(function() {
 </head>
 <body>
 <u:navbar></u:navbar>
-<%-- <h1>pageNum : ${cri.pageNum }</h1>
-<h1>amount : ${cri.amount }</h1> --%>
+
 <div class="container-sm">	
 	<div class="row">
-		<div class="col-12 col-sm-6 offset-md-3">
+		<div class="col-12 col-lg-6 offset-lg-3">
 			<h1>게시물 보기</h1>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-12 col-sm-6 offset-md-3">
+		<div class="col-12 col-lg-6 offset-lg-3">
 			<%-- <form action="${pageContext.request.contextPath }/board/register"> --%>
 			<form method="post">
 		    	 <div class="form-group">
@@ -223,7 +222,7 @@ $(document).ready(function() {
 <!--댓글 목록 container-->
 <div class="container-sm mt-3">
 	<div class="row">
-		<div class="col-12 col-sm-6 offset-md-3">
+		<div class="col-12 col-lg-6 offset-lg-3">
 			<div class="card">
 				<div class="card-header d-flex justify-content-between align-items-center">
 					<span>댓글 목록</span>					

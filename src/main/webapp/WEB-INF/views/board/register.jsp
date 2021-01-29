@@ -23,12 +23,12 @@
 <u:navbar></u:navbar>
 <div class="container-sm">	
 	<div class="row">
-		<div class="col-12 col-sm-6 offset-md-3">
+		<div class="col-12 col-lg-6 offset-lg-3">
 			<h1>게시물 작성</h1>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-12 col-sm-6 offset-md-3">
+		<div class="col-12 col-lg-6 offset-lg-3">
 			<%-- <form action="${pageContext.request.contextPath }/board/register"> --%>
 			<form method="post">
 				 <div class="form-group">
