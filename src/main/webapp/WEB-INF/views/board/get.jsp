@@ -72,6 +72,11 @@ replyService.get(
 
 <script type="text/javascript">
 $(document).ready(function() {
+	//날짜 형식
+	function dateString(date) {
+		var d = new Date(date);
+		return d.toISOString().split("T")[0];
+	}
 	//댓글 가져오는 자바스크립트 함수 정의
 	function showList() {
 		replyService.getList(
@@ -84,8 +89,8 @@ $(document).ready(function() {
 				for(var i = 0; i < list.length; i++) {
 					var replyLI = '<li class="media" data-rno="' 
 						+ list[i].rno + '"><div class="media-body"><h5>' 
-						+ list[i].replyer + "<small>" 
-						+ list[i].replyDate + '</small></h5>'
+						+ list[i].replyer + '<small class="float-right">'
+						+ dateString(list[i].replyDate) + '</small></h5>'
 						+ list[i].reply + "<hr></div></li>";
 						
 						replyUL.append(replyLI);
@@ -151,7 +156,20 @@ $(document).ready(function() {
 			location.reload();
 		};
 		var error = function() {};
+		
 		replyService.update(data, success, error);
+	});
+	
+	//삭제 버튼 이벤트 처리
+	$("#reply-delete-button").click(function() {
+		var rno = $("#rno-input2").val();
+		var success = function() {
+			alert("댓글 삭제 완료");
+			location.reload();
+		};
+		var error = function() {};
+		
+		replyService.remove(rno, success, error);
 	});
 	
 	//댓글 목록 가져오기 함수를 호출해서 실행
