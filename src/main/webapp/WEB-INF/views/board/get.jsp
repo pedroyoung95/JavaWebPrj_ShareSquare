@@ -125,6 +125,35 @@ $(document).ready(function() {
 		$("#new-reply-modal input").val("");
 	});	
 	
+	//reply-ul 클릭 이벤트 처리
+	$("#reply-ul").on("click", "li", function() {
+		console.log($(this).attr("data-rno"));
+		
+		//하나의 댓글 읽어오기
+		var rno = $(this).attr("data-rno");
+		var success = function(data) {
+			$("#rno-input2").val(rno);
+			$("#reply-input2").val(data.reply);
+			$("#replyer-input2").val(data.replyer);
+			$("#modify-reply-modal").modal("show");
+		};
+		var error = function() {};
+		replyService.get(rno, success, error);		
+	});	
+	
+	//수정 버튼 이벤트 처리
+	$("#reply-modify-button").click(function() {
+		var rno = $("#rno-input2").val();
+		var reply = $("#reply-input2").val();
+		var data = {rno:rno, reply:reply};
+		var success = function() {
+			alert("댓글 수정 완료");
+			location.reload();
+		};
+		var error = function() {};
+		replyService.update(data, success, error);
+	});
+	
 	//댓글 목록 가져오기 함수를 호출해서 실행
 	showList();
 });
@@ -222,6 +251,40 @@ $(document).ready(function() {
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
 				<button type="button" class="btn btn-primary" id="reply-submit-button">등록</button>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!--댓글 수정/삭제가 이뤄질 modal-->
+<div class="modal fade" id="modify-reply-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">
+					수정 / 삭제
+				</h5>
+				<button type="button" class="close" data-dismiss="modal">
+					<span>&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<input id="rno-input2" type="hidden">
+				<div class="form-group">
+					<label for="reply-input2" class="col-form-label">댓글</label>
+					<input type="text" class="form-control" id="reply-input2">
+				</div>
+				<div class="form-group">
+					<label for="replyer-input2" class="col-form-label">
+						작성자
+					</label>
+					<input readonly type="text" class="form-control" id="replyer-input2">
+				</div>
+			</div>		
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+				<button type="button" class="btn btn-primary" id="reply-modify-button">수정</button>
+				<button type="button" class="btn btn-danger" id="reply-delete-button">삭제</button>
 			</div>	
 		</div>
 	</div>
