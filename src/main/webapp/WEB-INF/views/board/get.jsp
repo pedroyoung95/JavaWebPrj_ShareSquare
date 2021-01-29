@@ -8,6 +8,7 @@
 <head>
 <script type="text/javascript">
 var appRoot = '${root}';
+var bno = ${board.bno};
 </script>
 <meta charset="UTF-8">
 <link rel="stylesheet"
@@ -71,22 +72,50 @@ replyService.get(
 
 <script type="text/javascript">
 $(document).ready(function() {
-	replyService.getList(
-		{bno:${board.bno}, page:${cri.pageNum }},
-		function(list) {
-			console.log(list);
-			var replyUL = $("#reply-ul");
-			for(var i = 0; i < list.length; i++) {
-				var replyLI = '<li class="media" data-rno="' 
-					+ list[i].rno + '"><div class="media-body"><h5>' 
-					+ list[i].replyer + "<small>" 
-					+ list[i].replyDate + '</small></h5>'
-					+ list[i].reply + "<hr></div></li>";
-					
-					replyUL.append(replyLI);
+	//댓글 가져오는 자바스크립트 함수 정의
+	function showList() {
+		replyService.getList(
+			{bno:bno, page:${cri.pageNum }},
+			function(list) {
+				console.log(list);
+				var replyUL = $("#reply-ul");
+				for(var i = 0; i < list.length; i++) {
+					var replyLI = '<li class="media" data-rno="' 
+						+ list[i].rno + '"><div class="media-body"><h5>' 
+						+ list[i].replyer + "<small>" 
+						+ list[i].replyDate + '</small></h5>'
+						+ list[i].reply + "<hr></div></li>";
+						
+						replyUL.append(replyLI);
+				}
 			}
-		}
-	);
+		);
+	}
+	//댓글 목록 가져오기 함수를 호출해서 실행
+	showList();
+	
+	//댓글 작성 모달창 이벤트 처리
+	$("#new-reply-button").click(function() {
+		console.log("new reply button clicked......");
+		$("#new-reply-modal").modal("show");
+	});
+	
+	//새 댓글 등록 버튼 클릭 이벤트 처리
+	$("#reply-submit-button").click(function() {
+		//input에서 value를 가져와서 변수에 저장
+		var reply = $("#reply-input").val();
+		var replyer = $("#replyer-input").val();
+		//ajax 요청을 위한 데이터, 성공 했을 때/실패 했을 때의 처리
+		var data = {bno:bno, reply:reply, replyer:replyer};
+		var success = function() {
+			alert("댓글 등록 성공");
+		};
+		var error = function() {
+			alert("댓글 등록 실패")
+		};
+		
+		replyService.add(data, success, error);
+	});	
 });
 </script>
 
@@ -138,8 +167,9 @@ $(document).ready(function() {
 	<div class="row">
 		<div class="col-12 col-sm-6 offset-md-3">
 			<div class="card">
-				<div class="card-header">
-					댓글 목록
+				<div class="card-header d-flex justify-content-between align-items-center">
+					<span>댓글 목록</span>					
+					<button class="btn btn-info" id="new-reply-button">댓글 쓰기</button>
 				</div>
 				<div class="card-body">
 					<ul class="list-unstyled" id="reply-ul">
@@ -150,6 +180,38 @@ $(document).ready(function() {
 					</ul>
 				</div>
 			</div>
+		</div>
+	</div>
+</div>
+
+<!--새 댓글 form을 modal로 표현-->
+<div class="modal fade" id="new-reply-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">
+					새 댓글
+				</h5>
+				<button type="button" class="close" data-dismiss="modal">
+					<span>&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="reply-input" class="col-form-label">댓글</label>
+					<input type="text" class="form-control" id="reply-input">
+				</div>
+				<div class="form-group">
+					<label for="replyer-input" class="col-form-label">
+						작성자
+					</label>
+					<input type="text" class="form-control" id="replyer-input">
+				</div>
+			</div>		
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+				<button type="button" class="btn btn-primary" id="reply-submit-button">등록</button>
+			</div>	
 		</div>
 	</div>
 </div>
