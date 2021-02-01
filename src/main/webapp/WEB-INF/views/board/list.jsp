@@ -83,8 +83,12 @@
             		<c:param name="keyword" value="${pageMaker.cri.keyword }"></c:param>
             	</c:url>
             	<a href="${boardLink }">
-            		<c:out value="${board.title}">
-            		</c:out>
+            		<c:out value="${board.title}"></c:out>
+            		<c:if test="${board.replyCnt gt 0 }">
+	            		<span class="badge badge-info">
+	            			<c:out value="${board.replyCnt }"></c:out>
+	            		</span>
+            		</c:if>
             	</a>
             </td>
             <td><c:out value="${board.writer}"></c:out></td>
