@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.MemberMapper">
+
+<insert id="signin"></insert>
+
+<delete id="signout"></delete>
+
+<select id="read"></select>
+
+<update id="changeName"></update>
+
+<update id="changePassword"></update>
+
+<update id="updateCompleteCnt"></update>
+
+</mapper>
