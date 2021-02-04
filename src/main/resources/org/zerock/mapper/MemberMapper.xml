@@ -4,16 +4,29 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.MemberMapper">
 
-<insert id="signin"></insert>
+<insert id="signin">
+	INSERT INTO prj_member(id, password, name)
+	VALUES(#{id}, #{password}, #{name})
+</insert>
 
-<delete id="signout"></delete>
+<delete id="signout">
+	DELETE FROM prj_member WHERE id=#{id}
+</delete>
 
-<select id="read"></select>
+<select id="read" resultType="org.zerock.domain.MemberVO">
+	SELECT * FROM prj_member WHERE id=#{id}
+</select>
 
-<update id="changeName"></update>
+<update id="changeName">
+	UPDATE prj_member SET name=#{name} WHERE id=#{id}
+</update>
 
-<update id="changePassword"></update>
+<update id="changePassword">
+	UPDATE prj_member SET password=#{password} WHERE id=#{id}
+</update>
 
-<update id="updateCompleteCnt"></update>
+<update id="updateCompleteCnt">
+	UPDATE prj_member SET completecnt
+</update>
 
 </mapper>
