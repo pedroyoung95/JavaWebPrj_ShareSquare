@@ -32,8 +32,6 @@ public class MemberServiceImpl implements MemberService{
 	@Transactional
 	public MemberVO get(String id) {
 		MemberVO member = memberMapper.read(id);
-		int completeCnt = memberMapper.completeCnt(id);
-		member.setCompleteCnt(completeCnt);
 		return member;
 	}
 	

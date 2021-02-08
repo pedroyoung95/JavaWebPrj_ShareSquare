@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="<c:url value="/resources/css/mainpage.css"/>" rel="stylesheet">
+<link href="<c:url value="/resources/css/mainPage.css"/>" rel="stylesheet">
 <meta charset="UTF-8">
 <link rel="stylesheet"
   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -18,32 +18,34 @@
   src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
-<title>To-Do Share</title>
+<title>ToDo Share</title>
 </head>
 <body>
-<u:navbar></u:navbar>
+<u:navbar_main></u:navbar_main>
 
-<div class="container">
-	<u:isLogin>
-		<div class="jumbotron">		  
-		  <h1 class="display-4">${authUser.name }님, 안녕하세요</h1>
-		  <p class="lead">목표 달성에 따른 성취감을 느껴보세요</p>
-		  <hr class="my-4">
-		  <p>To-Do List 만들기</p>
-		  <a class="btn btn-primary btn-lg" href="${root}/" role="button">할 일 적으로 가기</a>
-		</div>
-		<br />			
-	  </u:isLogin>
-	  
-	  <u:notLogin>
-	  	<div class="jumbotron">
-		  <h1 class="display-4">어서오세요</h1>	  
-		  <p class="lead">해야 할 것이 있다면, 지금 바로 하나씩 이뤄보세요</p>
-		  <hr class="my-4">
-		  <p>부지런함의 첫발을 내딛으세요</p>
-		  <a class="btn btn-primary btn-lg" href="${root }/member/signin" role="button">회원가입</a>
-		</div>
-	  </u:notLogin>	
+<div class="container-sm">
+	<div class="container" style="background-color: #ffffff; opacity: 0.8; padding:0;">
+		<u:isLogin>
+			<div class="jumbotron">		  
+			  <h1 class="display-4">${authUser.name }님, 안녕하세요</h1>
+			  <p class="lead">목표 달성에 따른 성취감을 느껴보세요</p>
+			  <hr class="my-4">
+			  <a class="btn btn-primary btn-lg" href="${root}/todo/register" role="button">To-Do List 만들기</a>
+			  <a class="btn btn-primary btn-lg" href="${root}/board/list" role="button">공유 게시판</a>
+			</div>
+			<br />			
+		  </u:isLogin>
+		  
+		  <u:notLogin>
+		  	<div class="jumbotron">
+			  <h1 class="display-4">어서오세요</h1>	  
+			  <p class="lead">해야 할 것이 있다면, 지금 바로 하나씩 이뤄보세요</p>
+			  <hr class="my-4">
+			  <p>부지런함의 첫발을 내딛으세요</p>
+			  <a class="btn btn-primary btn-lg" href="${root }/member/signin" role="button">회원가입</a>
+			</div>
+		  </u:notLogin>	
+	</div>
 </div>
 
 </body>

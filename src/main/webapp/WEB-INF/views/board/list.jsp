@@ -22,13 +22,11 @@
 		var result = '${result}';
 		var message = '${message}';
 		
-		//checkModal(result);
 		checkModal2(message);
 		
 		history.replaceState({}, null, null);
 		
 		function checkModal2(message) {
-			//자바스크립트에서 빈 스트링은 false로 인식
 			if(message && history.state == null) {
 				$("#myModal .modal-body p").html(message);
 				$("#myModal").modal("show");
@@ -57,7 +55,7 @@
 <title>ToDo Share</title>
 </head>
 <body>
-<u:navbar></u:navbar>
+<u:navbar_list></u:navbar_list>
 <div class="container-sm">
   <div class="row">
     <table class="table table-striped table-hover">

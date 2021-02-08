@@ -7,7 +7,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="<c:url value="/resources/css/signinPage.css"/>" rel="stylesheet">
 <link rel="stylesheet"
   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script
@@ -20,28 +19,28 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		var signinSuccess = '${signinSuccess}';
-		var signinFail = '${signinFail}';
+		var wrongPassword = '${wrongPassword}';
+		var wrongId = '${wrongId}';
 		
-		successModal(signinSuccess);
+		signinModal(signinSuccess);
 		
 		history.replaceState({}, null, null);
 		
-		function signinModal(signinSuccess, signinFail) {
-			if(signinSuccess && history.state == null) {
-				$("#myModal .modal-body p").html(signinSuccess);
+		function signinModal(wrongPassword, wrongId) {
+			if(wrongPassword && history.state == null) {
+				$("#myModal .modal-body p").html(wrongPassword);
 				$("#myModal").modal("show");
 			}
 			
 			if(signinFail && history.state == null) {
-				$("#myModal .modal-body p").html(signinFail);
+				$("#myModal .modal-body p").html(wrongId);
 				$("#myModal").modal("show");
 			}
 		}
 	});
 </script>
 
-<title>To-Do Share sign in</title>
+<title>To-Do Share login</title>
 </head>
 <body>
 <u:navbar></u:navbar>
@@ -49,7 +48,7 @@
 <div class="container-sm">	
 	<div class="row">
 		<div class="col-12 col-lg-6 offset-lg-3">
-			<h1>회원 가입</h1>
+			<h1>로그인</h1>
 		</div>
 	</div>
 	<div class="row">
@@ -61,10 +60,6 @@
 			     </div>
 			      	<label for="input-pw">암호</label>
 	    			<input name="password" type="password" class="form-control" id="input-pw" placeholder="암호을 입력하세요.">
-			     <div class="form-group">
-				    <label for="input-name">닉네임</label>
-				    <input name="name" type="text" class="form-control" id="input-name" placeholder="이름을 입력하세요.">
-			     </div>
 			     <button type="submit" class="btn btn-primary">Submit</button>
 			</form>
 		</div>

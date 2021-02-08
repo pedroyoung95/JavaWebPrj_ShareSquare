@@ -17,7 +17,7 @@
   src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
-<title>Insert title here</title>
+<title>Share ToDo</title>
 </head>
 <body>
 <u:navbar></u:navbar>
@@ -29,7 +29,6 @@
 	</div>
 	<div class="row">
 		<div class="col-12 col-lg-6 offset-lg-3">
-			<%-- <form action="${pageContext.request.contextPath }/board/register"> --%>
 			<form method="post">
 				 <div class="form-group">
 				    <label for="input1">제목</label>

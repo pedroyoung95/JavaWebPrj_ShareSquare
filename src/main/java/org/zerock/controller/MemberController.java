@@ -39,7 +39,7 @@ public class MemberController {
 			rttr.addFlashAttribute("signinSuccess", "회원 가입에 성공했습니다.");
 			return "redirect:/member/login";
 		} catch (Exception e) {
-			rttr.addFlashAttribute("signinFail", "빠짐없이 작성해주세요.");
+			rttr.addFlashAttribute("signinFail", "빈칸이 있거나 이미 존재하는 아이디 입니다.");
 			return "redirect:/member/signin";
 		}
 		
