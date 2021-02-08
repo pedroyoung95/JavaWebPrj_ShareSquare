@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container-sm mb-3">
 	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-  <a class="navbar-brand" href="${root }/board/list">게시판</a>
+  <a class="navbar-brand" href="${root }/board/list">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -16,7 +16,7 @@
 	      	<c:param name="type" value="${cri.type }"></c:param>
 	      	<c:param name="keyword" value="${cri.keyword }"></c:param>		
       	</c:url>
-        <a class="nav-link" href="${listLink }">목록 <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="${listLink }">Share Board <span class="sr-only">(current)</span></a>
       </li>
       <c:url var="registerLink" value="/board/register">      		
 	      	<c:param name="pageNum" value="${cri.pageNum }"></c:param>

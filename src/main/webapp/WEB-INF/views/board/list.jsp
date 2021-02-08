@@ -54,7 +54,7 @@
 	});
 </script>
 
-<title>중앙게시판</title>
+<title>ToDo Share</title>
 </head>
 <body>
 <u:navbar></u:navbar>
