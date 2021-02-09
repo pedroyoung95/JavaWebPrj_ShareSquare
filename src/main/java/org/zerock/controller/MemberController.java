@@ -50,13 +50,13 @@ public class MemberController {
 		
 	}
 	@PostMapping("/signout")
-	public String signout(String id, String password, RedirectAttributes rttr) {
+	public String signout(String id, String password, HttpServletRequest req, RedirectAttributes rttr) {
 		MemberVO member = memberService.get(id);		
 		log.info("signout.........." + member);
 		if(member != null) {
 			if(member.getPassword().equals(password)) {
-				rttr.addFlashAttribute("signoutSuccess", "회원 탈퇴가 완료되었습니다.");
-				return "redirect:/member/main";
+				memberService.signout(id);
+				return "redirect:/member/signoutComplete";
 			}else {
 				rttr.addFlashAttribute("failByPassword", "잘못된 암호입니다.");
 				return "redirect:/member/signout";

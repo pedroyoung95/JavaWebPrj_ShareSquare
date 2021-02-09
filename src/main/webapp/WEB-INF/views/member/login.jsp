@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="<c:url value="/resources/css/loginPage.css"/>" rel="stylesheet">
 <link rel="stylesheet"
   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script
@@ -43,7 +44,7 @@
 <title>To-Do Share login</title>
 </head>
 <body>
-<u:navbar></u:navbar>
+<u:navbar_main></u:navbar_main>
 
 <div class="container-sm">	
 	<div class="row">

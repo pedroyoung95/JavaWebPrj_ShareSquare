@@ -10,23 +10,25 @@
   		<div class="collapse navbar-collapse" id="navbarSupportedContent">
     		<ul class="navbar-nav mr-auto">
     			<li class="nav-item">
-		        	<a class="nav-link" href="${registerLink }">To-Do List 만들기</a>
-		      	</li>
-    			<li class="nav-item">
 	        		<a class="nav-link" href="${root }/board/list">공유게시판</a>
       			</li>
-		      	<c:url var="registerLink" value="/board/register">      		
-			    	<c:param name="pageNum" value="${cri.pageNum }"></c:param>
-			    	<c:param name="amount" value="${cri.amount }"></c:param>      		
-		      	</c:url>
 		      	<u:isLogin>
+		      		<li class="nav-item">
+		        		<a class="nav-link" href="${root }/todo/register">To-Do List 만들기</a>
+		      		</li>
 			      	<li class="nav-item">
 			      		<a class="nav-link" href="${root }/member/logout">로그아웃</a>
+			      	</li>
+			      	<li class="nav-item">
+			      		<a class="nav-link" href="${root }/member/signout">회원탈퇴</a>
 			      	</li>
 		      	</u:isLogin>
 		      	<u:notLogin>
 		      		<li class="nav-item">
 		      			<a class="nav-link" href="${root }/member/login">로그인</a>
+		      		</li>
+		      		<li class="nav-item">
+		      			<a class="nav-link" href="${root }/member/signin">회원가입</a>
 		      		</li>
 		      	</u:notLogin>
     		</ul>

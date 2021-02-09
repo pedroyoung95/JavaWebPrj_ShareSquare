@@ -19,32 +19,26 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
-<title>To-Do Share sign out</title>
+<title>ToDo Share</title>
 </head>
 <body>
 	<u:navbar_main></u:navbar_main>
 
 	<div class="container-sm">
-		<div class="row">
-			<div class="col-12 col-lg-6 offset-lg-3">
-				<h1>회원 탈퇴</h1>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-12 col-lg-6 offset-lg-3">
-				<form method="post">
-					<div class="form-group">
-						<label for="input-id">아이디</label> <input name="id" type="text"
-							class="form-control" id="input-id" placeholder="아이디를 입력하세요.">
-					</div>
-					<div class="form-group">
-						<label for="input-pw">암호</label> <input name="password"
-							type="password" class="form-control" id="input-pw"
-							placeholder="암호을 입력하세요.">
-					</div>
-					<button type="submit" class="btn btn-primary">Submit</button>
-				</form>
-			</div>
+		<div class="container"
+			style="background-color: #ffffff; opacity: 0.8; padding: 0;">
+			<u:notLogin>
+				<div class="jumbotron">
+					<h1 class="display-4">탈퇴가 완료되었습니다</h1>
+					<p class="lead">이용해주셔서 감사합니다</p>
+					<hr class="my-4">
+					<p>다시 시작할 수 있어요</p>
+					<a class="btn btn-primary btn-lg" href="${root }/member/signin"
+						role="button">회원가입</a>
+					<a class="btn btn-primary btn-lg" href="${root }/member/login"
+						role="button">로그인</a>
+				</div>
+			</u:notLogin>
 		</div>
 	</div>
 
