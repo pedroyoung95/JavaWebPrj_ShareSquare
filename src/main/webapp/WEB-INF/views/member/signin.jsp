@@ -59,6 +59,7 @@
 					<div class="form-group">
 						<label for="input-id">아이디</label> <input name="id" type="text"
 							class="form-control" id="input-id" placeholder="아이디를 입력하세요.">
+						<small id="signinFail" class="form-text text-muted">${signinFail }</small>
 					</div>
 					<div class="form-group">
 						<label for="input-pw">암호</label> <input name="password"

@@ -23,69 +23,17 @@ var bno = ${board.bno};
 <script type="text/javascript" src="${root }/resources/js/reply.js"></script>
 
 <script type="text/javascript">
-/* console.log(replyService.name);
-replyService.add("my reply"); */
-/* replyService.add({
-	bno:130, 
-	reply:"new reply 댓글",
-	replyer:"tester"
-	}, function(result) {
-		console.log(result);
-	}, function(err) {
-		console.log(err);
-	}); */
-/* replyService.getList(
-		{bno:116, page:1},
-		function(data) {
-			console.log(data);
-		},
-		function() {
-			console.log("error");
-		}); */
-/* replyService.remove(
-		8,
-		function(data) {
-			console.log(data);
-		},
-		function() {
-			console.log("error");
-		}); */
-/* replyService.update({
-	rno:21,
-	reply:"new updated reply!"
-	},
-	function(data) {
-		console.log(data);
-	},
-	function() {
-		console.log("error");
-	});
-replyService.get(
-		10,
-		function(data) {
-			console.log(data);
-		},
-		function() {
-			consol.log("not found");
-		}); */
-</script>
-
-<script type="text/javascript">
 $(document).ready(function() {
-	//날짜 형식
 	function dateString(date) {
 		var d = new Date(date);
 		return d.toISOString().split("T")[0];
 	}
-	//댓글 가져오는 자바스크립트 함수 정의
 	function showList() {
 		replyService.getList(
 			{bno:bno, page:${cri.pageNum }},
 			function(list) {
 				console.log(list);
-				var replyUL = $("#reply-ul");
-				//댓글 등록 후 댓글 목록 다시 불러오는 방법2
-				//replyUL.empty(); -> 이전 댓글 목록을 비우고 목록을 다시 append
+				var replyUL = $("#reply-ul");				
 				for(var i = 0; i < list.length; i++) {
 					var replyLI = '<li class="media" data-rno="' 
 						+ list[i].rno + '"><div class="media-body"><h5>' 
@@ -99,23 +47,17 @@ $(document).ready(function() {
 		);
 	}
 	
-	//댓글 작성 모달창 이벤트 처리
 	$("#new-reply-button").click(function() {
 		console.log("new reply button clicked......");
 		$("#new-reply-modal").modal("show");
 	});
 	
-	//새 댓글 등록 버튼 클릭 이벤트 처리
-	$("#reply-submit-button").click(function() {
-		//input에서 value를 가져와서 변수에 저장
+	$("#reply-submit-button").click(function() {		
 		var reply = $("#reply-input").val();
 		var replyer = $("#replyer-input").val();
-		//ajax 요청을 위한 데이터, 성공 했을 때/실패 했을 때의 처리
 		var data = {bno:bno, reply:reply, replyer:replyer};
 		var success = function() {
-			//댓글 목록 가져오기 실행
-			/* showList(); */
-			location.reload(); //새로고침으로 다시 가져오는 방법1
+			location.reload(); 
 			alert("댓글 등록 성공");
 		};
 		var error = function() {
@@ -124,17 +66,13 @@ $(document).ready(function() {
 		
 		replyService.add(data, success, error);
 		
-		//모달창 닫기
 		$("#new-reply-modal").modal("hide");
-		//모달창 내의 input에 있는 value 비우기
 		$("#new-reply-modal input").val("");
 	});	
-	
-	//reply-ul 클릭 이벤트 처리
+
 	$("#reply-ul").on("click", "li", function() {
 		console.log($(this).attr("data-rno"));
-		
-		//하나의 댓글 읽어오기
+
 		var rno = $(this).attr("data-rno");
 		var success = function(data) {
 			$("#rno-input2").val(rno);
@@ -145,8 +83,7 @@ $(document).ready(function() {
 		var error = function() {};
 		replyService.get(rno, success, error);		
 	});	
-	
-	//수정 버튼 이벤트 처리
+
 	$("#reply-modify-button").click(function() {
 		var rno = $("#rno-input2").val();
 		var reply = $("#reply-input2").val();
@@ -159,8 +96,7 @@ $(document).ready(function() {
 		
 		replyService.update(data, success, error);
 	});
-	
-	//삭제 버튼 이벤트 처리
+
 	$("#reply-delete-button").click(function() {
 		var rno = $("#rno-input2").val();
 		var success = function() {
@@ -171,8 +107,7 @@ $(document).ready(function() {
 		
 		replyService.remove(rno, success, error);
 	});
-	
-	//댓글 목록 가져오기 함수를 호출해서 실행
+
 	showList();
 });
 </script>

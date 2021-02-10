@@ -34,15 +34,16 @@ public class MemberController {
 	@PostMapping("/signin")
 	public String signin(MemberVO member, RedirectAttributes rttr) {
 		log.info("signin........" + member);
-		try {
+		MemberVO existMember = memberService.get(member.getId());
+		if(existMember == null) {
 			memberService.signin(member);
-			rttr.addFlashAttribute("signinSuccess", "회원 가입에 성공했습니다.");
-			return "redirect:/member/login";
-		} catch (Exception e) {
+			rttr.addFlashAttribute("signoutResult", "가입이 완료되었습니다");
+			rttr.addFlashAttribute("signoutMessage", "ToDo Share를 시작하세요");
+			return "redirect:/member/main";
+		} else {
 			rttr.addFlashAttribute("signinFail", "빈칸이 있거나 이미 존재하는 아이디 입니다.");
 			return "redirect:/member/signin";
-		}
-		
+		}		
 	}
 	
 	@GetMapping("/signout")
@@ -50,13 +51,15 @@ public class MemberController {
 		
 	}
 	@PostMapping("/signout")
-	public String signout(String id, String password, HttpServletRequest req, RedirectAttributes rttr) {
+	public String signout(String id, String password, RedirectAttributes rttr) {
 		MemberVO member = memberService.get(id);		
 		log.info("signout.........." + member);
 		if(member != null) {
 			if(member.getPassword().equals(password)) {
 				memberService.signout(id);
-				return "redirect:/member/signoutComplete";
+				rttr.addFlashAttribute("signoutResult", "탈퇴가 완료되었습니다");
+				rttr.addFlashAttribute("signoutMessage", "이용해주셔서 감사합니다");
+				return "redirect:/member/main";
 			}else {
 				rttr.addFlashAttribute("failByPassword", "잘못된 암호입니다.");
 				return "redirect:/member/signout";
@@ -90,7 +93,7 @@ public class MemberController {
 		
 	}
 	
-	@PostMapping("/logout")
+	@GetMapping("/logout")
 	public String logout(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);		
 		log.info("logout.............." + session.getAttribute("authUser"));

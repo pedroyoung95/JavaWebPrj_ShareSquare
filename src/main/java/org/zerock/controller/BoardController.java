@@ -57,16 +57,8 @@ public class BoardController {
 		log.info("/get");
 		log.info(cri);
 		model.addAttribute("board", service.get(bno));
-//		model.addAttribute("cri", cri);
-//		@ModelAttribute어노테이션으로 model에 변수이름으로 넣어둘 수 있음
 	}
-	//GET 방식의 modify URL이랑 get URL의 하는 일이 동일하므로
-	//URL경로를 String배열로 주어서 코드 단축
-//	@GetMapping("/modify")
-//	public void modify(Long bno, Model model) {
-//		BoardVO board = service.get(bno);
-//		model.addAttribute("board", board);
-//	}
+
 	@PostMapping("/modify")
 	public String modify(BoardVO board, Criteria cri, RedirectAttributes rttr) {
 		log.info("modify : " + board);
@@ -74,8 +66,6 @@ public class BoardController {
 		if(service.modify(board)) {
 			rttr.addFlashAttribute("result", "success");
 			rttr.addFlashAttribute("message", board.getBno() + "번 글이 수정되었습니다.");
-			//rttr.addAttribute("a", "a"); -> 그냥 addAttribute를 하면
-			//redirect를 해도 쿼리스트링으로 파라미터를 붙일 수 있음(일회성X)
 		}
 		log.info(cri);
 		rttr.addAttribute("pageNum", cri.getPageNum());

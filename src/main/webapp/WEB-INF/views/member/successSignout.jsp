@@ -25,8 +25,7 @@
 	<u:navbar_main></u:navbar_main>
 
 	<div class="container-sm">
-		<div class="container"
-			style="background-color: #ffffff; opacity: 0.8; padding: 0;">
+		<div class="container">
 			<u:notLogin>
 				<div class="jumbotron">
 					<h1 class="display-4">탈퇴가 완료되었습니다</h1>
