@@ -51,7 +51,7 @@
 					<p class="lead">목표 달성에 따른 성취감을 느껴보세요</p>
 					<hr class="my-4">
 					<a class="btn btn-primary btn-lg" href="${root}/todo/register"
-						role="button">To-Do List 만들기</a> <a class="btn btn-primary btn-lg"
+						role="button">글쓰기</a> <a class="btn btn-primary btn-lg"
 						href="${root}/board/list" role="button">공유 게시판</a>
 				</div>
 				<br />

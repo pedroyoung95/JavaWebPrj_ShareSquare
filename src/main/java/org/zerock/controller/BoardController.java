@@ -24,11 +24,6 @@ public class BoardController {
 
 	private BoardService service;
 	
-//	@GetMapping("/list")
-//	public void list(Model model) {
-//		log.info("list");
-//		model.addAttribute("list", service.getList());
-//	}
 	@GetMapping("/list")
 	public void list(@ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("list : " + cri);
@@ -47,8 +42,6 @@ public class BoardController {
 		service.register(board);
 		rttr.addFlashAttribute("result", board.getBno());
 		rttr.addFlashAttribute("message", board.getBno() + "번 글이 등록되었습니다.");
-//		글 작성이 성공했다는 modal창을 글 목록 화면에서 띄우기 위해 
-//		일회성 attribute인 redirectAttributes를 사용함 
 		return "redirect:/board/list";
 	}
 	
