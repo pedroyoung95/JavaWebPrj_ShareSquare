@@ -19,7 +19,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
-<title>To-Do Share sign out</title>
+<title>Share Square sign out</title>
 </head>
 <body>
 	<u:navbar_main></u:navbar_main>
@@ -34,11 +34,14 @@
 			<div class="col-12 col-lg-6 offset-lg-3">
 				<form method="post">
 					<div class="form-group">
-						<label for="input-id">아이디</label> <input name="id" type="text"
+						<label for="input-id">아이디</label> 
+						<input name="id" type="text"
 							class="form-control" id="input-id" placeholder="아이디를 입력하세요.">
+						<small id="signoutFail" class="form-text text-muted">${signoutFail }</small>	
 					</div>
 					<div class="form-group">
-						<label for="input-pw">암호</label> <input name="password"
+						<label for="input-pw">암호</label> 
+						<input name="password"
 							type="password" class="form-control" id="input-pw"
 							placeholder="암호을 입력하세요.">
 					</div>

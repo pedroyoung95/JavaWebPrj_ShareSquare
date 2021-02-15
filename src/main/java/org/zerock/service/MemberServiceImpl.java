@@ -23,9 +23,10 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public int signout(String id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public boolean signout(String id, String password) {
+		log.info("sign out.........." + id);
+		int signoutCnt = memberMapper.signout(id, password);
+		return signoutCnt == 1;
 	}
 	
 	@Override
@@ -36,14 +37,14 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public boolean modifyName(String id) {
-		int modifyCnt= memberMapper.changeName(id);
+	public boolean modifyName(String id, String name) {
+		int modifyCnt= memberMapper.changeName(id, name);
 		return modifyCnt == 1;
 	}
 	
 	@Override
-	public boolean modifyPassword(String id) {
-		int modifyCnt= memberMapper.changePassword(id);
+	public boolean modifyPassword(String id, String password) {
+		int modifyCnt= memberMapper.changePassword(id, password);
 		return modifyCnt == 1;
 	}
 	

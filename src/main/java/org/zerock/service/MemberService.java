@@ -6,11 +6,11 @@ public interface MemberService {
 
 	public void signin(MemberVO member);
 	
-	public int signout(String id);
+	public boolean signout(String id, String password);
 	
 	public MemberVO get(String id);
 	
-	public boolean modifyName(String id);
+	public boolean modifyName(String id, String name);
 	
-	public boolean modifyPassword(String id);
+	public boolean modifyPassword(String id, String password);
 }

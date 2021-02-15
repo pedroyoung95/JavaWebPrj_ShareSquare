@@ -11,5 +11,6 @@ public class MemberVO {
 	private String password;
 	private String name;
 	private Date signDate;
-	private int completeCnt;
+	private int boardCnt;
+	private int replyCnt;
 }

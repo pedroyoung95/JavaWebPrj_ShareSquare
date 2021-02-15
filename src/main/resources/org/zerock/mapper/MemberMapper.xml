@@ -10,7 +10,7 @@
 </insert>
 
 <delete id="signout">
-	DELETE FROM prj_member WHERE id=#{id}
+	DELETE FROM prj_member WHERE id=#{id} AND password=#{password}
 </delete>
 
 <select id="read" resultType="org.zerock.domain.MemberVO">
@@ -25,8 +25,12 @@
 	UPDATE prj_member SET password=#{password} WHERE id=#{id}
 </update>
 
-<select id="completeCnt" resultType="int">
-	SELECT COUNT(*) FROM prj_todolist WHERE writer_name=#{name}
+<select id="boardCnt" resultType="int">
+	SELECT COUNT(*) FROM prj_board WHERE writer_name=#{name}
+</select>
+
+<select id="replyCnt" resultType="int">
+	SELECT COUNT(*) FROM prj_reply WHERE writer_name=#{name}
 </select>
 
 </mapper>

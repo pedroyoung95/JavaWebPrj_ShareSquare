@@ -21,8 +21,8 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		var result = '${signoutResult}';
-		var message = '${signoutMessage}';
+		var result = '${result}';
+		var message = '${message}';
 		
 		checkModal(result, message);
 		
@@ -38,7 +38,7 @@
 	});
 </script>
 
-<title>ToDo Share</title>
+<title>Share Square</title>
 </head>
 <body>
 	<u:navbar_main></u:navbar_main>

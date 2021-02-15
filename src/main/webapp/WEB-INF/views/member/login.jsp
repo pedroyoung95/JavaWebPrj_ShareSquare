@@ -42,7 +42,7 @@
 	});
 </script>
 
-<title>To-Do Share login</title>
+<title>Share Square Login</title>
 </head>
 <body>
 	<u:navbar_main></u:navbar_main>
@@ -65,9 +65,8 @@
 					<div class="form-group">
 						<label for="input-pw">암호</label> 
 						<input name="password" type="password" class="form-control" id="input-pw"
-							placeholder="암호을 입력하세요."> 	
-						<small id="signinFail" class="form-text text-muted">${wrongPassword }</small>
-						
+							placeholder="암호를 입력하세요."> 	
+						<small id="signinFail" class="form-text text-muted">${wrongPassword }</small>						
 					</div>
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</form>

@@ -14,13 +14,16 @@
       			</li>
 		      	<u:isLogin>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${root }/todo/register">To-Do List 만들기</a>
+		        		<a class="nav-link" href="${root }/todo/register">글쓰기</a>
+		      		</li>
+		      		<li class="nav-item">
+		        		<a class="nav-link" href="${root }/member/info">회원 정보</a>
 		      		</li>
 			      	<li class="nav-item">
 			      		<a class="nav-link" href="${root }/member/logout">로그아웃</a>
 			      	</li>
 			      	<li class="nav-item">
-			      		<a class="nav-link" href="${root }/member/signout">회원탈퇴</a>
+			      		<a class="nav-link" href="${root }/member/signout">회원 탈퇴</a>
 			      	</li>
 		      	</u:isLogin>
 		      	<u:notLogin>
@@ -28,7 +31,7 @@
 		      			<a class="nav-link" href="${root }/member/login">로그인</a>
 		      		</li>
 		      		<li class="nav-item">
-		      			<a class="nav-link" href="${root }/member/signin">회원가입</a>
+		      			<a class="nav-link" href="${root }/member/signin">회원 가입</a>
 		      		</li>
 		      	</u:notLogin>
     		</ul>
