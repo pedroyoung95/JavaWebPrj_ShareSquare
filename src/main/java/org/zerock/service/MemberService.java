@@ -13,4 +13,6 @@ public interface MemberService {
 	public boolean modifyName(String id, String name);
 	
 	public boolean modifyPassword(String id, String password);
+	
+	public int boardCnt(String id);
 }

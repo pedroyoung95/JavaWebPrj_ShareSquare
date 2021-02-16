@@ -89,7 +89,7 @@
             		</c:if>
             	</a>
             </td>
-            <td><c:out value="${board.writer}"></c:out></td>
+            <td><c:out value="${board.writer_name}"></c:out></td>
             <td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate}"/></td>
             <td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.updateDate}"/></td>
           </tr>

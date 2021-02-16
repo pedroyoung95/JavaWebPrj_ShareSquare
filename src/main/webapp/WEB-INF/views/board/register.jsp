@@ -17,10 +17,11 @@
   src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
-<title>Share ToDo</title>
+<title>Share Square</title>
 </head>
 <body>
-<u:navbar></u:navbar>
+<u:navbar_list></u:navbar_list>
+
 <div class="container-sm">	
 	<div class="row">
 		<div class="col-12 col-lg-6 offset-lg-3">
@@ -29,7 +30,7 @@
 	</div>
 	<div class="row">
 		<div class="col-12 col-lg-6 offset-lg-3">
-			<form method="post">
+			<form method="post" >
 				 <div class="form-group">
 				    <label for="input1">제목</label>
 				    <input name="title" type="text" class="form-control" id="input1" placeholder="제목을 입력하세요.">
@@ -38,8 +39,9 @@
 	    			<textarea name="content" class="form-control" id="textarea1" rows="3"></textarea>
 			     <div class="form-group">
 				    <label for="input2">작성자</label>
-				    <input name="writer" type="text" class="form-control" id="input2" placeholder="이름을 입력하세요.">
+				    <input name="writer_name" type="text" value="${authUser.name }" class="form-control" id="input2" readonly>				    
 			     </div>
+			     <input type="hidden" name="writer_id" value="${authUser.id }">
 			     <button type="submit" class="btn btn-primary">Submit</button>
 			</form>
 		</div>

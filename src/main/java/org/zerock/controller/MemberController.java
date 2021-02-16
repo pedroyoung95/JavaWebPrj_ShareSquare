@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.MemberVO;
+import org.zerock.service.BoardService;
 import org.zerock.service.MemberService;
 
 import lombok.AllArgsConstructor;
@@ -23,10 +25,11 @@ import lombok.extern.log4j.Log4j;
 public class MemberController {
 
 	private MemberService memberService;
+	private BoardService boardService;
 	
 	@GetMapping("/main")
-	public void main() {
-		
+	public void main(HttpServletRequest req) {
+	
 	}
 	
 	@GetMapping("/signin")
@@ -43,7 +46,7 @@ public class MemberController {
 			rttr.addFlashAttribute("message", "Share Square를 시작하세요");
 			return "redirect:/member/main";
 		} else {
-			rttr.addFlashAttribute("signinFail", "빈칸이 있거나 이미 존재하는 아이디 입니다");
+			rttr.addFlashAttribute("signinFail", "빈칸이 있거나 이미 존재하는 아이디 혹은 이름 입니다");
 			return "redirect:/member/signin";
 		}		
 	}
@@ -110,14 +113,26 @@ public class MemberController {
 		HttpSession session = req.getSession(false);
 		log.info("info.............." + session.getAttribute("authUser"));
 		MemberVO member = (MemberVO)session.getAttribute("authUser");
+		
+		int boardCnt = memberService.boardCnt(member.getId());
+		member.setBoardCnt(boardCnt);
+		
 		model.addAttribute("member", memberService.get(member.getId()));
 	}
 	@PostMapping("/info")
-	public String changeName(String id, String name, RedirectAttributes rttr) {
+	public String changeName(String id, String name, HttpServletRequest req, RedirectAttributes rttr) {
 		log.info("changeName................" + memberService.get(id).getName());
 		memberService.modifyName(id, name); 
 		rttr.addFlashAttribute("result", "변경 완료");
 		rttr.addFlashAttribute("message", "이름이 변경되었습니다");
+		
+		HttpSession session = req.getSession(false);
+		session.setAttribute("authUser", memberService.get(id));
+		
+		String writer_id = id;
+		String writer_name = name;
+		boardService.updateWriterName(writer_id, writer_name);
+		
 		return "redirect:/member/info";		
 	}
 	

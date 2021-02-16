@@ -50,9 +50,7 @@
 					<h1 class="display-4">${authUser.name }님,안녕하세요</h1>
 					<p class="lead">목표 달성에 따른 성취감을 느껴보세요</p>
 					<hr class="my-4">
-					<a class="btn btn-primary btn-lg" href="${root}/todo/register"
-						role="button">글쓰기</a> <a class="btn btn-primary btn-lg"
-						href="${root}/board/list" role="button">공유 게시판</a>
+					<a class="btn btn-primary btn-lg" href="${root}/board/list" role="button">공유 게시판</a>
 				</div>
 				<br />
 			</u:isLogin>

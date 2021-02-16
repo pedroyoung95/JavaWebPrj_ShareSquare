@@ -30,7 +30,7 @@ $(document).ready(function() {
 <title>Insert title here</title>
 </head>
 <body>
-<u:navbar></u:navbar>
+<u:navbar_list></u:navbar_list>
 <div class="container-sm">	
 	<div class="row">
 		<div class="col-12 col-lg-6 offset-lg-3">
@@ -39,7 +39,6 @@ $(document).ready(function() {
 	</div>
 	<div class="row">
 		<div class="col-12 col-lg-6 offset-lg-3">
-			<%-- <form action="${pageContext.request.contextPath }/board/register"> --%>
 			<form method="post" action="${root }/board/modify" id="modify-form">
 		    	 <div class="form-group">
 		    	 	<label for="bno">번호</label>
@@ -53,7 +52,7 @@ $(document).ready(function() {
 	    			<textarea name="content" class="form-control" id="textarea1" rows="3"><c:out value="${board.content }"/></textarea>
 			     <div class="form-group">
 				    <label for="input2">작성자</label>
-				    <input name="writer" value='<c:out value="${board.writer }"/>' readonly type="text" class="form-control" id="input2">
+				    <input name="writer" value='<c:out value="${board.writer_name }"/>' readonly type="text" class="form-control" id="input2">
 			     </div>
 			     <input hidden value="${cri.pageNum }" name="pageNum">
 			     <input type="hidden" value="${cri.amount }" name="amount">

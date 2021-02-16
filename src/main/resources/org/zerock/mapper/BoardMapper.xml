@@ -15,7 +15,7 @@
 				content LIKE '%' || #{keyword} || '%'
 			</when>
 			<when test="type == 'W'.toString">
-				writer LIKE '%' || #{keyword} || '%'
+				writer_name LIKE '%' || #{keyword} || '%'
 			</when>
 		</choose>
 	</foreach>
@@ -23,18 +23,18 @@
 </sql>
 
 <select id="getList" resultType="org.zerock.domain.BoardVO">
-<![CDATA[SELECT * FROM tbl_board WHERE bno > 0]]>
+<![CDATA[SELECT * FROM prj_board WHERE bno > 0]]>
 </select>
 
 <select id="getListWithPaging" resultType="org.zerock.domain.BoardVO">
 <![CDATA[
-SELECT bno, title, content, writer, regdate, updatedate, replycnt 
+SELECT bno, title, content, writer_id, writer_name, regdate, updatedate, replycnt 
 FROM
     (
     SELECT ROW_NUMBER() OVER(ORDER BY bno DESC) rn, 
-    bno, title, content, writer, 
+    bno, title, content, writer_id, writer_name, 
     regdate, updatedate, replycnt
-    FROM tbl_board
+    FROM prj_board
 ]]>
 <include refid="criteria"></include>
 <![CDATA[
@@ -44,43 +44,47 @@ FROM
 </select>
 
 <select id="getTotalCount" resultType="int">
-	SELECT count(*) FROM tbl_board
+	SELECT count(*) FROM prj_board
 	<include refid="criteria"></include>
 </select>
 
 <insert id="insert">
-	INSERT INTO tbl_board(bno, title, content, writer)
-	VALUES (seq_board.nextval, #{title}, #{content}, #{writer})
+	INSERT INTO prj_board(bno, title, content, writer_id, writer_name)
+	VALUES (board_seq.nextval, #{title}, #{content}, #{writer_id}, #{writer_name})
 </insert>
 
 <insert id="insertSelectKey">
 	<selectKey keyProperty="bno" order="BEFORE" resultType="long">
-		SELECT seq_board.nextval FROM dual
+		SELECT board_seq.nextval FROM dual
 	</selectKey>
-	INSERT INTO tbl_board(bno, title, content, writer)
-	VALUES(#{bno}, #{title}, #{content}, #{writer})
+	INSERT INTO prj_board(bno, title, content, writer_id, writer_name)
+	VALUES(#{bno}, #{title}, #{content}, #{writer_id}, #{writer_name})
 </insert>
 
 <select id="read" resultType="org.zerock.domain.BoardVO">
-	SELECT * FROM tbl_board WHERE bno = #{bno}
+	SELECT * FROM prj_board WHERE bno = #{bno}
 </select>
 
 <delete id="delete">
-	DELETE FROM tbl_board WHERE bno = #{bno}
+	DELETE FROM prj_board WHERE bno = #{bno}
 </delete>
 
 <update id="update">
-	UPDATE tbl_board 
+	UPDATE prj_board 
 	SET title=#{title},
 		content=#{content},
-		writer=#{writer},
 		updateDate=sysdate
 	WHERE bno=#{bno}
 </update>
 
 <update id="updateReplyCnt">
-	UPDATE tbl_board SET replycnt = replycnt + #{amount}
+	UPDATE prj_board SET replycnt = replycnt + #{amount}
 	WHERE bno = #{bno}
+</update>
+
+<update id="updateWriterName">
+	UPDATE prj_board SET writer_name = #{writer_name}
+	WHERE writer_id = #{writer_id}
 </update>
 
 </mapper>

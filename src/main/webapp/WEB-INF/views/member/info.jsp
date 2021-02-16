@@ -76,7 +76,7 @@
 					<div class="form-group">
 						<label for="boardCnt">게시글 수</label> 
 						<input name="boardCnt" type="text" class="form-control" id="boardCnt"
-							value="" readonly> 	
+							value="${member.boardCnt }" readonly> 	
 					</div>
 					<div class="form-group">
 						<label for="replyCnt">댓글 수</label> 

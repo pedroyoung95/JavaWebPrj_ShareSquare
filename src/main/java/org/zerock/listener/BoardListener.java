@@ -32,8 +32,8 @@ public class BoardListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce)  { 
         ServletContext app = sce.getServletContext(); 
     	String contextRoot = app.getContextPath();
-    	app.setAttribute("root", contextRoot);
-         
+    	
+    	app.setAttribute("root", contextRoot);         
     }
 	
 }

@@ -35,11 +35,6 @@ public class BoardServiceImpl implements BoardService{
 		return mapper.read(bno);
 	}
 	
-//	@Override
-//	public List<BoardVO> getList() {
-//		log.info("getLsit...........");		
-//		return mapper.getList();
-//	}
 	@Override
 	public List<BoardVO> getList(Criteria cri) {
 		log.info("getListWithPaging........");
@@ -58,5 +53,11 @@ public class BoardServiceImpl implements BoardService{
 		log.info("remove...........");
 		int cnt = mapper.delete(bno);
 		return cnt == 1;
+	}
+	
+	@Override
+	public void updateWriterName(String id, String name) {
+		log.info("update Writer Name...........");
+		mapper.updateWriterName(id, name);
 	}
 }

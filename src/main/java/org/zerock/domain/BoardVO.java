@@ -10,7 +10,8 @@ public class BoardVO {
 	private Long bno;
 	private String title;
 	private String content;
-	private String writer;
+	private String writer_id;
+	private String writer_name;
 	private Date regdate;
 	private Date updateDate;	
 	private int replyCnt;

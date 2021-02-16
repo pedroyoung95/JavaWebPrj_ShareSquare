@@ -48,5 +48,8 @@ public class MemberServiceImpl implements MemberService{
 		return modifyCnt == 1;
 	}
 	
-	
+	@Override
+	public int boardCnt(String id) {		
+		return memberMapper.boardCnt(id);
+	}
 }

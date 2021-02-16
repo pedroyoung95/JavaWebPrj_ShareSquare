@@ -1,10 +1,5 @@
 console.log("reply module.......");
 
-//${root} -> jsp파일이 아닌 js라는 소스코드이므로, ${root}라는 텍스트로 사용됨
-//get.jsp에서 가장 위에 있는(가장 먼저 실행되는)<script>에 ${root}값을 
-//appRoot라는 자바스크립트 변수에 할당해놓음
-//이후 자바스크립트 코드에서는 appRoot변수를 사용하면 ${root}값을 사용할 수 있게 됨
-
 var replyService = (function() {
 	function add(reply, callback, error) {
 //reply:입력된 댓글, callback:성공했을 때, error:실패했을 때	

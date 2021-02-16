@@ -115,7 +115,7 @@ $(document).ready(function() {
 <title>게시글 조회</title>
 </head>
 <body>
-<u:navbar></u:navbar>
+<u:navbar_list></u:navbar_list>
 
 <div class="container-sm">	
 	<div class="row">
@@ -125,7 +125,6 @@ $(document).ready(function() {
 	</div>
 	<div class="row">
 		<div class="col-12 col-lg-6 offset-lg-3">
-			<%-- <form action="${pageContext.request.contextPath }/board/register"> --%>
 			<form method="post">
 		    	 <div class="form-group">
 		    	 	<label for="bno">번호</label>
@@ -139,7 +138,7 @@ $(document).ready(function() {
 	    			<textarea name="content" readonly class="form-control" id="textarea1" rows="3"><c:out value="${board.content }"/></textarea>
 			     <div class="form-group">
 				    <label for="input2">작성자</label>
-				    <input name="writer" value='<c:out value="${board.writer }"/>' readonly type="text" class="form-control" id="input2">
+				    <input name="writer" value='<c:out value="${board.writer_name }"/>' readonly type="text" class="form-control" id="input2">
 			     </div>
 			</form>
 			<c:url value="/board/modify" var="modifyLink">
@@ -149,7 +148,9 @@ $(document).ready(function() {
 				<c:param name="type" value="${cri.type }"></c:param>
             	<c:param name="keyword" value="${cri.keyword }"></c:param>
 			</c:url>
-			<a href="${modifyLink }" class="btn btn-secondary">수정</a>
+			<c:if test="${authUser.id eq board.writer_id }">
+				<a href="${modifyLink }" class="btn btn-primary">수정 및 삭제</a>
+			</c:if>
 		</div>
 	</div>
 </div>

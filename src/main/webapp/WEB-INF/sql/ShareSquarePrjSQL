@@ -1,0 +1,31 @@
+---------------------회원 테이블
+CREATE TABLE prj_member(
+	id VARCHAR2(50),
+    password VARCHAR2(200) NOT NULL,
+    name VARCHAR2(200) UNIQUE NOT NULL,
+    signdate DATE DEFAULT SYSDATE
+);
+ALTER TABLE prj_member ADD CONSTRAINT pk_prj_member
+PRIMARY KEY(id);
+SELECT * FROM prj_member;
+SELECT * FROM prj_member WHERE id='abc' AND password=1;
+
+
+---------------------게시글 테이블
+--DROP SEQUENCE board_seq;
+--DROP TABLE prj_board;
+CREATE SEQUENCE board_seq;
+
+CREATE TABLE prj_board (
+    bno NUMBER,
+    title VARCHAR2(200) NOT NULL,
+    content VARCHAR2(2000) NOT NULL,
+    writer_id VARCHAR2(50) NOT NULL,
+    writer_name VARCHAR2(200) NOT NULL,
+    regdate DATE DEFAULT SYSDATE,
+    updatedate DATE DEFAULT SYSDATE,
+    replycnt NUMBER DEFAULT 0
+    );
+
+ALTER TABLE prj_board ADD CONSTRAINT pk_prj_board
+PRIMARY KEY (bno);

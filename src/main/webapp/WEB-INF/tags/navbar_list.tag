@@ -8,14 +8,7 @@
 	    	<span class="navbar-toggler-icon"></span>
 	  	</button>
   		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-    		<ul class="navbar-nav mr-auto">    		
-    			<li class="nav-item">
-	    			<c:url var="registerLink" value="/board/register">      		
-				    	<c:param name="pageNum" value="${cri.pageNum }"></c:param>
-				    	<c:param name="amount" value="${cri.amount }"></c:param>      		
-			      	</c:url>
-		        	<a class="nav-link" href="${registerLink }">게시글 쓰기</a>
-		      	</li>
+    		<ul class="navbar-nav mr-auto"> 
       			<li class="nav-item">
 		      		<c:url var="listLink" value="/board/list">      		
 				      	<c:param name="pageNum" value="${cri.pageNum }"></c:param>
@@ -27,13 +20,20 @@
       			</li>		      	
 		      	<u:isLogin>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${root }/todo/register">To-Do List 만들기</a>
+		    			<c:url var="registerLink" value="/board/register">      		
+					    	<c:param name="pageNum" value="${cri.pageNum }"></c:param>
+					    	<c:param name="amount" value="${cri.amount }"></c:param>      		
+				      	</c:url>
+			        	<a class="nav-link" href="${registerLink }">게시글 쓰기</a>
+		      		</li>
+		      		<li class="nav-item">
+		        		<a class="nav-link" href="${root }/member/info">회원 정보</a>
 		      		</li>
 			      	<li class="nav-item">
 			      		<a class="nav-link" href="${root }/member/logout">로그아웃</a>
 			      	</li>
 			      	<li class="nav-item">
-			      		<a class="nav-link" href="${root }/member/signout">회원탈퇴</a>
+			      		<a class="nav-link" href="${root }/member/signout">회원 탈퇴</a>
 			      	</li>
 		      	</u:isLogin>
 		      	<u:notLogin>

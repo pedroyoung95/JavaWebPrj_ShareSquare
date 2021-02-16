@@ -26,4 +26,6 @@ public interface BoardMapper {
 	public int update(BoardVO board);
 	
 	public void updateReplyCnt(@Param("bno") Long bno, @Param("amount") int amount);
+	
+	public void updateWriterName(@Param("writer_id") String writer_id, @Param("writer_name") String writer_name);
 }
