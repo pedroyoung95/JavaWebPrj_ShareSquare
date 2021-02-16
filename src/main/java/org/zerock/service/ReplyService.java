@@ -6,7 +6,6 @@ import org.zerock.domain.Criteria;
 import org.zerock.domain.ReplyVO;
 
 public interface ReplyService {
-
 	
 	public int register(ReplyVO reply);
 	

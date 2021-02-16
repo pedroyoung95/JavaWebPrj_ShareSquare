@@ -8,10 +8,10 @@ import lombok.Data;
 public class ReplyVO {
 	
 	private Long rno;
-	private Long bno;
-	
+	private Long bno;	
 	private String reply;
-	private String replyer;	
+	private String replyer_id;
+	private String replyer_name;
 	private Date replyDate;
 	private Date updateDate;
 	

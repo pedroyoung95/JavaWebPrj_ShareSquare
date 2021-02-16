@@ -11,6 +11,8 @@ var appRoot = '${root}';
 var bno = ${board.bno};
 </script>
 <meta charset="UTF-8">
+<link href="<c:url value="/resources/css/design.css"/>"
+	rel="stylesheet">
 <link rel="stylesheet"
   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script
@@ -37,7 +39,7 @@ $(document).ready(function() {
 				for(var i = 0; i < list.length; i++) {
 					var replyLI = '<li class="media" data-rno="' 
 						+ list[i].rno + '"><div class="media-body"><h5>' 
-						+ list[i].replyer + '<small class="float-right">'
+						+ list[i].replyer_name + '<small class="float-right">'
 						+ dateString(list[i].replyDate) + '</small></h5>'
 						+ list[i].reply + "<hr></div></li>";
 						
@@ -54,8 +56,8 @@ $(document).ready(function() {
 	
 	$("#reply-submit-button").click(function() {		
 		var reply = $("#reply-input").val();
-		var replyer = $("#replyer-input").val();
-		var data = {bno:bno, reply:reply, replyer:replyer};
+		var replyer_name = $("#replyer-input").val();
+		var data = {bno:bno, reply:reply, replyer_name:replyer_name};
 		var success = function() {
 			location.reload(); 
 			alert("댓글 등록 성공");

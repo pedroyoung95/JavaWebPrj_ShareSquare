@@ -2,14 +2,12 @@ console.log("reply module.......");
 
 var replyService = (function() {
 	function add(reply, callback, error) {
-//reply:입력된 댓글, callback:성공했을 때, error:실패했을 때	
 		console.log("add method");
 		console.log(reply);		
 		$.ajax({
 			type:"post",
 			url: appRoot + "/replies/new",
 			data:JSON.stringify(reply), 
-//JSON.stringify(object):form에 입력된 data를 json타입으로 변환
 			contentType:"application/json;charset=UTF-8",
 			success:function(result, status, xhr) {
 				if(callback) {

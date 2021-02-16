@@ -5,26 +5,26 @@
 <mapper namespace="org.zerock.mapper.ReplyMapper">
 
 	<insert id="insert">
-		INSERT INTO tbl_reply(rno, bno, reply, replyer)
-		VALUES(seq_reply.nextval, #{bno}, #{reply}, #{replyer})
+		INSERT INTO prj_reply(rno, bno, reply, replyer_id, replyer_name)
+		VALUES(reply_seq.nextval, #{bno}, #{reply}, #{replyer_id}, #{replyer_name})
 	</insert>
 	
 	<select id="read" resultType="org.zerock.domain.ReplyVO">
-		SELECT * FROM tbl_reply WHERE rno = #{rno}
+		SELECT * FROM prj_reply WHERE rno = #{rno}
 	</select>
 	
 	<delete id="delete">
-		DELETE FROM tbl_reply WHERE rno = #{rno}
+		DELETE FROM prj_reply WHERE rno = #{rno}
 	</delete>
 	
 	<update id="update">
-		UPDATE tbl_reply SET reply = #{reply}, updateDate = SYSDATE 
+		UPDATE prj_reply SET reply = #{reply}, updateDate = SYSDATE 
 		WHERE rno = #{rno}
 	</update>
 	
 	<select id="getListWithPaging" resultType="org.zerock.domain.ReplyVO">
-		SELECT rno, bno, reply, replyer, replyDate, updateDate
-		FROM tbl_reply
+		SELECT rno, bno, reply, replyer_id, replyer_name, replyDate, updateDate
+		FROM prj_reply
 		WHERE bno = #{bno}
 		ORDER BY rno ASC
 	</select>
