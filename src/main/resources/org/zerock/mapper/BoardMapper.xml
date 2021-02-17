@@ -78,7 +78,8 @@ FROM
 </update>
 
 <update id="updateReplyCnt">
-	UPDATE prj_board SET replycnt = replycnt + #{amount}
+	UPDATE prj_board 
+	SET replycnt = (SELECT COUNT(*) FROM prj_reply WHERE bno=#{bno})
 	WHERE bno = #{bno}
 </update>
 
@@ -86,5 +87,9 @@ FROM
 	UPDATE prj_board SET writer_name = #{writer_name}
 	WHERE writer_id = #{writer_id}
 </update>
+
+<delete id="signoutBoard">
+	DELETE FROM prj_board WHERE writer_id=#{writer_id}
+</delete>
 
 </mapper>

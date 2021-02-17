@@ -20,4 +20,8 @@ public interface BoardService {
 	public int getTotal(Criteria cri);
 	
 	public void updateWriterName(String id, String name);
+	
+	public void signoutBoard(String id);
+	
+	public void updateReplyCnt(Long bno);
 }

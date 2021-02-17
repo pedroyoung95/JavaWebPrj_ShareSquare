@@ -34,9 +34,7 @@ public class ReplyServiceImpl implements ReplyService{
 	}
 	
 	@Override
-	@Transactional
 	public int register(ReplyVO reply) {
-		boardMapper.updateReplyCnt(reply.getBno(), 1);
 		return mapper.insert(reply);
 	}
 	
@@ -46,10 +44,23 @@ public class ReplyServiceImpl implements ReplyService{
 	}
 	
 	@Override
-	@Transactional
 	public int remove(Long rno) {
 		ReplyVO reply = mapper.read(rno);
-		boardMapper.updateReplyCnt(reply.getBno(), -1);
 		return mapper.delete(rno);
+	}
+	
+	@Override
+	public void updateReplyerName(String id, String name) {
+		mapper.updateReplyerName(id, name);
+	}
+	
+	@Override
+	public void signoutReply(String id) {
+		mapper.signoutReply(id);
+	}
+	
+	@Override
+	public void deleteBoard(Long bno) {
+		mapper.deleteBoard(bno);
 	}
 }

@@ -60,4 +60,14 @@ public class BoardServiceImpl implements BoardService{
 		log.info("update Writer Name...........");
 		mapper.updateWriterName(id, name);
 	}
+	
+	@Override
+	public void signoutBoard(String id) {
+		mapper.signoutBoard(id);
+	}
+	
+	@Override
+	public void updateReplyCnt(Long bno) {
+		mapper.updateReplyCnt(bno);
+	}
 }

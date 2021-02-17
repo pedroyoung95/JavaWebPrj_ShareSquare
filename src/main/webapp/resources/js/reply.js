@@ -1,6 +1,7 @@
 console.log("reply module.......");
 
 var replyService = (function() {
+	//댓글 추가
 	function add(reply, callback, error) {
 		console.log("add method");
 		console.log(reply);		
@@ -22,11 +23,10 @@ var replyService = (function() {
 		});
 	}
 	
+	//댓글 목록 불러오기
 	function getList(param, callback, error) {
 		var bno = param.bno;
 		var page = param.page || 1;
-		//javascript에서 false값이 되는 것들 : 0, ""(빈 텍스트), null, undefined
-		//변수 선언 시 ||연산자로 둘 중 false가 아닌 값을 할당하게 함
 		$.getJSON(appRoot + "/replies/pages/" + bno + "/" + page, function(data) {
 			if(callback) {
 				callback(data);
@@ -38,6 +38,7 @@ var replyService = (function() {
 		});
 	}
 	
+	//댓글 삭제
 	function remove(rno, callback, error) {
 		$.ajax({
 			type:"delete",
@@ -55,6 +56,7 @@ var replyService = (function() {
 		});
 	}
 	
+	//댓글 수정
 	function update(reply, callback, error) {
 		$.ajax({
 			type:"put",
@@ -74,6 +76,7 @@ var replyService = (function() {
 		});
 	}
 	
+	//댓글 조회
 	function get(rno, callback, error) {
 		$.get(appRoot + "/replies/" + rno + ".json", function(data) {
 			if(callback) {

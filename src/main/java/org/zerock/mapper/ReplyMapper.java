@@ -17,4 +17,12 @@ public interface ReplyMapper {
 	public int update(ReplyVO reply);
 	
 	public List<ReplyVO> getListWithPaging(@Param("bno") Long bno, @Param("cri") Criteria cri);
+	
+	public void updateReplyerName(
+			@Param("replyer_id") String replyer_id, 
+			@Param("replyer_name") String replyer_name);
+	
+	public void signoutReply(String replyer_id);
+	
+	public void deleteBoard(Long bno);
 }

@@ -16,4 +16,10 @@ public interface ReplyService {
 	public int remove(Long rno);
 	
 	public List<ReplyVO> getList(Criteria cri, Long bno);
+	
+	public void updateReplyerName(String id, String name);
+	
+	public void signoutReply(String id);
+	
+	public void deleteBoard(Long bno);
 }

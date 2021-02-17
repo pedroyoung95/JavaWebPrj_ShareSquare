@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.MemberVO;
 import org.zerock.service.BoardService;
 import org.zerock.service.MemberService;
+import org.zerock.service.ReplyService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -26,6 +27,7 @@ public class MemberController {
 
 	private MemberService memberService;
 	private BoardService boardService;
+	private ReplyService replyService;
 	
 	@GetMapping("/main")
 	public void main(HttpServletRequest req) {
@@ -61,6 +63,10 @@ public class MemberController {
 		if(memberService.signout(id, password)) {				
 			rttr.addFlashAttribute("result", "탈퇴가 완료되었습니다");
 			rttr.addFlashAttribute("message", "이용해주셔서 감사합니다");
+			
+			replyService.signoutReply(id);
+			boardService.signoutBoard(id);			
+			
 			HttpSession session = req.getSession(false);
 			if(session != null) {
 				session.invalidate();
@@ -132,6 +138,10 @@ public class MemberController {
 		String writer_id = id;
 		String writer_name = name;
 		boardService.updateWriterName(writer_id, writer_name);
+		
+		String replyer_id = id;
+		String replyer_name = name;
+		replyService.updateReplyerName(replyer_id, replyer_name);
 		
 		return "redirect:/member/info";		
 	}

@@ -9,6 +9,7 @@
 <script type="text/javascript">
 var appRoot = '${root}';
 var bno = ${board.bno};
+var authUserId = '${authUser.id}';
 </script>
 <meta charset="UTF-8">
 <link href="<c:url value="/resources/css/design.css"/>"
@@ -26,10 +27,12 @@ var bno = ${board.bno};
 
 <script type="text/javascript">
 $(document).ready(function() {
+	//날짜 형식
 	function dateString(date) {
 		var d = new Date(date);
 		return d.toISOString().split("T")[0];
 	}
+	//댓글 목록 가져오는 함수 정의
 	function showList() {
 		replyService.getList(
 			{bno:bno, page:${cri.pageNum }},
@@ -49,15 +52,18 @@ $(document).ready(function() {
 		);
 	}
 	
+	//댓글 작성 모달창 클릭 이벤트 처리
 	$("#new-reply-button").click(function() {
 		console.log("new reply button clicked......");
 		$("#new-reply-modal").modal("show");
 	});
 	
+	//새 댓글 등록 버튼 클릭 이벤트 처리
 	$("#reply-submit-button").click(function() {		
 		var reply = $("#reply-input").val();
-		var replyer_name = $("#replyer-input").val();
-		var data = {bno:bno, reply:reply, replyer_name:replyer_name};
+		var replyer_name = $("#replyer_name-input").val();
+		var replyer_id = $("#replyer_id").val();
+		var data = {bno:bno, reply:reply, replyer_id:replyer_id, replyer_name:replyer_name};
 		var success = function() {
 			location.reload(); 
 			alert("댓글 등록 성공");
@@ -68,24 +74,40 @@ $(document).ready(function() {
 		
 		replyService.add(data, success, error);
 		
+		//모달창 닫기
 		$("#new-reply-modal").modal("hide");
+		//모달창 내의 input에 있는 value 비우기
 		$("#new-reply-modal input").val("");
 	});	
 
+	//reply-ul 클릭 이벤트 처리
 	$("#reply-ul").on("click", "li", function() {
 		console.log($(this).attr("data-rno"));
 
+		//하나의 댓글 읽어오기
 		var rno = $(this).attr("data-rno");
 		var success = function(data) {
 			$("#rno-input2").val(rno);
 			$("#reply-input2").val(data.reply);
-			$("#replyer-input2").val(data.replyer);
+			$("#replyer_name-input2").val(data.replyer_name);
+			$("#replyer_id-input2").val(data.replyer_id);
 			$("#modify-reply-modal").modal("show");
+			
+			var replyerId = $("#replyer_id-input2").val();
+			console.log(replyerId);
+			if(authUserId === replyerId) {
+				$("#modify-reply-modal #reply-modify-button").attr("disabled", false);
+				$("#modify-reply-modal #reply-delete-button").attr("disabled", false);
+			} else {
+				$("#modify-reply-modal #reply-modify-button").attr("disabled", true);
+				$("#modify-reply-modal #reply-delete-button").attr("disabled", true);
+			}
 		};
 		var error = function() {};
 		replyService.get(rno, success, error);		
 	});	
-
+	
+	//댓글 수정 버튼 클릭 이벤트 처리
 	$("#reply-modify-button").click(function() {
 		var rno = $("#rno-input2").val();
 		var reply = $("#reply-input2").val();
@@ -98,7 +120,8 @@ $(document).ready(function() {
 		
 		replyService.update(data, success, error);
 	});
-
+	
+	//댓글 삭제 버튼 클릭 
 	$("#reply-delete-button").click(function() {
 		var rno = $("#rno-input2").val();
 		var success = function() {
@@ -109,7 +132,8 @@ $(document).ready(function() {
 		
 		replyService.remove(rno, success, error);
 	});
-
+	
+	//댓글 목록 가져오기
 	showList();
 });
 </script>
@@ -163,15 +187,19 @@ $(document).ready(function() {
 		<div class="col-12 col-lg-6 offset-lg-3">
 			<div class="card">
 				<div class="card-header d-flex justify-content-between align-items-center">
-					<span>댓글 목록</span>					
+					<span>
+						댓글 목록
+						<c:if test="${board.replyCnt gt 0 }">
+		            		<span class="badge badge-info">
+		            			<c:out value="${board.replyCnt }"></c:out>
+		            		</span>
+	            		</c:if>
+            		</span>										
 					<button class="btn btn-info" id="new-reply-button">댓글 쓰기</button>
 				</div>
 				<div class="card-body">
 					<ul class="list-unstyled" id="reply-ul">
-						<!--댓글 한 개가 li 한 개
-						자바스크립트로 reply가 담긴 list를 for문으로 돌려서
-						<ul>에 append해서 출력
-						-->
+						<!--JavaScript, Ajax로 showlist()-->
 					</ul>
 				</div>
 			</div>
@@ -179,7 +207,7 @@ $(document).ready(function() {
 	</div>
 </div>
 
-<!--새 댓글 form을 modal로 표현-->
+<!--새 댓글 form modal창-->
 <div class="modal fade" id="new-reply-modal">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -197,10 +225,11 @@ $(document).ready(function() {
 					<input type="text" class="form-control" id="reply-input">
 				</div>
 				<div class="form-group">
-					<label for="replyer-input" class="col-form-label">
+					<label for="replyer_name-input" class="col-form-label">
 						작성자
 					</label>
-					<input type="text" class="form-control" id="replyer-input">
+					<input type="text" value="${authUser.name }" class="form-control" id="replyer_name-input" readonly>
+					<input type="hidden" value="${authUser.id }" id="replyer_id">
 				</div>
 			</div>		
 			<div class="modal-footer">
@@ -230,16 +259,17 @@ $(document).ready(function() {
 					<input type="text" class="form-control" id="reply-input2">
 				</div>
 				<div class="form-group">
-					<label for="replyer-input2" class="col-form-label">
+					<label for="replyer_name-input2" class="col-form-label">
 						작성자
 					</label>
-					<input readonly type="text" class="form-control" id="replyer-input2">
+					<input readonly type="text" class="form-control" id="replyer_name-input2">
+					<input readonly hidden type="text" id="replyer_id-input2">
 				</div>
 			</div>		
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-				<button type="button" class="btn btn-primary" id="reply-modify-button">수정</button>
-				<button type="button" class="btn btn-danger" id="reply-delete-button">삭제</button>
+				<button type="button" disabled="" class="btn btn-primary" id="reply-modify-button">수정</button>
+				<button type="button" disabled="" class="btn btn-danger" id="reply-delete-button">삭제</button>
 			</div>	
 		</div>
 	</div>

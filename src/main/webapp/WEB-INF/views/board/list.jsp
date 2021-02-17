@@ -54,7 +54,7 @@
 	});
 </script>
 
-<title>ToDo Share</title>
+<title>Share Square</title>
 </head>
 <body>
 <u:navbar_list></u:navbar_list>
@@ -83,12 +83,7 @@
             		<c:param name="keyword" value="${pageMaker.cri.keyword }"></c:param>
             	</c:url>
             	<a href="${boardLink }">
-            		<c:out value="${board.title}"></c:out>
-            		<c:if test="${board.replyCnt gt 0 }">
-	            		<span class="badge badge-info">
-	            			<c:out value="${board.replyCnt }"></c:out>
-	            		</span>
-            		</c:if>
+            		<c:out value="${board.title}"></c:out>            		
             	</a>
             </td>
             <td><c:out value="${board.writer_name}"></c:out></td>

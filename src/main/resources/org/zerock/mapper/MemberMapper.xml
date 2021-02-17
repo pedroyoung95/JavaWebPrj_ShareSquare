@@ -5,8 +5,8 @@
 <mapper namespace="org.zerock.mapper.MemberMapper">
 
 <insert id="signin">
-	INSERT INTO prj_member(id, password, name)
-	VALUES(#{id}, #{password}, #{name})
+	INSERT INTO prj_member(mno, id, password, name)
+	VALUES(board_seq.nextval, #{id}, #{password}, #{name})
 </insert>
 
 <delete id="signout">
