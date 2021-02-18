@@ -18,7 +18,7 @@
 		      		</c:url>
 	        		<a class="nav-link" href="${listLink }">공유게시판 <span class="sr-only">(current)</span></a>
       			</li>		      	
-		      	<u:isLogin>
+		      	<u:isLogin>		      		
 		      		<li class="nav-item">
 		    			<c:url var="registerLink" value="/board/register">      		
 					    	<c:param name="pageNum" value="${cri.pageNum }"></c:param>

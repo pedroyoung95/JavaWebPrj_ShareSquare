@@ -33,7 +33,11 @@ public class BoardListener implements ServletContextListener {
         ServletContext app = sce.getServletContext(); 
     	String contextRoot = app.getContextPath();
     	
-    	app.setAttribute("root", contextRoot);         
+    	app.setAttribute("root", contextRoot);     
+    	
+    	String staticPath 
+			= "https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnuqqmxs3jjn/b/bucket-20210216-1417/o/";
+		app.setAttribute("staticPath", staticPath);
     }
 	
 }

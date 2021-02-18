@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.PageDTO;
 import org.zerock.service.BoardService;
+import org.zerock.service.FileUpService;
 import org.zerock.service.ReplyService;
 
 import lombok.AllArgsConstructor;
@@ -23,6 +25,7 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class BoardController {
 
+	private FileUpService fileupService;
 	private BoardService service;
 	private ReplyService replyService;
 	
@@ -39,12 +42,37 @@ public class BoardController {
 		
 	}
 	@PostMapping("/register")
-	public String register(BoardVO board, RedirectAttributes rttr) {
+	public String register(BoardVO board, MultipartFile[] files, RedirectAttributes rttr) {
 		log.info("register : " + board);
+		
+		board.setFilename("");
+		
+		if(board.getTitle() == null) {
+			rttr.addFlashAttribute("nullTitle", "제목을 입력해주세요");
+			return "redirect:/board/register";
+		}else if(board.getContent() == null) {
+			rttr.addFlashAttribute("nullContent", "내용을 입력해주세요");
+			return "redirect:/board/register";
+		}
 		service.register(board);
+		
+		if(files != null) {		
+			for(MultipartFile file : files) {
+				try {
+					board.setFilename(board.getBno() + "_" + file.getOriginalFilename());
+					service.modify(board);
+					fileupService.transfer(file, board.getFilename());				
+				} catch (Exception e) {
+					e.printStackTrace();
+					rttr.addFlashAttribute("uploadFail", board.getBno());
+					return "redirect:/board/register";
+				}
+			}			
+		}
 		rttr.addFlashAttribute("result", board.getBno());
 		rttr.addFlashAttribute("message", board.getBno() + "번 글이 등록되었습니다.");
 		return "redirect:/board/list";
+		
 	}
 	
 	@GetMapping({"/get", "/modify"})  
@@ -56,13 +84,38 @@ public class BoardController {
 	}
 
 	@PostMapping("/modify")
-	public String modify(BoardVO board, Criteria cri, RedirectAttributes rttr) {
+	public String modify(BoardVO board, Criteria cri, MultipartFile[] files, RedirectAttributes rttr) {
 		log.info("modify : " + board);
 		
-		if(service.modify(board)) {
-			rttr.addFlashAttribute("result", "success");
-			rttr.addFlashAttribute("message", board.getBno() + "번 글이 수정되었습니다.");
+		if(board.getTitle() == null) {
+			rttr.addFlashAttribute("nullTitle", "제목을 입력해주세요");
+			return "redirect:/board/list";
+		}else if(board.getContent() == null) {
+			rttr.addFlashAttribute("nullContent", "내용을 입력해주세요");
+			return "redirect:/board/list";
 		}
+		
+		if(files == null) {
+			if(service.modify(board)) {
+				rttr.addFlashAttribute("result", "success");
+				rttr.addFlashAttribute("message", board.getBno() + "번 글이 수정되었습니다.");
+			}
+		}else if(files != null) {	
+			for(MultipartFile file : files) {
+				try {
+					board.setFilename(board.getBno() + "_" + file.getOriginalFilename());
+					service.modify(board);
+					fileupService.transfer(file, board.getFilename());		
+					rttr.addFlashAttribute("result", "success");
+					rttr.addFlashAttribute("message", board.getBno() + "번 글이 수정되었습니다.");
+				} catch (Exception e) {
+					e.printStackTrace();
+					rttr.addFlashAttribute("uploadFail", board.getBno());
+					return "redirect:/board/modify";
+				}
+			}			
+		}
+		
 		log.info(cri);
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());

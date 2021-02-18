@@ -83,7 +83,7 @@
 					<div class="form-group">
 						<label for="replyCnt">댓글 수</label> 
 						<input name="replyCnt" type="text" class="form-control" id="replyCnt"
-							value="" readonly> 	
+							value="${member.replyCnt }" readonly> 	
 					</div>
 					<button id="changeNameBtn" type="button" class="btn btn-primary">이름 변경</button>
 					<button hidden id="nameSubmit" type="submit" class="btn btn-primary">변경 완료</button>

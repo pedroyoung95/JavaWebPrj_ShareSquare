@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-  pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="u" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="u" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,16 +12,15 @@ var bno = ${board.bno};
 var authUserId = '${authUser.id}';
 </script>
 <meta charset="UTF-8">
-<link href="<c:url value="/resources/css/design.css"/>"
-	rel="stylesheet">
+<link href="<c:url value="/resources/css/design.css"/>" rel="stylesheet">
 <link rel="stylesheet"
-  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script
-  src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
-  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
-  src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <script type="text/javascript" src="${root }/resources/js/reply.js"></script>
 
@@ -141,139 +140,170 @@ $(document).ready(function() {
 <title>게시글 조회</title>
 </head>
 <body>
-<u:navbar_list></u:navbar_list>
+	<u:navbar_list></u:navbar_list>
 
-<div class="container-sm">	
-	<div class="row">
-		<div class="col-12 col-lg-6 offset-lg-3">
-			<h1>게시물 보기</h1>
+	<div class="container-sm">
+		<div class="row">
+			<div class="col-12 col-lg-6 offset-lg-3">
+				<h1>게시물 보기</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-lg-6 offset-lg-3">
+				<form method="post">
+					<div class="form-group">
+						<label for="bno">번호</label> <input name="bno"
+							value='<c:out value="${board.bno }"/>' readonly type="text"
+							class="form-control" id="bno">
+					</div>
+					<div class="form-group">
+						<label for="input1">제목</label> <input name="title"
+							value='<c:out value="${board.title }"/>' readonly type="text"
+							class="form-control" id="input1">
+					</div>
+					<div class="form-group">
+						<label for="textarea1">내용</label>
+						<textarea name="content" readonly class="form-control"
+							id="textarea1" rows="3"><c:out
+								value="${board.content }" /></textarea>
+					</div>
+					<div class="form-group">
+						<div id="carousel-imgs" class="carousel slide" data-ride="carousel">
+							<ol class="carousel-indicators">
+								<c:forEach items="${board.filename}" varStatus="status">
+									<li data-target="#carouselExampleIndicators" 
+										data-slide-to="${status.index }" ></li>
+							    </c:forEach>
+							</ol>
+							<div class="carousel-inner">
+								<c:forEach items="${board.filename}" var="filename">
+									<div class="carousel-item " data-interval="false">
+									<img alt="" class="d-block w-100" src="${staticPath }${filename }">
+								</div>
+								</c:forEach>
+							</div>
+							<a class="carousel-control-prev" href="#carouselExampleInterval"
+								role="button" data-slide="prev"> <span
+								class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+								class="sr-only">Previous</span>
+							</a> <a class="carousel-control-next" href="#carouselExampleInterval"
+								role="button" data-slide="next"> <span
+								class="carousel-control-next-icon" aria-hidden="true"></span> <span
+								class="sr-only">Next</span>
+							</a>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="input2">작성자</label> <input name="writer"
+							value='<c:out value="${board.writer_name }"/>' readonly
+							type="text" class="form-control" id="input2">
+					</div>
+				</form>
+				<c:url value="/board/modify" var="modifyLink">
+					<c:param name="bno" value="${board.bno }"></c:param>
+					<c:param name="pageNum" value="${cri.pageNum }"></c:param>
+					<c:param name="amount" value="${cri.amount }"></c:param>
+					<c:param name="type" value="${cri.type }"></c:param>
+					<c:param name="keyword" value="${cri.keyword }"></c:param>
+				</c:url>
+				<c:if test="${authUser.id eq board.writer_id }">
+					<a href="${modifyLink }" class="btn btn-primary">수정 및 삭제</a>
+				</c:if>
+			</div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-12 col-lg-6 offset-lg-3">
-			<form method="post">
-		    	 <div class="form-group">
-		    	 	<label for="bno">번호</label>
-		    	 	<input name="bno" value='<c:out value="${board.bno }"/>' readonly type="text" class="form-control" id="bno">
-		    	 </div>
-				 <div class="form-group">
-				    <label for="input1">제목</label>
-				    <input name="title" value='<c:out value="${board.title }"/>' readonly type="text" class="form-control" id="input1">
-			     </div>
-			      	<label for="textarea1">내용</label>
-	    			<textarea name="content" readonly class="form-control" id="textarea1" rows="3"><c:out value="${board.content }"/></textarea>
-			     <div class="form-group">
-				    <label for="input2">작성자</label>
-				    <input name="writer" value='<c:out value="${board.writer_name }"/>' readonly type="text" class="form-control" id="input2">
-			     </div>
-			</form>
-			<c:url value="/board/modify" var="modifyLink">
-				<c:param name="bno" value="${board.bno }"></c:param>
-				<c:param name="pageNum" value="${cri.pageNum }"></c:param>
-				<c:param name="amount" value="${cri.amount }"></c:param>
-				<c:param name="type" value="${cri.type }"></c:param>
-            	<c:param name="keyword" value="${cri.keyword }"></c:param>
-			</c:url>
-			<c:if test="${authUser.id eq board.writer_id }">
-				<a href="${modifyLink }" class="btn btn-primary">수정 및 삭제</a>
-			</c:if>
-		</div>
-	</div>
-</div>
 
-<!--댓글 목록 container-->
-<div class="container-sm mt-3">
-	<div class="row">
-		<div class="col-12 col-lg-6 offset-lg-3">
-			<div class="card">
-				<div class="card-header d-flex justify-content-between align-items-center">
-					<span>
-						댓글 목록
-						<c:if test="${board.replyCnt gt 0 }">
-		            		<span class="badge badge-info">
-		            			<c:out value="${board.replyCnt }"></c:out>
-		            		</span>
-	            		</c:if>
-            		</span>										
-					<button class="btn btn-info" id="new-reply-button">댓글 쓰기</button>
-				</div>
-				<div class="card-body">
-					<ul class="list-unstyled" id="reply-ul">
-						<!--JavaScript, Ajax로 showlist()-->
-					</ul>
+	<!--댓글 목록 container-->
+	<div class="container-sm mt-3">
+		<div class="row">
+			<div class="col-12 col-lg-6 offset-lg-3">
+				<div class="card">
+					<div
+						class="card-header d-flex justify-content-between align-items-center">
+						<span> 댓글 목록 <c:if test="${board.replyCnt gt 0 }">
+								<span class="badge badge-info"> <c:out
+										value="${board.replyCnt }"></c:out>
+								</span>
+							</c:if>
+						</span>
+						<button class="btn btn-info" id="new-reply-button">댓글 쓰기</button>
+					</div>
+					<div class="card-body">
+						<ul class="list-unstyled" id="reply-ul">
+							<!--JavaScript, Ajax로 showlist()-->
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
-<!--새 댓글 form modal창-->
-<div class="modal fade" id="new-reply-modal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">
-					새 댓글
-				</h5>
-				<button type="button" class="close" data-dismiss="modal">
-					<span>&times;</span>
-				</button>
+	<!--새 댓글 form modal창-->
+	<div class="modal fade" id="new-reply-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">새 댓글</h5>
+					<button type="button" class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="reply-input" class="col-form-label">댓글</label> <input
+							type="text" class="form-control" id="reply-input">
+					</div>
+					<div class="form-group">
+						<label for="replyer_name-input" class="col-form-label">
+							작성자 </label> <input type="text" value="${authUser.name }"
+							class="form-control" id="replyer_name-input" readonly> <input
+							type="hidden" value="${authUser.id }" id="replyer_id">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">닫기</button>
+					<button type="button" class="btn btn-primary"
+						id="reply-submit-button">등록</button>
+				</div>
 			</div>
-			<div class="modal-body">
-				<div class="form-group">
-					<label for="reply-input" class="col-form-label">댓글</label>
-					<input type="text" class="form-control" id="reply-input">
-				</div>
-				<div class="form-group">
-					<label for="replyer_name-input" class="col-form-label">
-						작성자
-					</label>
-					<input type="text" value="${authUser.name }" class="form-control" id="replyer_name-input" readonly>
-					<input type="hidden" value="${authUser.id }" id="replyer_id">
-				</div>
-			</div>		
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-				<button type="button" class="btn btn-primary" id="reply-submit-button">등록</button>
-			</div>	
 		</div>
 	</div>
-</div>
 
-<!--댓글 수정/삭제가 이뤄질 modal-->
-<div class="modal fade" id="modify-reply-modal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">
-					수정 / 삭제
-				</h5>
-				<button type="button" class="close" data-dismiss="modal">
-					<span>&times;</span>
-				</button>
+	<!--댓글 수정/삭제가 이뤄질 modal-->
+	<div class="modal fade" id="modify-reply-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">수정 / 삭제</h5>
+					<button type="button" class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<input id="rno-input2" type="hidden">
+					<div class="form-group">
+						<label for="reply-input2" class="col-form-label">댓글</label> <input
+							type="text" class="form-control" id="reply-input2">
+					</div>
+					<div class="form-group">
+						<label for="replyer_name-input2" class="col-form-label">
+							작성자 </label> <input readonly type="text" class="form-control"
+							id="replyer_name-input2"> <input readonly hidden
+							type="text" id="replyer_id-input2">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">닫기</button>
+					<button type="button" disabled="" class="btn btn-primary"
+						id="reply-modify-button">수정</button>
+					<button type="button" disabled="" class="btn btn-danger"
+						id="reply-delete-button">삭제</button>
+				</div>
 			</div>
-			<div class="modal-body">
-				<input id="rno-input2" type="hidden">
-				<div class="form-group">
-					<label for="reply-input2" class="col-form-label">댓글</label>
-					<input type="text" class="form-control" id="reply-input2">
-				</div>
-				<div class="form-group">
-					<label for="replyer_name-input2" class="col-form-label">
-						작성자
-					</label>
-					<input readonly type="text" class="form-control" id="replyer_name-input2">
-					<input readonly hidden type="text" id="replyer_id-input2">
-				</div>
-			</div>		
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-				<button type="button" disabled="" class="btn btn-primary" id="reply-modify-button">수정</button>
-				<button type="button" disabled="" class="btn btn-danger" id="reply-delete-button">삭제</button>
-			</div>	
 		</div>
 	</div>
-</div>
 
 </body>
 </html>

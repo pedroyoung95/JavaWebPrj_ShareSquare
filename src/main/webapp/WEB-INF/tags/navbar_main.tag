@@ -12,7 +12,7 @@
     			<li class="nav-item">
 	        		<a class="nav-link" href="${root }/board/list">공유게시판</a>
       			</li>
-		      	<u:isLogin>		      		
+		      	<u:isLogin>				      		    		
 		      		<li class="nav-item">
 		        		<a class="nav-link" href="${root }/member/info">회원 정보</a>
 		      		</li>

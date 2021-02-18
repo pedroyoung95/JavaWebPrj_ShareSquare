@@ -49,16 +49,16 @@ FROM
 </select>
 
 <insert id="insert">
-	INSERT INTO prj_board(bno, title, content, writer_id, writer_name)
-	VALUES (board_seq.nextval, #{title}, #{content}, #{writer_id}, #{writer_name})
+	INSERT INTO prj_board(bno, title, content, writer_id, writer_name, filename)
+	VALUES (board_seq.nextval, #{title}, #{content}, #{writer_id}, #{writer_name}, #{filename})
 </insert>
 
 <insert id="insertSelectKey">
 	<selectKey keyProperty="bno" order="BEFORE" resultType="long">
 		SELECT board_seq.nextval FROM dual
 	</selectKey>
-	INSERT INTO prj_board(bno, title, content, writer_id, writer_name)
-	VALUES(#{bno}, #{title}, #{content}, #{writer_id}, #{writer_name})
+	INSERT INTO prj_board(bno, title, content, writer_id, writer_name, filename)
+	VALUES(#{bno}, #{title}, #{content}, #{writer_id}, #{writer_name}, #{filename})
 </insert>
 
 <select id="read" resultType="org.zerock.domain.BoardVO">
@@ -73,6 +73,7 @@ FROM
 	UPDATE prj_board 
 	SET title=#{title},
 		content=#{content},
+		filename = #{filename},
 		updateDate=sysdate
 	WHERE bno=#{bno}
 </update>

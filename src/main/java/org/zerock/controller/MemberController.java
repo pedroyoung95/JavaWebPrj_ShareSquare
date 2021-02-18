@@ -30,7 +30,7 @@ public class MemberController {
 	private ReplyService replyService;
 	
 	@GetMapping("/main")
-	public void main(HttpServletRequest req) {
+	public void main() {
 	
 	}
 	
