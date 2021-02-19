@@ -56,7 +56,7 @@ public class BoardController {
 		}
 		service.register(board);
 		
-		if(files != null) {		
+		if(files.length != 0) {
 			for(MultipartFile file : files) {
 				try {
 					board.setFilename(board.getBno() + "_" + file.getOriginalFilename());
@@ -66,9 +66,10 @@ public class BoardController {
 					e.printStackTrace();
 					rttr.addFlashAttribute("uploadFail", board.getBno());
 					return "redirect:/board/register";
-				}
-			}			
+				}		
+			}
 		}
+		
 		rttr.addFlashAttribute("result", board.getBno());
 		rttr.addFlashAttribute("message", board.getBno() + "번 글이 등록되었습니다.");
 		return "redirect:/board/list";
