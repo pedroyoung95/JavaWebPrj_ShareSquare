@@ -38,7 +38,7 @@
 		DELETE FROM prj_reply WHERE replyer_id=#{replyer_id}
 	</delete>
 	
-	<delete id="deleteBoard">
+	<delete id="deleteWithBoard">
 		DELETE FROM prj_reply WHERE bno=#{bno}
 	</delete>
 	

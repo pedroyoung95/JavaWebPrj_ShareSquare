@@ -42,7 +42,7 @@
 	});
 </script>
 
-<title>To-Do Share sign in</title>
+<title>Share Square</title>
 </head>
 <body>
 	<u:navbar_main></u:navbar_main>

@@ -26,6 +26,11 @@ var authUserId = '${authUser.id}';
 
 <script type="text/javascript">
 $(document).ready(function() {
+	//carousel options
+	$('.carousel').carousel({
+	  interval: false
+	});
+	
 	//날짜 형식
 	function dateString(date) {
 		var d = new Date(date);
@@ -167,32 +172,40 @@ $(document).ready(function() {
 							id="textarea1" rows="3"><c:out
 								value="${board.content }" /></textarea>
 					</div>
-					<div class="form-group">
-						<div id="carousel-imgs" class="carousel slide" data-ride="carousel">
-							<ol class="carousel-indicators">
-								<c:forEach items="${board.filename}" varStatus="status">
-									<li data-target="#carouselExampleIndicators" 
-										data-slide-to="${status.index }" ></li>
-							    </c:forEach>
-							</ol>
-							<div class="carousel-inner">
-								<c:forEach items="${board.filename}" var="filename">
-									<div class="carousel-item " data-interval="false">
-									<img alt="" class="d-block w-100" src="${staticPath }${filename }">
-								</div>
-								</c:forEach>
-							</div>
-							<a class="carousel-control-prev" href="#carouselExampleInterval"
-								role="button" data-slide="prev"> <span
-								class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-								class="sr-only">Previous</span>
-							</a> <a class="carousel-control-next" href="#carouselExampleInterval"
-								role="button" data-slide="next"> <span
-								class="carousel-control-next-icon" aria-hidden="true"></span> <span
-								class="sr-only">Next</span>
-							</a>
+					<div id="carousel-imgs" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+							<c:forEach items="${images}" varStatus="status">
+								<li data-target="#carousel-imgs"
+									data-slide-to="${status.index }"></li>
+							</c:forEach>
+						</ol>
+						<div class="carousel-inner">
+							<c:forEach items="${images}" var="image" varStatus="status">
+								<c:if test="${status.first }">
+									<div class="carousel-item active">
+										<img alt="${status.index }" class="d-block w-100"
+											src="${staticPath }${image.filename }" >
+									</div>
+								</c:if>
+								<c:if test="${not status.first }">
+									<div class="carousel-item">
+										<img alt="${status.index }" class="d-block w-100"
+											src="${staticPath }${image.filename }" >
+									</div>
+								</c:if>
+							</c:forEach>
 						</div>
-					</div>
+						<a class="carousel-control-prev" href="#carousel-imgs"
+							role="button" data-slide="prev"> <span
+							class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+							class="sr-only">Previous</span>
+						</a> 
+						<a class="carousel-control-next" href="#carousel-imgs"
+							role="button" data-slide="next"> <span
+							class="carousel-control-next-icon" aria-hidden="true"></span> <span
+							class="sr-only">Next</span>
+						</a>
+					</div>					
 					<div class="form-group">
 						<label for="input2">작성자</label> <input name="writer"
 							value='<c:out value="${board.writer_name }"/>' readonly

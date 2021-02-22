@@ -5,11 +5,14 @@ import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.zerock.domain.FileVO;
+import org.zerock.mapper.FileupMapper;
 
 import com.oracle.bmc.ConfigFileReader;
 import com.oracle.bmc.Region;
@@ -33,6 +36,9 @@ public class FileUpService {
 	
 	@Setter(onMethod_ = @Autowired)
 	private String ociConfigPath;
+	
+	@Setter(onMethod_ = @Autowired)
+	private FileupMapper mapper;
 	
 	public void transfer(MultipartFile file, String fileName) throws Exception {
 		String profile = "DEFAULT";
@@ -79,6 +85,32 @@ public class FileUpService {
 		// fetch the object just uploaded
 		GetObjectResponse getResponse = client.getObject(GetObjectRequest.builder().namespaceName(namespaceName)
 				.bucketName(bucketName).objectName(objectName).build());
+	}
+	
+	public List<FileVO> readFiles(Long bno) {
+		log.info("readFiles..........");
+		return mapper.readFiles(bno);
+	} 
+	
+	public boolean deleteWithBoard(Long bno) {
+		log.info("deleteWithBoard.......");
+		int cnt = mapper.deleteWithBoard(bno);
+		return cnt == 1;
+	}
+	
+	public void register(FileVO file) {
+		log.info("register........" + file);
+		mapper.insert(file);
+	}
+	
+	public boolean modify(FileVO file) {
+		log.info("modify..............");
+		int cnt = mapper.update(file);
+		return cnt == 1;
+	}
+	
+	public void fileDelete(MultipartFile file, String fileName) {
+		
 	}
 	
 	public void write(MultipartFile file) {

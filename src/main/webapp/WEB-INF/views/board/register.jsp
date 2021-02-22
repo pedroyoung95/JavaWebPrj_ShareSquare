@@ -77,6 +77,8 @@
 						<label for="input_imgs">이미지 파일</label> 
 						<input name="files" type="file" multiple="multiple"
 							accept="image/*" class="form-control" id="input_imgs">
+						<span>Shift, Ctrl을 누르면서 여러 파일을 선택할 수 있어요</span>
+						<br>
 						<span>주의! 이미지 파일명을 다르게 설정해서 업로드하세요</span>
 						<br>
 						<span>주의! 이미지 파일명을 영문으로 설정해서 업로드하세요</span>

@@ -24,5 +24,5 @@ public interface ReplyMapper {
 	
 	public void signoutReply(String replyer_id);
 	
-	public void deleteBoard(Long bno);
+	public void deleteWithBoard(Long bno);
 }

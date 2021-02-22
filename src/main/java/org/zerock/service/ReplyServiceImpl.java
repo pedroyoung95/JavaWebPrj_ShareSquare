@@ -61,6 +61,6 @@ public class ReplyServiceImpl implements ReplyService{
 	
 	@Override
 	public void deleteBoard(Long bno) {
-		mapper.deleteBoard(bno);
+		mapper.deleteWithBoard(bno);
 	}
 }

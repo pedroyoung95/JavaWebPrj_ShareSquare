@@ -1,5 +1,7 @@
 package org.zerock.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.FileVO;
 import org.zerock.domain.PageDTO;
 import org.zerock.service.BoardService;
 import org.zerock.service.FileUpService;
@@ -42,10 +45,10 @@ public class BoardController {
 		
 	}
 	@PostMapping("/register")
-	public String register(BoardVO board, MultipartFile[] files, RedirectAttributes rttr) {
+	public String register(BoardVO board, FileVO fileVO, MultipartFile[] files, RedirectAttributes rttr) {
 		log.info("register : " + board);
 		
-		board.setFilename("");
+		fileVO.setFilename("");
 		
 		if(board.getTitle() == null) {
 			rttr.addFlashAttribute("nullTitle", "제목을 입력해주세요");
@@ -54,20 +57,21 @@ public class BoardController {
 			rttr.addFlashAttribute("nullContent", "내용을 입력해주세요");
 			return "redirect:/board/register";
 		}
-		service.register(board);
+		service.register(board);		
 		
-		if(files.length != 0) {
-			for(MultipartFile file : files) {
+		for(MultipartFile file : files) {
+			if(file != null) {
 				try {
-					board.setFilename(board.getBno() + "_" + file.getOriginalFilename());
-					service.modify(board);
-					fileupService.transfer(file, board.getFilename());				
+					fileVO.setFilename(board.getBno() + "_" + file.getOriginalFilename());
+					fileVO.setBno(board.getBno());
+					fileupService.register(fileVO);
+					fileupService.transfer(file, fileVO.getFilename());				
 				} catch (Exception e) {
 					e.printStackTrace();
 					rttr.addFlashAttribute("uploadFail", board.getBno());
 					return "redirect:/board/register";
-				}		
-			}
+				}
+			}					
 		}
 		
 		rttr.addFlashAttribute("result", board.getBno());
@@ -80,12 +84,16 @@ public class BoardController {
 	public void get(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("/get");
 		log.info(cri);
+		
 		service.updateReplyCnt(bno);
+		List<FileVO> images = fileupService.readFiles(bno);
+		
+		model.addAttribute("images", images);
 		model.addAttribute("board", service.get(bno));
 	}
 
 	@PostMapping("/modify")
-	public String modify(BoardVO board, Criteria cri, MultipartFile[] files, RedirectAttributes rttr) {
+	public String modify(BoardVO board, Criteria cri, RedirectAttributes rttr) {
 		log.info("modify : " + board);
 		
 		if(board.getTitle() == null) {
@@ -96,26 +104,10 @@ public class BoardController {
 			return "redirect:/board/list";
 		}
 		
-		if(files == null) {
-			if(service.modify(board)) {
-				rttr.addFlashAttribute("result", "success");
-				rttr.addFlashAttribute("message", board.getBno() + "번 글이 수정되었습니다.");
-			}
-		}else if(files != null) {	
-			for(MultipartFile file : files) {
-				try {
-					board.setFilename(board.getBno() + "_" + file.getOriginalFilename());
-					service.modify(board);
-					fileupService.transfer(file, board.getFilename());		
-					rttr.addFlashAttribute("result", "success");
-					rttr.addFlashAttribute("message", board.getBno() + "번 글이 수정되었습니다.");
-				} catch (Exception e) {
-					e.printStackTrace();
-					rttr.addFlashAttribute("uploadFail", board.getBno());
-					return "redirect:/board/modify";
-				}
-			}			
-		}
+		if(service.modify(board)) {
+			rttr.addFlashAttribute("result", "success");
+			rttr.addFlashAttribute("message", board.getBno() + "번 글이 수정되었습니다.");
+		}		
 		
 		log.info(cri);
 		rttr.addAttribute("pageNum", cri.getPageNum());
@@ -128,8 +120,10 @@ public class BoardController {
 	@PostMapping("/remove")
 	public String remove(@RequestParam("bno") Long bno, Criteria cri, RedirectAttributes rttr) {
 		log.info("remove : " + bno);
-		if(service.remove(bno)) {
+		if(service.get(bno) != null) {
 			replyService.deleteBoard(bno);
+			fileupService.deleteWithBoard(bno);	
+			service.remove(bno);			
 			rttr.addFlashAttribute("result", "success");
 			rttr.addFlashAttribute("message", bno + "번 글이 삭제되었습니다.");
 		}
