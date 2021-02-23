@@ -30,7 +30,6 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	@Transactional
 	public MemberVO get(String id) {
 		MemberVO member = memberMapper.read(id);
 		return member;
@@ -49,7 +48,12 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public int boardCnt(String id) {		
-		return memberMapper.boardCnt(id);
+	public int boardCnt(Long mno) {		
+		return memberMapper.boardCnt(mno);
+	}
+	
+	@Override
+	public int replyCnt(Long mno) {
+		return memberMapper.replyCnt(mno);
 	}
 }

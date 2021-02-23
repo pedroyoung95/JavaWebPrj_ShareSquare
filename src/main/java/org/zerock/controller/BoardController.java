@@ -1,5 +1,6 @@
 package org.zerock.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -60,7 +61,7 @@ public class BoardController {
 		service.register(board);		
 		
 		for(MultipartFile file : files) {
-			if(file != null) {
+			if(!file.isEmpty()) {
 				try {
 					fileVO.setFilename(board.getBno() + "_" + file.getOriginalFilename());
 					fileVO.setBno(board.getBno());
@@ -123,7 +124,9 @@ public class BoardController {
 		if(service.get(bno) != null) {
 			replyService.deleteBoard(bno);
 			fileupService.deleteWithBoard(bno);	
+			
 			service.remove(bno);			
+			
 			rttr.addFlashAttribute("result", "success");
 			rttr.addFlashAttribute("message", bno + "번 글이 삭제되었습니다.");
 		}

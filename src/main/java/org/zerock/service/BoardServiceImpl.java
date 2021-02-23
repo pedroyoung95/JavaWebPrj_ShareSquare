@@ -56,14 +56,14 @@ public class BoardServiceImpl implements BoardService{
 	}
 	
 	@Override
-	public void updateWriterName(String id, String name) {
+	public void updateWriterName(Long mno, String name) {
 		log.info("update Writer Name...........");
-		mapper.updateWriterName(id, name);
+		mapper.updateWriterName(mno, name);
 	}
 	
 	@Override
-	public void signoutBoard(String id) {
-		mapper.signoutBoard(id);
+	public void signoutBoard(Long mno) {
+		mapper.signoutBoard(mno);
 	}
 	
 	@Override

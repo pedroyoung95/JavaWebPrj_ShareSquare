@@ -19,10 +19,6 @@
 		WHERE bno=#{bno}
 	</update>
 	
-	<delete id="delete">
-		DELETE FROM prj_files WHERE fno=#{fno}
-	</delete>
-	
 	<delete id="deleteWithBoard">
 		DELETE FROM prj_files WHERE bno=#{bno}
 	</delete>

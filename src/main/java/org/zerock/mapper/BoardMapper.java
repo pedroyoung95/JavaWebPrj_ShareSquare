@@ -27,7 +27,7 @@ public interface BoardMapper {
 	
 	public void updateReplyCnt(Long bno);
 	
-	public void updateWriterName(@Param("writer_id") String writer_id, @Param("writer_name") String writer_name);
+	public void updateWriterName(@Param("mno") Long mno, @Param("writer_name") String writer_name);
 	
-	public void signoutBoard(String writer_id);
+	public void signoutBoard(Long mno);
 }

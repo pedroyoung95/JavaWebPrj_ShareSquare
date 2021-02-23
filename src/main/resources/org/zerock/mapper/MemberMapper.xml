@@ -26,11 +26,11 @@
 </update>
 
 <select id="boardCnt" resultType="int">
-	SELECT COUNT(*) FROM prj_board WHERE writer_id=#{id}
+	SELECT COUNT(*) FROM prj_board WHERE mno=#{mno}
 </select>
 
 <select id="replyCnt" resultType="int">
-	SELECT COUNT(*) FROM prj_reply WHERE writer_id=#{id}
+	SELECT COUNT(*) FROM prj_reply WHERE mno=#{mno}
 </select>
 
 </mapper>

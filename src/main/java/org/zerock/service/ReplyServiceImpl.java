@@ -50,13 +50,13 @@ public class ReplyServiceImpl implements ReplyService{
 	}
 	
 	@Override
-	public void updateReplyerName(String id, String name) {
-		mapper.updateReplyerName(id, name);
+	public void updateReplyerName(Long mno, String name) {
+		mapper.updateReplyerName(mno, name);
 	}
 	
 	@Override
-	public void signoutReply(String id) {
-		mapper.signoutReply(id);
+	public void signoutReply(Long mno) {
+		mapper.signoutReply(mno);
 	}
 	
 	@Override

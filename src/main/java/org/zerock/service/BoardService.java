@@ -19,9 +19,9 @@ public interface BoardService {
 	
 	public int getTotal(Criteria cri);
 	
-	public void updateWriterName(String id, String name);
+	public void updateWriterName(Long mno, String name);
 	
-	public void signoutBoard(String id);
+	public void signoutBoard(Long mno);
 	
 	public void updateReplyCnt(Long bno);
 }

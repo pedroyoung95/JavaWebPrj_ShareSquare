@@ -11,8 +11,6 @@ public interface FileupMapper {
 	public void insert(FileVO file);
 	
 	public int update(FileVO file);
-
-	public int delete(Long fno);
 	
 	public int deleteWithBoard(Long bno);
 }

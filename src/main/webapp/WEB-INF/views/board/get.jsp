@@ -67,7 +67,8 @@ $(document).ready(function() {
 		var reply = $("#reply-input").val();
 		var replyer_name = $("#replyer_name-input").val();
 		var replyer_id = $("#replyer_id").val();
-		var data = {bno:bno, reply:reply, replyer_id:replyer_id, replyer_name:replyer_name};
+		var mno = $("#mno").val();
+		var data = {bno:bno, mno:mno, reply:reply, replyer_id:replyer_id, replyer_name:replyer_name};
 		var success = function() {
 			location.reload(); 
 			alert("댓글 등록 성공");
@@ -233,9 +234,10 @@ $(document).ready(function() {
 				<div class="card">
 					<div
 						class="card-header d-flex justify-content-between align-items-center">
-						<span> 댓글 목록 <c:if test="${board.replyCnt gt 0 }">
-								<span class="badge badge-info"> <c:out
-										value="${board.replyCnt }"></c:out>
+						<span> 댓글 목록 
+							<c:if test="${board.replyCnt gt 0 }">
+								<span class="badge badge-info"> 
+									<c:out value="${board.replyCnt }"></c:out>
 								</span>
 							</c:if>
 						</span>
@@ -263,14 +265,15 @@ $(document).ready(function() {
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
-						<label for="reply-input" class="col-form-label">댓글</label> <input
-							type="text" class="form-control" id="reply-input">
+						<label for="reply-input" class="col-form-label">댓글</label> 
+						<input type="text" class="form-control" id="reply-input">
 					</div>
 					<div class="form-group">
-						<label for="replyer_name-input" class="col-form-label">
-							작성자 </label> <input type="text" value="${authUser.name }"
-							class="form-control" id="replyer_name-input" readonly> <input
-							type="hidden" value="${authUser.id }" id="replyer_id">
+						<label for="replyer_name-input" class="col-form-label">작성자</label> 
+						<input type="text" value="${authUser.name }"
+							class="form-control" id="replyer_name-input" readonly> 
+						<input type="hidden" value="${authUser.id }" id="replyer_id">
+						<input type="hidden" value="${authUser.mno }" id="mno">
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -296,14 +299,14 @@ $(document).ready(function() {
 				<div class="modal-body">
 					<input id="rno-input2" type="hidden">
 					<div class="form-group">
-						<label for="reply-input2" class="col-form-label">댓글</label> <input
-							type="text" class="form-control" id="reply-input2">
+						<label for="reply-input2" class="col-form-label">댓글</label> 
+						<input type="text" class="form-control" id="reply-input2">
 					</div>
 					<div class="form-group">
-						<label for="replyer_name-input2" class="col-form-label">
-							작성자 </label> <input readonly type="text" class="form-control"
-							id="replyer_name-input2"> <input readonly hidden
-							type="text" id="replyer_id-input2">
+						<label for="replyer_name-input2" class="col-form-label">작성자</label>
+						<input readonly type="text" class="form-control"
+							id="replyer_name-input2"> 
+						<input readonly hidden type="text" id="replyer_id-input2">
 					</div>
 				</div>
 				<div class="modal-footer">

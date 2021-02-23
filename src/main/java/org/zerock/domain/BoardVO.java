@@ -8,6 +8,7 @@ import lombok.Data;
 public class BoardVO {
 
 	private Long bno;
+	private Long mno;
 	private String title;
 	private String content;
 	private String writer_id;

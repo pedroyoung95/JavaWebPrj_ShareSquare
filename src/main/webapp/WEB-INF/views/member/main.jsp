@@ -49,7 +49,7 @@
 				<u:isLogin>
 					<div class="jumbotron">
 						<h1 class="display-4">${authUser.name }님,안녕하세요</h1>
-						<p class="lead">프로그래밍을 즐겨보세요</p>
+						<p class="lead">환영합니다!</p>
 						<hr class="my-4">
 						<a class="btn btn-primary btn-lg" href="${root}/board/list"
 							role="button">공유 게시판</a>
@@ -60,7 +60,7 @@
 				<u:notLogin>
 					<div class="jumbotron">
 						<h1 class="display-4">어서오세요</h1>
-						<p class="lead">프로그래밍에 관심이 있으신가요</p>
+						<p class="lead">사진으로 말해보세요</p>
 						<hr class="my-4">
 						<p>저희와 같이 해요</p>
 						<a class="btn btn-primary btn-lg" href="${root }/member/login"

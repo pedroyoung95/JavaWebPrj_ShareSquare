@@ -2,9 +2,11 @@ package org.zerock.service;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +23,7 @@ import com.oracle.bmc.objectstorage.ObjectStorage;
 import com.oracle.bmc.objectstorage.ObjectStorageClient;
 import com.oracle.bmc.objectstorage.requests.GetObjectRequest;
 import com.oracle.bmc.objectstorage.requests.PutObjectRequest;
+import com.oracle.bmc.objectstorage.responses.DeleteObjectResponse;
 import com.oracle.bmc.objectstorage.responses.GetObjectResponse;
 import com.oracle.bmc.objectstorage.transfer.UploadConfiguration;
 import com.oracle.bmc.objectstorage.transfer.UploadManager;
@@ -109,9 +112,35 @@ public class FileUpService {
 		return cnt == 1;
 	}
 	
-	public void fileDelete(MultipartFile file, String fileName) {
-		
-	}
+	/*
+	 * public void fileDelete(MultipartFile file, String fileName) throws Exception{
+	 * String profile = "DEFAULT";
+	 * 
+	 * String objectName = file.getOriginalFilename();
+	 * 
+	 * if (fileName != null) { objectName = fileName; }
+	 * 
+	 * String contentType = file.getContentType(); InputStream is =
+	 * file.getInputStream(); long size = file.getSize();
+	 * 
+	 * Map<String, String> metadata = null; String contentEncoding = null; String
+	 * contentLanguage = null;
+	 * 
+	 * final ConfigFileReader.ConfigFile configFile =
+	 * ConfigFileReader.parse(ociConfigPath);
+	 * 
+	 * final ConfigFileAuthenticationDetailsProvider provider = new
+	 * ConfigFileAuthenticationDetailsProvider( configFile);
+	 * 
+	 * String namespaceName = configFile.get("namespace_name"); String bucketName =
+	 * configFile.get("bucket_name");
+	 * 
+	 * ObjectStorage client = new ObjectStorageClient(provider);
+	 * client.setRegion(Region.AP_SEOUL_1);
+	 * 
+	 * DeleteObjectResponse deleteObjectResponse =
+	 * DeleteObjectResponse.builder().build(); }
+	 */
 	
 	public void write(MultipartFile file) {
 		write(file, null);

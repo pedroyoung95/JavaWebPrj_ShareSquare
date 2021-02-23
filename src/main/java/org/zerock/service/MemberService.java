@@ -14,5 +14,7 @@ public interface MemberService {
 	
 	public boolean modifyPassword(String id, String password);
 	
-	public int boardCnt(String id);
+	public int boardCnt(Long mno);
+	
+	public int replyCnt(Long mno);
 }

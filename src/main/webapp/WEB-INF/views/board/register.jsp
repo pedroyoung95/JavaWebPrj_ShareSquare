@@ -61,7 +61,7 @@
 		<div class="row">
 			<div class="col-12 col-lg-6 offset-lg-3">
 				<form method="post" enctype="multipart/form-data">
-					<div class="form-group">
+					<div class="form-group">						
 						<label for="input1">제목</label> 
 						<input name="title" type="text"
 							class="form-control" id="input1" placeholder="제목을 입력하세요.">
@@ -92,6 +92,7 @@
 							type="text" value="${authUser.name }" class="form-control"
 							id="input2" readonly>
 					</div>
+					<input type="hidden" name="mno" value="${authUser.mno }">
 					<input type="hidden" name="writer_id" value="${authUser.id }">
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</form>

@@ -40,7 +40,7 @@ public class MemberController {
 	}
 	@PostMapping("/signin")
 	public String signin(MemberVO member, RedirectAttributes rttr) {
-		log.info("signin........" + member);
+		log.info("signin........");
 		MemberVO existMember = memberService.get(member.getId());
 		if(existMember == null) {
 			memberService.signin(member);
@@ -59,13 +59,15 @@ public class MemberController {
 	}
 	@PostMapping("/signout")
 	public String signout(String id, String password, HttpServletRequest req, RedirectAttributes rttr) {
-		log.info("signout.........." + id);
-		if(memberService.signout(id, password)) {				
-			rttr.addFlashAttribute("result", "탈퇴가 완료되었습니다");
-			rttr.addFlashAttribute("message", "이용해주셔서 감사합니다");
+		log.info("signout..........");
+		MemberVO member = memberService.get(id);
+		if(member != null) {			
+			replyService.signoutReply(member.getMno());
+			boardService.signoutBoard(member.getMno());
 			
-			replyService.signoutReply(id);
-			boardService.signoutBoard(id);			
+			memberService.signout(id, password);
+			rttr.addFlashAttribute("result", "탈퇴가 완료되었습니다");
+			rttr.addFlashAttribute("message", "이용해주셔서 감사합니다");						
 			
 			HttpSession session = req.getSession(false);
 			if(session != null) {
@@ -85,7 +87,7 @@ public class MemberController {
 	@PostMapping("/login")
 	public String login(String id, String password, HttpSession session, RedirectAttributes rttr) {
 		MemberVO member = memberService.get(id);
-		log.info("login............." + member);
+		log.info("login.............");
 		if(member != null) {
 			if(member.getPassword().equals(password)) {
 				session.setAttribute("authUser", member);
@@ -105,7 +107,7 @@ public class MemberController {
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest req, RedirectAttributes rttr) {
 		HttpSession session = req.getSession(false);		
-		log.info("logout.............." + session.getAttribute("authUser"));
+		log.info("logout..............");
 		if(session != null) {
 			session.invalidate();
 		}
@@ -117,17 +119,19 @@ public class MemberController {
 	@GetMapping("/info")
 	public void info(HttpServletRequest req, Model model) {
 		HttpSession session = req.getSession(false);
-		log.info("info.............." + session.getAttribute("authUser"));
+		log.info("info..............");
 		MemberVO member = (MemberVO)session.getAttribute("authUser");
 		
-		int boardCnt = memberService.boardCnt(member.getId());
+		int boardCnt = memberService.boardCnt(member.getMno());
+		int replyCnt = memberService.replyCnt(member.getMno());
+		member.setReplyCnt(replyCnt);
 		member.setBoardCnt(boardCnt);
 		
-		model.addAttribute("member", memberService.get(member.getId()));
+		model.addAttribute("member", member);
 	}
 	@PostMapping("/info")
 	public String changeName(String id, String name, HttpServletRequest req, RedirectAttributes rttr) {
-		log.info("changeName................" + memberService.get(id).getName());
+		log.info("changeName................");
 		memberService.modifyName(id, name); 
 		rttr.addFlashAttribute("result", "변경 완료");
 		rttr.addFlashAttribute("message", "이름이 변경되었습니다");
@@ -135,13 +139,12 @@ public class MemberController {
 		HttpSession session = req.getSession(false);
 		session.setAttribute("authUser", memberService.get(id));
 		
-		String writer_id = id;
+		Long mno = memberService.get(id).getMno();
 		String writer_name = name;
-		boardService.updateWriterName(writer_id, writer_name);
+		boardService.updateWriterName(mno, writer_name);
 		
-		String replyer_id = id;
 		String replyer_name = name;
-		replyService.updateReplyerName(replyer_id, replyer_name);
+		replyService.updateReplyerName(mno, replyer_name);
 		
 		return "redirect:/member/info";		
 	}
@@ -152,7 +155,7 @@ public class MemberController {
 	}
 	@PostMapping("/changePw")
 	public String changePassword(String id, String password, RedirectAttributes rttr) {
-		log.info("changePassword................" + memberService.get(id).getPassword());
+		log.info("changePassword................");
 		if(memberService.modifyPassword(id, password)) {
 			rttr.addFlashAttribute("result", "암호 변경 완료");
 			rttr.addFlashAttribute("message", "다음부터 새 암호로 로그인하세요");

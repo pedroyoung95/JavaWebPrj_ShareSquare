@@ -15,7 +15,7 @@ public interface MemberMapper {
 	
 	public int changePassword(@Param("id") String id, @Param("password") String password);
 	
-	public int boardCnt(String id);
+	public int boardCnt(Long mno);
 	
-	public int replyCnt(String id);
+	public int replyCnt(Long mno);
 }

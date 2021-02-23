@@ -17,9 +17,9 @@ public interface ReplyService {
 	
 	public List<ReplyVO> getList(Criteria cri, Long bno);
 	
-	public void updateReplyerName(String id, String name);
+	public void updateReplyerName(Long mno, String name);
 	
-	public void signoutReply(String id);
+	public void signoutReply(Long mno);
 	
 	public void deleteBoard(Long bno);
 }
