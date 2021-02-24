@@ -65,8 +65,8 @@ public class BoardController {
 				try {
 					fileVO.setFilename(board.getBno() + "_" + file.getOriginalFilename());
 					fileVO.setBno(board.getBno());
-					fileupService.register(fileVO);
-					fileupService.transfer(file, fileVO.getFilename());				
+					fileupService.transfer(file, fileVO.getFilename());
+					fileupService.register(fileVO);									
 				} catch (Exception e) {
 					e.printStackTrace();
 					rttr.addFlashAttribute("uploadFail", board.getBno());
@@ -75,7 +75,6 @@ public class BoardController {
 			}					
 		}
 		
-		rttr.addFlashAttribute("result", board.getBno());
 		rttr.addFlashAttribute("message", board.getBno() + "번 글이 등록되었습니다.");
 		return "redirect:/board/list";
 		
@@ -98,15 +97,14 @@ public class BoardController {
 		log.info("modify : " + board);
 		
 		if(board.getTitle() == null) {
-			rttr.addFlashAttribute("nullTitle", "제목을 입력해주세요");
+			rttr.addFlashAttribute("message", "제목을 입력해주세요");
 			return "redirect:/board/list";
 		}else if(board.getContent() == null) {
-			rttr.addFlashAttribute("nullContent", "내용을 입력해주세요");
+			rttr.addFlashAttribute("message", "내용을 입력해주세요");
 			return "redirect:/board/list";
 		}
 		
 		if(service.modify(board)) {
-			rttr.addFlashAttribute("result", "success");
 			rttr.addFlashAttribute("message", board.getBno() + "번 글이 수정되었습니다.");
 		}		
 		
@@ -121,14 +119,24 @@ public class BoardController {
 	@PostMapping("/remove")
 	public String remove(@RequestParam("bno") Long bno, Criteria cri, RedirectAttributes rttr) {
 		log.info("remove : " + bno);
-		if(service.get(bno) != null) {
+		if(service.get(bno) != null) {			
+			List<FileVO> files = fileupService.readFiles(bno);
+			for(FileVO file : files) {
+				if(!files.isEmpty()) {
+					try {
+						fileupService.fileDelete(file.getFilename());
+						fileupService.deleteWithBoard(bno);	
+					} catch (Exception e) {
+						e.printStackTrace();
+						return "redirect:/board/list";
+					}
+				}
+			}				
 			replyService.deleteBoard(bno);
-			fileupService.deleteWithBoard(bno);	
-			
-			service.remove(bno);			
-			
-			rttr.addFlashAttribute("result", "success");
-			rttr.addFlashAttribute("message", bno + "번 글이 삭제되었습니다.");
+			if(service.remove(bno)) {
+				rttr.addFlashAttribute("result", "success");
+				rttr.addFlashAttribute("message", bno + "번 글이 삭제되었습니다.");
+			}	
 		}
 		log.info(cri);
 		rttr.addAttribute("pageNum", cri.getPageNum());

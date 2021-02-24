@@ -50,7 +50,7 @@
 <title>Share Square</title>
 </head>
 <body>
-	<u:navbar_list></u:navbar_list>
+	<u:navbar_board></u:navbar_board>
 
 	<div class="container-sm">
 		<div class="row">

@@ -21,6 +21,7 @@ import com.oracle.bmc.Region;
 import com.oracle.bmc.auth.ConfigFileAuthenticationDetailsProvider;
 import com.oracle.bmc.objectstorage.ObjectStorage;
 import com.oracle.bmc.objectstorage.ObjectStorageClient;
+import com.oracle.bmc.objectstorage.requests.DeleteObjectRequest;
 import com.oracle.bmc.objectstorage.requests.GetObjectRequest;
 import com.oracle.bmc.objectstorage.requests.PutObjectRequest;
 import com.oracle.bmc.objectstorage.responses.DeleteObjectResponse;
@@ -112,35 +113,38 @@ public class FileUpService {
 		return cnt == 1;
 	}
 	
-	/*
-	 * public void fileDelete(MultipartFile file, String fileName) throws Exception{
-	 * String profile = "DEFAULT";
-	 * 
-	 * String objectName = file.getOriginalFilename();
-	 * 
-	 * if (fileName != null) { objectName = fileName; }
-	 * 
-	 * String contentType = file.getContentType(); InputStream is =
-	 * file.getInputStream(); long size = file.getSize();
-	 * 
-	 * Map<String, String> metadata = null; String contentEncoding = null; String
-	 * contentLanguage = null;
-	 * 
-	 * final ConfigFileReader.ConfigFile configFile =
-	 * ConfigFileReader.parse(ociConfigPath);
-	 * 
-	 * final ConfigFileAuthenticationDetailsProvider provider = new
-	 * ConfigFileAuthenticationDetailsProvider( configFile);
-	 * 
-	 * String namespaceName = configFile.get("namespace_name"); String bucketName =
-	 * configFile.get("bucket_name");
-	 * 
-	 * ObjectStorage client = new ObjectStorageClient(provider);
-	 * client.setRegion(Region.AP_SEOUL_1);
-	 * 
-	 * DeleteObjectResponse deleteObjectResponse =
-	 * DeleteObjectResponse.builder().build(); }
-	 */
+	
+	public void fileDelete(String fileName) throws Exception {
+		String profile = "DEFAULT";
+
+		String objectName = "";
+
+		if (fileName != null) {
+			objectName = fileName;
+		}else {
+			throw new Exception();
+		}
+
+		final ConfigFileReader.ConfigFile configFile = ConfigFileReader.parse(ociConfigPath);
+
+		final ConfigFileAuthenticationDetailsProvider provider = new ConfigFileAuthenticationDetailsProvider(
+				configFile);
+
+		String namespaceName = configFile.get("namespace_name");
+		String bucketName = configFile.get("bucket_name");
+
+		ObjectStorage client = new ObjectStorageClient(provider);
+		client.setRegion(Region.AP_SEOUL_1);
+		
+		//create a request and dependent object
+		DeleteObjectRequest request = DeleteObjectRequest.builder()
+				.bucketName(bucketName).namespaceName(namespaceName)
+				.objectName(objectName).build();
+		
+		//send request to the Client
+		DeleteObjectResponse deleteResponse = client.deleteObject(request);
+	}
+	 
 	
 	public void write(MultipartFile file) {
 		write(file, null);

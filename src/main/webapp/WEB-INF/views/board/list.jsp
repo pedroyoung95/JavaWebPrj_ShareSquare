@@ -21,7 +21,6 @@
 
 <script>
 	$(document).ready(function() {
-		var result = '${result}';
 		var message = '${message}';
 		
 		checkModal2(message);
@@ -33,16 +32,6 @@
 				$("#myModal .modal-body p").html(message);
 				$("#myModal").modal("show");
 			}
-		}
-		
-		function checkModal(result) {			
-			if(result === '' || history.state) {
-				return;
-			}
-			if(parseInt(result) > 0) {
-				$("#myModal .modal-body p").html("게시글 " + parseInt(result) + " 번이 등록되었습니다.");
-			}
-			$("#myModal").modal("show");
 		}
 		
 		var actionForm = $("#actionForm");
@@ -129,8 +118,7 @@
 		  			<c:param value="${pageMaker.startPage - 1 }" name="pageNum"></c:param>
 		  			<c:param value="${pageMaker.cri.amount }" name="amount"></c:param>		
 		  		</c:url>
-		  		<li class="page-item">
-		  			<%-- <a class="page-link" href="${prevLink }">Previous</a> --%>
+		  		<li class="page-item">		  			
 		  			<a class="page-link" href="${pageMaker.startPage - 1 }">Previous</a>
 		  		</li>
 		  	</c:if>	
@@ -140,8 +128,7 @@
 		  			<c:param name="pageNum" value="${num }"></c:param>
 		  			<c:param name="amount" value="${pageMaker.cri.amount }"></c:param>
 		  		</c:url>
-		  		<li class="page-item ${pageMaker.cri.pageNum eq num ? 'active' : '' }">
-		  			<%-- <a class="page-link" href="${pageLink }">${num }</a> --%>
+		  		<li class="page-item ${pageMaker.cri.pageNum eq num ? 'active' : '' }">		  			
 		  			<a class="page-link" href="${num}">${num }</a>
 		  		</li>
 		  	</c:forEach>	
@@ -152,7 +139,6 @@
 		    		<c:param name="amount" value="${pageMaker.cri.amount }"></c:param>		    		
 		    	</c:url>
 		    	<li class="page-item">
-		    		<%-- <a class="page-link" href="${nextLink }">Next</a> --%>
 		    		<a class="page-link" href="${pageMaker.endPage + 1 }">Next</a>
 		    	</li>
 		    </c:if>		    
