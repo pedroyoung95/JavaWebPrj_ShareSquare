@@ -23,5 +23,5 @@ public interface BoardService {
 	
 	public void signoutBoard(Long mno);
 	
-	public void updateReplyCnt(Long bno);
+	public int updateReplyCnt(Long bno);
 }

@@ -67,7 +67,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 	
 	@Override
-	public void updateReplyCnt(Long bno) {
-		mapper.updateReplyCnt(bno);
+	public int updateReplyCnt(Long bno) {
+		return mapper.updateReplyCnt(bno);
 	}
 }

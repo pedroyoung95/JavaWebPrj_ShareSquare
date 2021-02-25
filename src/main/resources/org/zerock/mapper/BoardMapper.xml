@@ -77,11 +77,9 @@ FROM
 	WHERE bno=#{bno}
 </update>
 
-<update id="updateReplyCnt">
-	UPDATE prj_board 
-	SET replycnt = (SELECT COUNT(*) FROM prj_reply WHERE bno=#{bno})
-	WHERE bno = #{bno}
-</update>
+<select id="updateReplyCnt" resultType="int">
+	SELECT COUNT(*) FROM prj_reply WHERE bno=#{bno}
+</select>
 
 <update id="updateWriterName">
 	UPDATE prj_board SET writer_name = #{writer_name}

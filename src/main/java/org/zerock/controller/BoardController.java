@@ -36,7 +36,12 @@ public class BoardController {
 	@GetMapping("/list")
 	public void list(@ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("list : " + cri);
-		model.addAttribute("list", service.getList(cri));
+		
+		List<BoardVO> boardList = service.getList(cri);
+		for(BoardVO board : boardList) {
+			board.setReplyCnt(service.updateReplyCnt(board.getBno())); 
+		}
+		model.addAttribute("list", boardList);
 		int total = service.getTotal(cri);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
@@ -85,11 +90,13 @@ public class BoardController {
 		log.info("/get");
 		log.info(cri);
 		
-		service.updateReplyCnt(bno);
+		BoardVO board = service.get(bno);
+		board.setReplyCnt(service.updateReplyCnt(bno));
+		
 		List<FileVO> images = fileupService.readFiles(bno);
 		
 		model.addAttribute("images", images);
-		model.addAttribute("board", service.get(bno));
+		model.addAttribute("board", board);
 	}
 
 	@PostMapping("/modify")
