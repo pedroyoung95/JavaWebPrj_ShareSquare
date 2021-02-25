@@ -74,15 +74,14 @@ public class BoardController {
 					fileupService.register(fileVO);									
 				} catch (Exception e) {
 					e.printStackTrace();
-					rttr.addFlashAttribute("uploadFail", board.getBno());
+					rttr.addFlashAttribute("uploadFail", "파일 업로드에 실패했습니다");
 					return "redirect:/board/register";
 				}
 			}					
 		}
 		
 		rttr.addFlashAttribute("message", board.getBno() + "번 글이 등록되었습니다.");
-		return "redirect:/board/list";
-		
+		return "redirect:/board/list";		
 	}
 	
 	@GetMapping({"/get", "/modify"})  
