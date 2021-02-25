@@ -9,8 +9,11 @@
 	</select>
 	
 	<insert id="insert">
+		<selectKey keyProperty="fno" order="BEFORE" resultType="long">
+			SELECT files_seq.nextval FROM dual
+		</selectKey>
 		INSERT INTO prj_files(fno, bno, filename)
-		VALUES(files_seq.nextval, #{bno}, #{filename}) 
+		VALUES(#{fno}, #{bno}, #{filename}) 
 	</insert>
 	
 	<update id="update">

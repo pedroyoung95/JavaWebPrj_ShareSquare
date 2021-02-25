@@ -23,6 +23,12 @@
 	var sel_files = [];
 	
 	$(document).ready(function() {
+		//carousel options
+		$('.carousel').carousel({
+		  interval: false
+		});
+		
+		//글 삭제 이벤트 실행
 		$("#remove-btn").click(function(e) {
 			e.preventDefault();
 			$("#modify-form").attr("action", "${root}/board/remove");
@@ -82,9 +88,8 @@
 					</div>
 					<div class="form-group">
 						<label for="textarea1">내용</label>
-						<textarea name="content" class="form-control" id="textarea1" rows="3">
-							<c:out value="${board.content }" />
-						</textarea>
+						<textarea name="content" class="form-control" 
+							id="textarea1" rows="3"><c:out value="${board.content }" /></textarea>
 						<small id="nullContent" class="form-text text-muted">${nullContent }</small>
 					</div>						
 					<div id="carousel-imgs" class="carousel slide" data-ride="carousel">

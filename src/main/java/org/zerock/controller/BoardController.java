@@ -54,13 +54,18 @@ public class BoardController {
 	public String register(BoardVO board, FileVO fileVO, MultipartFile[] files, RedirectAttributes rttr) {
 		log.info("register : " + board);
 		
-		if(board.getTitle() == null) {
+		String title = board.getTitle().trim();
+		String content = board.getContent().trim();
+		
+		if(title == null || title.isEmpty()) {
 			rttr.addFlashAttribute("nullTitle", "제목을 입력해주세요");
 			return "redirect:/board/register";
-		}else if(board.getContent() == null) {
+		}else if(content == null || content.isEmpty()) {
 			rttr.addFlashAttribute("nullContent", "내용을 입력해주세요");
 			return "redirect:/board/register";
 		}				
+		
+		service.register(board);
 		
 		for(MultipartFile file : files) {
 			if(!file.isEmpty()) {
@@ -76,8 +81,7 @@ public class BoardController {
 					return "redirect:/board/register";
 				}
 			}					
-		}
-		service.register(board);
+		}		
 		
 		rttr.addFlashAttribute("message", board.getBno() + "번 글이 등록되었습니다.");
 		return "redirect:/board/list";		
@@ -101,10 +105,13 @@ public class BoardController {
 	public String modify(BoardVO board, Criteria cri, RedirectAttributes rttr) {
 		log.info("modify : " + board);
 		
-		if(board.getTitle() == null) {
+		String title = board.getTitle().trim();
+		String content = board.getContent().trim();
+		
+		if(title == null || title.isEmpty()) {
 			rttr.addFlashAttribute("message", "제목을 입력해주세요");
 			return "redirect:/board/list";
-		}else if(board.getContent() == null) {
+		}else if(content == null || content.isEmpty()) {
 			rttr.addFlashAttribute("message", "내용을 입력해주세요");
 			return "redirect:/board/list";
 		}
