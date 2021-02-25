@@ -54,16 +54,13 @@ public class BoardController {
 	public String register(BoardVO board, FileVO fileVO, MultipartFile[] files, RedirectAttributes rttr) {
 		log.info("register : " + board);
 		
-		fileVO.setFilename("");
-		
 		if(board.getTitle() == null) {
 			rttr.addFlashAttribute("nullTitle", "제목을 입력해주세요");
 			return "redirect:/board/register";
 		}else if(board.getContent() == null) {
 			rttr.addFlashAttribute("nullContent", "내용을 입력해주세요");
 			return "redirect:/board/register";
-		}
-		service.register(board);		
+		}				
 		
 		for(MultipartFile file : files) {
 			if(!file.isEmpty()) {
@@ -72,13 +69,15 @@ public class BoardController {
 					fileVO.setBno(board.getBno());
 					fileupService.transfer(file, fileVO.getFilename());
 					fileupService.register(fileVO);									
-				} catch (Exception e) {
+				} catch (Exception e) {					
+					log.info(e);
 					e.printStackTrace();
 					rttr.addFlashAttribute("uploadFail", "파일 업로드에 실패했습니다");
 					return "redirect:/board/register";
 				}
 			}					
 		}
+		service.register(board);
 		
 		rttr.addFlashAttribute("message", board.getBno() + "번 글이 등록되었습니다.");
 		return "redirect:/board/list";		
@@ -134,13 +133,13 @@ public class BoardController {
 						fileupService.deleteWithBoard(bno);	
 					} catch (Exception e) {
 						e.printStackTrace();
+						rttr.addFlashAttribute("message", "이미지 파일이 삭제되지 않았습니다");
 						return "redirect:/board/list";
 					}
 				}
 			}				
 			replyService.deleteBoard(bno);
 			if(service.remove(bno)) {
-				rttr.addFlashAttribute("result", "success");
 				rttr.addFlashAttribute("message", bno + "번 글이 삭제되었습니다.");
 			}	
 		}

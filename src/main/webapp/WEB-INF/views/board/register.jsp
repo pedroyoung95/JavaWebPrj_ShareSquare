@@ -82,7 +82,7 @@
 						<span>주의! 이미지 파일명을 다르게 설정해서 업로드하세요</span>
 						<br>
 						<span>주의! 이미지 파일명을 영문으로 설정해서 업로드하세요</span>
-						<small id="nullTitle" class="form-text text-muted">${uploadFail }</small>
+						<small id="uploadFail" class="form-text text-muted">${uploadFail }</small>
 						<div class="imgs_wrap">
 							<img id="img"/>
 						</div>						
