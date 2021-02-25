@@ -3,7 +3,7 @@
 <%@ taglib prefix="u" tagdir="/WEB-INF/tags" %>
 <div class="container-sm mb-3">
 	<nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-		<a class="navbar-brand" href="${root }/member/main"><i class="fas fa-home"></i></a>
+		<a class="navbar-brand" href="${root }/member/main"><i class="fa fa-home fa-3x"></i></a>
 	  	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    	<span class="navbar-toggler-icon"></span>
 	  	</button>
@@ -11,18 +11,18 @@
     		<ul class="navbar-nav mr-auto">
     			<li class="nav-item">
 	        		<a class="nav-link" href="${root }/board/list">
-	        			<i class="far fa-compass"></i>
+	        			<i class="fa fa-compass fa-3x"></i>
 	        		</a>
       			</li>
 		      	<u:isLogin>				      		    		
 		      		<li class="nav-item">
 		        		<a class="nav-link" href="${root }/member/info">
-		        			<i class="fas fa-info-circle"></i>	
+		        			<i class="fa fa-info-circle fa-3x"></i>	
 		        		</a>
 		      		</li>			      	
 			      	<li class="nav-item">
 			      		<a class="nav-link" href="${root }/member/signout">
-			      			<i class="fas fa-sign-out-alt"></i>
+			      			<i class="fa fa-sign-out fa-3x"></i>
 			      		</a>
 			      	</li>
 			      	<li class="nav-item">
@@ -32,7 +32,7 @@
 		      	<u:notLogin>		      		
 		      		<li class="nav-item">
 		      			<a class="nav-link" href="${root }/member/signin">
-		      				<i class="fas fa-sign-in-alt"></i>
+		      				<i class="fa fa-sign-in fa-3x"></i>
 		      			</a>
 		      		</li>
 		      		<li class="nav-item">
