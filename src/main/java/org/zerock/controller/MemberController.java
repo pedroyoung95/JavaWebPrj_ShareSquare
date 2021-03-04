@@ -2,11 +2,14 @@ package org.zerock.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,12 +38,21 @@ public class MemberController {
 	}
 	
 	@GetMapping("/signin")
-	public void signin() {
-		
-	}
+    public String memberSign(Model model) {
+        model.addAttribute("memberVO", new MemberVO());
+
+        return "/member/signin";
+    }
+
 	@PostMapping("/signin")
-	public String signin(MemberVO member, RedirectAttributes rttr) {
+	public String signin(@ModelAttribute("memberVO") @Valid MemberVO member, 
+			BindingResult bindingResult,RedirectAttributes rttr) {
 		log.info("signin........");
+		
+		if(bindingResult.hasErrors()) {
+			return "/member/signin";
+		}
+		
 		MemberVO existMember = memberService.get(member.getId());
 		if(existMember == null) {
 			memberService.signin(member);
@@ -117,9 +129,10 @@ public class MemberController {
 	}
 	
 	@GetMapping("/info")
-	public void info(HttpServletRequest req, Model model) {
-		HttpSession session = req.getSession(false);
+	public void info(HttpServletRequest req, Model model) {		
 		log.info("info..............");
+		
+		HttpSession session = req.getSession(false);
 		MemberVO member = (MemberVO)session.getAttribute("authUser");
 		
 		int boardCnt = memberService.boardCnt(member.getMno());
@@ -130,20 +143,17 @@ public class MemberController {
 		model.addAttribute("member", member);
 	}
 	@PostMapping("/info")
-	public String changeName(String id, String name, HttpServletRequest req, RedirectAttributes rttr) {
+	public String changeName(MemberVO member, RedirectAttributes rttr) {
 		log.info("changeName................");
-		memberService.modifyName(id, name); 
+		memberService.modifyInfo(member); 
 		rttr.addFlashAttribute("result", "변경 완료");
 		rttr.addFlashAttribute("message", "이름이 변경되었습니다");
 		
-		HttpSession session = req.getSession(false);
-		session.setAttribute("authUser", memberService.get(id));
-		
-		Long mno = memberService.get(id).getMno();
-		String writer_name = name;
+		Long mno = member.getMno();
+		String writer_name = member.getName();
 		boardService.updateWriterName(mno, writer_name);
 		
-		String replyer_name = name;
+		String replyer_name = member.getName();
 		replyService.updateReplyerName(mno, replyer_name);
 		
 		return "redirect:/member/info";		

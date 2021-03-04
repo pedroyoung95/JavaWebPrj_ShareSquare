@@ -36,8 +36,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public boolean modifyName(String id, String name) {
-		int modifyCnt= memberMapper.changeName(id, name);
+	public boolean modifyInfo(MemberVO member) {
+		int modifyCnt= memberMapper.changeInfo(member);
 		return modifyCnt == 1;
 	}
 	

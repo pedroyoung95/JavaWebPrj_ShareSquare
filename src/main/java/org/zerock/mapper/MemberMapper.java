@@ -11,7 +11,7 @@ public interface MemberMapper {
 	
 	public MemberVO read(String id);
 	
-	public int changeName(@Param("id") String id, @Param("name") String name);
+	public int changeInfo(MemberVO member);
 	
 	public int changePassword(@Param("id") String id, @Param("password") String password);
 	

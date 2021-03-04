@@ -17,8 +17,11 @@
 	SELECT * FROM prj_member WHERE id=#{id}
 </select>
 
-<update id="changeName">
-	UPDATE prj_member SET name=#{name} WHERE id=#{id}
+<update id="changeInfo">
+	UPDATE prj_member 
+	SET name=#{name}
+		email=#{email} 
+	WHERE id=#{id}
 </update>
 
 <update id="changePassword">

@@ -10,7 +10,7 @@ public interface MemberService {
 	
 	public MemberVO get(String id);
 	
-	public boolean modifyName(String id, String name);
+	public boolean modifyInfo(MemberVO member);
 	
 	public boolean modifyPassword(String id, String password);
 	
