@@ -57,37 +57,26 @@
 		</div>
 		<div class="row">
 			<div class="col-12 col-lg-6 offset-lg-3">
-				<f:form name="f" method="POST" modelAttribute="memberVo">
+				<form method="POST" >
 					<div class="form-group">
 						<small id="signinFail" class="form-text text-muted">${signinFail }</small>
-						<label for="input-id">아이디(영문, 숫자 조합으로 10~20자리 입력)</label>
-						<!--  <input name="id" type="text"
-							class="form-control" id="input-id" placeholder="아이디를 입력하세요."> -->
-						<f:input path="id" class="form-control" id="input-id" placeholder="아이디를 입력하세요."/>
-						<f:errors path="id" cssClass="error" />						
+						<label for="input-id">아이디</label>
+						<input name="id" type="text"
+							class="form-control" id="input-id" placeholder="아이디를 입력하세요.">											
 					</div>
 					<div class="form-group">
-						<label for="input-pw">암호(영문 숫자 조합으로 6자리 이상 20자리 이하 입력)</label>
-						<!-- <input name="password"
+						<label for="input-pw">암호</label>
+						<input name="password"
 							type="password" class="form-control" id="input-pw"
-							placeholder="암호을 입력하세요."> -->
-						<f:password path="password" class="form-control" id="input-pw" placeholder="암호을 입력하세요."/>
-						<f:errors path="password" cssClass="error" />
-					</div>
-					<div class="form-group">
-						<label for="input-name">Email</label>						
-						<f:input path="email" class="form-control" id="input-email" placeholder="메일을 입력하세요."/>
-						<f:errors path="email" cssClass="error" />
+							placeholder="암호을 입력하세요."> 
 					</div>
 					<div class="form-group">
 						<label for="input-name">닉네임</label>
-						<!-- <input name="name" type="text"
-							class="form-control" id="input-name" placeholder="이름을 입력하세요."> -->
-						<f:input path="name" class="form-control" id="input-name" placeholder="이름을 입력하세요."/>
-						<f:errors path="name" cssClass="error" />
+						<input name="name" type="text"
+							class="form-control" id="input-name" placeholder="이름을 입력하세요.">						
 					</div>
 					<button type="submit" class="btn btn-primary">Submit</button>
-				</f:form>
+				</form>
 			</div>
 		</div>
 	</div>

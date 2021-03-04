@@ -23,7 +23,6 @@
 	$(document).ready(function() {
 		$("#changeNameBtn").click(function() {
 			$("#input-name").removeAttr("readonly");
-			$("#input-email").removeAttr("readonly");
 			$(this).hide();
 			$("#nameSubmit").removeAttr("hidden");
 		});
@@ -69,12 +68,7 @@
 						<label for="input-name">이름</label> 
 						<input name="name" type="text" class="form-control" id="input-name"
 							value="${member.name }" readonly> 	
-					</div>
-					<div class="form-group">
-						<label for="input-email">Email</label> 
-						<input name="email" type="email" class="form-control" id="input-email"
-							value="${member.email }" readonly> 	
-					</div>
+					</div>					
 					<div class="form-group">
 						<label for="signDate">가입일</label> 
 						<fmt:formatDate pattern="yyyy-MM-dd" value="${authUser.signDate }" var="signDate"/>

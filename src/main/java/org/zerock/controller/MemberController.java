@@ -1,8 +1,7 @@
 package org.zerock.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;	
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,13 +44,8 @@ public class MemberController {
     }
 
 	@PostMapping("/signin")
-	public String signin(@ModelAttribute("memberVO") @Valid MemberVO member, 
-			BindingResult bindingResult,RedirectAttributes rttr) {
-		log.info("signin........");
-		
-		if(bindingResult.hasErrors()) {
-			return "/member/signin";
-		}
+	public String signin(MemberVO member, RedirectAttributes rttr) {
+		log.info("signin........");		
 		
 		MemberVO existMember = memberService.get(member.getId());
 		if(existMember == null) {
